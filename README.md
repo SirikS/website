@@ -1,4 +1,5 @@
 # website
+Petstagram
 Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigenaren en dierliefhebbers, zodat ze foto’s kunnen delen met gelijkgestelden. Op de deze manier wordt Facebook en Instagram niet overgenomen door dieren. Het idee is er om de like/dislike functie te gebruiken op een Instagram achtige omgeving.
 
 1.	ontvangstpagina voor niet-ingelogde gebruikers (homepage)
@@ -7,10 +8,10 @@ Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigen
 3.	trending pagina
 4.	random foto’s
 5.	profielpagina
-⋅⋅*	Eigen foto’s
-⋅⋅*	Gelikete foto’s
-⋅⋅*	Comment wall
-⋅⋅*	Volgers etc.
+5.1. Eigen foto’s
+5.2. Gelikete foto’s
+5.3. Comment wall
+5.4. Volgers etc.
 6.	persoonlijke instellingen
 7.	uploadpagina
 Features
