@@ -38,5 +38,20 @@ Moeilijke delen
 2.	Zoekfunctie
 3.	Gifjes API
 4.	Visualisatie
+
+Afhankelijkheden
+1. [Giphy API](http://api.giphy.com)
+2. [Foto herkenning API](https://clarifai.com/developer/reference/)
+
+Externe componenten
+1. Bootstrap
+2. Database
+3. 
+
+Concurrende bestaande websites
+1. Instagram: Opbouw van profielen met verschillende keuze mogelijkheden om verschillende foto's te zien vanaf profiel pagina. Trending pagina.
+2. Tinder: Like/dislike swipte functie waardoor je maar één foto tegelijk ziet.
+3. Youtube: Menu structuur (aan linkerkant) en algemene opbouw van structuur
+
 ![image of design](projectvoorstel%201.jpg)
 ![image of second design](projectvoorstel%202.jpg)
