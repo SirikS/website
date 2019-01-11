@@ -49,9 +49,9 @@ Externe componenten
 3. 
 
 Concurrende bestaande websites
-1. Instagram: Opbouw van profielen met verschillende keuze mogelijkheden om verschillende foto's te zien vanaf profiel pagina. Trending pagina.
-2. Tinder: Like/dislike swipte functie waardoor je maar één foto tegelijk ziet.
-3. Youtube: Menu structuur (aan linkerkant) en algemene opbouw van structuur
+1. [Instagram](www.instagram.com): Opbouw van profielen met verschillende keuze mogelijkheden om verschillende foto's te zien vanaf profiel pagina. Trending pagina.
+2. [Tinder](www.tinder.com): Like/dislike swipte functie waardoor je maar één foto tegelijk ziet.
+3. [Youtube](www.youtube.com): Menu structuur (aan linkerkant) en algemene opbouw van structuur
 
 ![image of design](projectvoorstel%201.jpg)
 ![image of second design](projectvoorstel%202.jpg)
