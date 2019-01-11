@@ -7,10 +7,10 @@ Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigen
 3.	trending pagina
 4.	random foto’s
 5.	profielpagina
-..*	Eigen foto’s
-..*	Gelikete foto’s
-..*	Comment wall
-..*	Volgers etc.
+⋅⋅*	Eigen foto’s
+⋅⋅*	Gelikete foto’s
+⋅⋅*	Comment wall
+⋅⋅*	Volgers etc.
 6.	persoonlijke instellingen
 7.	uploadpagina
 Features
