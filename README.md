@@ -38,4 +38,5 @@ Moeilijke delen
 2.	Zoekfunctie
 3.	Gifjes API
 4.	Visualisatie
-
+![image of design](projectvoorstel%201.jpg)
+![image of second design](projectvoorstel%202.jpg)
