@@ -58,5 +58,5 @@ Concurrende bestaande websites
 2. [Tinder](http://www.tinder.com): Like/dislike swipte functie waardoor je maar één foto tegelijk ziet.
 3. [Youtube](http://www.youtube.com): Menu structuur (aan linkerkant) en algemene opbouw van structuur
 
-![image of design](projectvoorstel%201.jpg)
-![image of second design](projectvoorstel%202.jpg)
+![image of design](voorstel/projectvoorstel%201.jpg)
+![image of second design](voorstel/projectvoorstel%202.jpg)
