@@ -47,7 +47,7 @@ Afhankelijkheden
 Externe componenten
 1. Bootstrap
 2. Database
-3. 
+3. Flask
 
 Concurrende bestaande websites
 1. [Instagram](http://www.instagram.com): Opbouw van profielen met verschillende keuze mogelijkheden om verschillende foto's te zien vanaf profiel pagina. Trending pagina.
