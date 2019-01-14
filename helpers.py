@@ -19,23 +19,26 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
+
 def login(username, password):
     return apology("todo")
+
 
 def register(username, password, name):
     return apology("todo")
 
-def upload():
-    return apology("todo")
 
-def like():
-    return apology("todo")
-
-def follow():
+def upload(file, userid, titel, caption= ""):
     return apology("todo")
 
 
+def like(fileid, userid):
+    # vergeet niet ook de foto database aan te passen!
+    return apology("todo")
 
+
+def follow(userid, useridVOLGER):
+    return apology("todo")
 
 
 def login_required(f):
