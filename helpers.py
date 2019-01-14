@@ -4,6 +4,10 @@ import urllib.request
 from flask import redirect, render_template, request, session
 from functools import wraps
 
+# configure CS50 Library to use SQLite database
+db = SQL("sqlite:///finance.db")
+
+
 
 def apology(message, code=400):
     """Renders message as an apology to user."""
@@ -21,7 +25,18 @@ def apology(message, code=400):
 
 
 def login(username, password):
-    return apology("todo")
+    # query database for username
+    rows = db.execute("SELECT * FROM users WHERE username = :username", username=username)
+
+    # ensure username exists and password is correct
+    if len(rows) != 1 or not pwd_context.verify(password, rows[0]["hash"]):
+        return apology("invalid username and/or password")
+
+    # remember which user has logged in
+    session["user_id"] = rows[0]["id"]
+
+    # redirect user to home page
+    return redirect(url_for("index"))
 
 
 def register(username, password, name):
