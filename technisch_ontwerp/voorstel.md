@@ -66,9 +66,17 @@ Na drukken op 'bijwerken'
 - Verwijder geselecteerde foto's uit database
 - Doorverwijzen naar profielpagina
 
-@home (Home scherm van gebruiker (POST en GET))
+@home (Home scherm van gebruiker met berichten in Tinderversie (POST en GET))
 - Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
 - Laad random fotoID
+- Controle of gebruiker bericht al eens heeft beoordeeld (Loop door random fotoID's tot foto wordt gevonden, die nog niet is beoordeeld  door gebruiker.)
+- Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
+- Laad like en dislike knop 
+- Laad share mogelijkheden
+
+@pack (Foto's van gevolgden door gebruiker met berichten in Tinderversie (POST en GET))
+- Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
+- Laad fotoID van profiel uit database met gevolgden door gebruiker (chronologische volgorde)
 - Controle of gebruiker bericht al eens heeft beoordeeld (Loop door random fotoID's tot foto wordt gevonden, die nog niet is beoordeeld  door gebruiker.)
 - Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
 - Laad like en dislike knop 
@@ -78,13 +86,13 @@ Na drukken op 'bijwerken'
 - Controle of gebruiker bericht al heeft beoordeeld
 - Voeg bericht toe aan database van gelikte foto's van gebruiker
 - Update aantal likes op bericht (+1)
-- Laad volgende foto uit correcte foto lijst
+- Laad volgende foto uit correcte foto lijst (@home of @pack)
 
 @dislike (Dislike bericht. (POST en GET))
 - Controle of gebruiker bericht al heeft beoordeeld
 - Voeg bericht toe aan database van gedislikte foto's van gebruiker
 - Update aantal dislikes op bericht (+1)
-- Laad volgende foto uit correcte foto lijst
+- Laad volgende foto uit correcte foto lijst (@home of @pack)
 
 @comment (Laat een reactie achter op een bericht. (POST en GET))
 - Controle op correctheid (Maximaal aantal karakters.)
