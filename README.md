@@ -33,6 +33,10 @@ MVP
 4.	Volgen
 5.	Timeline
 6.	Like/dislike
+7.  Zoekfunctie
+8.  Accountbeheer
+9.  Volgend pagina
+
 
 Moeilijke delen
 1.	Database
