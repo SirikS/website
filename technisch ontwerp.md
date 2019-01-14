@@ -53,11 +53,16 @@ Na drukken op 'bijwerken'
 
 @upload (Pagina om bericht te plaatsen met foto of GIF. (POST en GET))
 - Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
-- FotoID aanmaken
+- FotoID aanmaken (Mocht dit niet in de database kunnen)
 - Gegevens toevoegen aan database (ID, fotoID, caption, totaallikes, totaaldislikes, titel)
+- Doorverwijzen naar profielpagina
 
-
-@verwijderen
+@verwijderen (Bericht verwijderen van eigen profiel. (POST en GET))
+- Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
+- Laad foto's geplaatst door profiel
+- Maak foto's selecteerbaar
+- Verwijder geselecteerde foto's uit database
+- Doorverwijzen naar profielpagina
 
 @fotoweergave
 
