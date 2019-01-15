@@ -23,7 +23,7 @@
 
 @zoek (Zoek naar andere profielen in zoekbalk rechtsboven. (<em>POST en GET</em>))
 - Database doorzoeken op query
-- Doorverwijzen naar zoekresultaten pagina
+- Doorverwijzen naar zoekresultaten pagina (Met parameter)
 - Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
 - Zoekresulaten tonen voor query uit data (Op basis van gebruikersnaam worden profielfoto, bio (en volgers) geladen.)
 
@@ -34,9 +34,7 @@
 - Laad aantal volgers
 - Laad foto's geplaatst door profiel
 - Laad gelikte foto's door profiel
-- Laad likes en dislikes op 
-- Controle of gebruiker eigenaar is van profiel
-- Zo ja, laad bewerkknop voor profiel die redirect naar profiel beheerpagina.
+- Laad likes en dislikes op berichten
 
 @beheer ( Beheerpagina voor eigen profiel. (<em>POST en GET</em>))
 - Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
