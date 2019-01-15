@@ -2,9 +2,40 @@
 
 <html lang="en">
 <head>
-    <title>'niks'</title>
+    <title>Instapet | Acroniem voor Snoeters</title>
     <body>
-        hoi!
+    <form action="{{ url_for('register') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="email" placeholder="E-mailadres" type="email"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="confirmation" placeholder="Password confirmation" type="password"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Register</button>
+            </div>
+        </fieldset>
+    </form>
+    <form action="{{ url_for('login') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Login</button>
+            </div>
+        </fieldset>
+    </form>
     </body>
 </head>
 <!--{% block title %}-->
