@@ -28,14 +28,14 @@ def apology(message, code=400):
 
 def h_login(username, password):
     # query database for username
-    rows = db.execute("SELECT * FROM users WHERE username = :username", username=username)
+    rows = db.execute("SELECT * FROM accounts WHERE username = :username", username=username)
 
     # ensure username exists and password is correct
-    if len(rows) != 1 or not pwd_context.verify(password, rows[0]["hash"]):
-        return False
+    if len(rows) != 1 or not pwd_context.verify(password, rows[0]["password"]):
+        return apology("iets werkt niet (niet gehasht ofz)")
 
     # remember which user has logged in
-    session["user_id"] = rows[0]["id"]
+    session["user_id"] = rows[0]["userid"]
 
     # redirect user to home page
     return True
