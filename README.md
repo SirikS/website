@@ -1,5 +1,5 @@
 # website
-Petstagram
+Instapet
 Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigenaren en dierliefhebbers, zodat ze foto’s kunnen delen met gelijkgestelden. Op de deze manier wordt Facebook en Instagram niet overgenomen door dieren. Het idee is er om de like/dislike functie te gebruiken op een Instagram achtige omgeving.
 
 1.	ontvangstpagina voor niet-ingelogde gebruikers (homepage)
