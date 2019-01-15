@@ -46,32 +46,33 @@ def profile():
 
 
 
-# @app.route("/login", methods=["GET", "POST"])
-# def login():
-#     """Log user in."""
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """Log user in."""
 
-#     # forget any user_id
-#     session.clear()
+    # forget any user_id
+    session.clear()
 
-#     # if user reached route via POST (as by submitting a form via POST)
-#     if request.method == "POST":
+    # if user reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
 
-#         username = request.form.get("username")
-#         password = request.form.get("password")
+        username = request.form.get("username")
+        password = request.form.get("password")
 
-#         # ensure username was submitted
-#         if not username:
-#             return apology("must provide username")
+        # ensure username was submitted
+        if not username:
+            return apology("must provide username")
 
-#         # ensure password was submitted
-#         elif not password:
-#             return apology("must provide password")
+        # ensure password was submitted
+        elif not password:
+            return apology("must provide password")
 
-#         login(username, password)
+        if h_login(username, password) == True:
+            redirect ("/home.html")
 
-#     # else if user reached route via GET (as by clicking a link or via redirect)
-#     else:
-#         return render_template("index.html")
+    # else if user reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("index.html")
 
 
 # @app.route("/logout")
@@ -97,42 +98,42 @@ def beheer():
     return render_template("manage.html")
 
 
-# @app.route("/register", methods=["GET", "POST"])
-# def register():
-#     """Register user."""
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user."""
 
-#     # forget any user_id
-#     session.clear()
+    # forget any user_id
+    session.clear()
 
-#     if request.method == "POST":
+    if request.method == "POST":
 
-#         # ensure username was submitted
-#         if not request.form.get("username"):
-#             return apology("must provide username")
+        # ensure username was submitted
+        if not request.form.get("username"):
+            return apology("must provide username")
 
-#         # ensure password was submitted
-#         elif not request.form.get("password"):
-#             return apology("must provide password")
+        # ensure password was submitted
+        elif not request.form.get("password"):
+            return apology("must provide password")
 
-#         # ensure password was submitted
-#         elif not request.form.get("confirmation"):
-#             return apology("must provide both passwords")
+        # ensure password was submitted
+        elif not request.form.get("confirmation"):
+            return apology("must provide both passwords")
 
-#         # ensure passwords match
-#         elif request.form.get("confirmation") != request.form.get("password"):
-#             return apology("must fill in same password")
+        # ensure passwords match
+        elif request.form.get("confirmation") != request.form.get("password"):
+            return apology("must fill in same password")
 
-#         hash = pwd_context.hash(request.form.get("password"))
-#         variable = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)",
-#                               username=request.form.get("username"), hash=hash)
+        hash = pwd_context.hash(request.form.get("password"))
+        variable = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)",
+                              username=request.form.get("username"), hash=hash)
 
-#         if not variable:
-#             return apology("Username already present")
+        if not variable:
+            return apology("Username already present")
 
-#         session["user_id"] = variable
+        session["user_id"] = variable
 
-#         return redirect(url_for("index"))
-#     return render_template("index.html")
+        return redirect(url_for("index"))
+    return render_template("index.html")
 
 
 @app.route("/home", methods=["GET", "POST"])
