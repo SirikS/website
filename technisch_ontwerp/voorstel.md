@@ -101,6 +101,7 @@ Na drukken op 'bijwerken'
 - Open gekozen deeloptie in nieuw tabblad
 
 ## Views
+![image of vieuws](alle_vieuws.jpg)
 
 ## Models/helpers
 - <strong>Apology: </strong><em>A basic apology for us to see what is going wrong.</em>
