@@ -158,4 +158,4 @@ def pack():
     # Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("pack.html)
+    return render_template("pack.html")
