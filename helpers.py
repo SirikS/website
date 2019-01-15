@@ -48,7 +48,6 @@ def h_register(username, password, email):
 
     if not variable:
         return apology("Username already present")
-    print(variable)
     session["user_id"] = variable
     return True
 

@@ -128,9 +128,8 @@ def register():
             return apology("please enter email")
 
         if h_register(username, pwd_context.hash(password), email):
-            print("het werkt")
+            return redirect(url_for("manage"))
 
-        return redirect(url_for("manage"))
     return render_template("index.html")
 
 
