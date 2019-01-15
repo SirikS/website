@@ -145,6 +145,7 @@ def home():
     # Laad like en dislike knop
     # Laad share mogelijkheden
     return render_template("home.html")
+    #
 
 
 @app.route("/pack", methods=["GET", "POST"])
