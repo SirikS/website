@@ -41,8 +41,15 @@ def h_login(username, password):
     return True
 
 
-def h_register(username, password, name):
-    return apology("todo")
+def h_register(username, password, email):
+    variable = db.execute("INSERT INTO accounts (username, password, email) VALUES (:us, :ps, :em)",
+                          us=username, ps=password, em=email)
+
+    if not variable:
+            return apology("Username already present")
+    print(variable)
+    session["user_id"] = variable
+    return True
 
 
 def upload(file, userid, titel, caption= ""):

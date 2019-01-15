@@ -107,30 +107,28 @@ def register():
 
     if request.method == "POST":
 
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+        email = request.form.get("email")
+
         # ensure username was submitted
-        if not request.form.get("username"):
+        if not username:
             return apology("must provide username")
 
-        # ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password")
-
-        # ensure password was submitted
-        elif not request.form.get("confirmation"):
+        # ensure both passwords were submitted
+        elif not password or not confirmation:
             return apology("must provide both passwords")
 
         # ensure passwords match
-        elif request.form.get("confirmation") != request.form.get("password"):
+        elif confirmation != password:
             return apology("must fill in same password")
 
-        hash = pwd_context.hash(request.form.get("password"))
-        variable = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)",
-                              username=request.form.get("username"), hash=hash)
+        elif not email:
+            return apology("please enter email")
 
-        if not variable:
-            return apology("Username already present")
-
-        session["user_id"] = variable
+        if h_register(username, pwd_context.hash(password), email):
+            return apology("het werkt!")
 
         return redirect(url_for("index"))
     return render_template("index.html")
