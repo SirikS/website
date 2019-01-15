@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+    <head>
+
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <head>
     <title>Instapet | Acroniem voor Snoeters</title>
     <body>
     <form action="{{ url_for('register') }}" method="post">
-        <fieldset style="margin-left: auto; margin-right: auto; text-align: center;">
+        <fieldset class="fieldset">
             <div class="form-group">
                 <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
             </div>
@@ -24,7 +39,7 @@
         </fieldset>
     </form>
     <form action="{{ url_for('login') }}" method="post">
-        <fieldset style="margin-left: auto; margin-right: auto; text-align: center;">
+        <fieldset class="fieldset">
             <div class="form-group">
                 <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
             </div>
