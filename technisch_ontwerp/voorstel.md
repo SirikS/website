@@ -95,7 +95,6 @@ Na drukken op 'bijwerken'
 @comment (Laat een reactie achter op een bericht. (<em>POST en GET</em>))
 - Controle op correctheid (Maximaal aantal karakters.)
 - Voeg comment toe aan database met ID
-- Refresh comments (met script?)
 
 @share (Mogelijkheid tot delen van bericht. (<em>POST en GET</em>))
 - Voeg data toe aan parameters van deelopties (Zoals link, foto en caption)
