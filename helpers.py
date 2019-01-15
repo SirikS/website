@@ -3,9 +3,10 @@ import urllib.request
 
 from flask import redirect, render_template, request, session
 from functools import wraps
+from cs50 import SQL
 
 # configure CS50 Library to use SQLite database
-db = SQL("sqlite:///finance.db")
+db = SQL("sqlite:///instapet.db")
 
 
 
