@@ -4,6 +4,7 @@ import urllib.request
 from flask import redirect, render_template, request, session
 from functools import wraps
 from cs50 import SQL
+from passlib.apps import custom_app_context as pwd_context
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///instapet.db")
@@ -25,22 +26,22 @@ def apology(message, code=400):
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
 
-def login(username, password):
+def h_login(username, password):
     # query database for username
     rows = db.execute("SELECT * FROM users WHERE username = :username", username=username)
 
     # ensure username exists and password is correct
     if len(rows) != 1 or not pwd_context.verify(password, rows[0]["hash"]):
-        return apology("invalid username and/or password")
+        return False
 
     # remember which user has logged in
     session["user_id"] = rows[0]["id"]
 
     # redirect user to home page
-    return redirect(url_for("index"))
+    return True
 
 
-def register(username, password, name):
+def h_register(username, password, name):
     return apology("todo")
 
 
