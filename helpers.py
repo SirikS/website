@@ -53,7 +53,7 @@ def h_register(username, password, email):
     return True
 
 
-def upload(file, userid, titel, caption= ""):
+def h_upload(file, userid, titel, caption= ""):
     return apology("todo")
 
 

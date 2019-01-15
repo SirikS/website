@@ -157,3 +157,19 @@ def pack():
     # Laad like en dislike knop
     # Laad share mogelijkheden
     return render_template("pack.html")
+
+@app.route("/manage", methods=["GET", "POST"])
+# @login_required
+def manage():
+    return render_template("manage.html")
+
+@app.route("/upload", methods=["GET", "POST"])
+# @login_required
+def upload():
+    return render_template("upload.html")
+
+@app.route("/logout", methods=["GET", "POST"])
+# @login_required
+def logout():
+    return render_template("index.html")
+
