@@ -116,3 +116,17 @@ Na drukken op 'bijwerken'
  </ul>
 
 ## Plugins en frameworks
+- Flask 
+http://flask.pocoo.org/docs/1.0/
+- Jinja2
+http://jinja.pocoo.org/docs/2.10/
+- Bootstrap
+https://getbootstrap.com/docs/4.1/getting-started/introduction/
+- CS50 ide
+https://cs50.readthedocs.io/ide/online/
+- Git
+https://git-scm.com/doc
+- Phpliteadmin
+https://www.phpliteadmin.org/
+- Giphy
+https://developers.giphy.com/docs/
