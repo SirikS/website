@@ -69,7 +69,7 @@ def login():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        username = request.form.get("username"
+        username = request.form.get("username")
         password = request.form.get("password")
 
         # ensure username was submitted
