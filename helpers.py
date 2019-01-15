@@ -2,6 +2,7 @@ import csv
 import urllib.request
 
 from flask import redirect, render_template, request, session
+from flask_session import Session
 from functools import wraps
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
@@ -46,7 +47,7 @@ def h_register(username, password, email):
                           us=username, ps=password, em=email)
 
     if not variable:
-            return apology("Username already present")
+        return apology("Username already present")
     print(variable)
     session["user_id"] = variable
     return True

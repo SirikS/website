@@ -68,7 +68,7 @@ def login():
             return apology("must provide password")
 
         if h_login(username, password) == True:
-            redirect ("/home.html")
+            return render_template("home.html")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -128,9 +128,9 @@ def register():
             return apology("please enter email")
 
         if h_register(username, pwd_context.hash(password), email):
-            return apology("het werkt!")
+            print("het werkt")
 
-        return redirect(url_for("index"))
+        return render_template("manage.html")
     return render_template("index.html")
 
 
