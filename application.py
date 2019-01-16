@@ -153,6 +153,7 @@ def pack():
 def manage():
     return render_template("manage.html")
 
+
 @app.route("/upload", methods=["GET", "POST"])
 @login_required
 def upload():
@@ -161,7 +162,9 @@ def upload():
         foto_upload = os.getcwd() + "/foto_upload"
         file = request.files['uploadfile']
         # this is the path to the picture in the folder
-        path = os.path.join(foto_upload, file.filename)
+        path= os.path.join(foto_upload, file.filename)
+
+        file.save(path)
 
         # zorg dat de gebruiker een titel en een caption toevoegd
         title = request.form.get("titel")
@@ -169,14 +172,6 @@ def upload():
 
         if not title or not caption:
             return apology("please enter a title and caption")
-
-        #### als het niet werkt in helpers.py, probeer dan met dit en kijk of het wel werkt.
-
-        # probeer de foto (het pad naar de foto) op te slaan in de database
-        # opslaan = db.execute("INSERT INTO fotos (userid, place, titel, caption) VALUES (:id, :pl, :ti, :cp)",
-        #                      id=session['user_id'], pl=path, ti=title, cp=caption)
-        # if not opslaan:
-        #     return apology("something went wrong")
 
         if h_upload(path, title, caption) == True:
             return redirect(url_for("home"))

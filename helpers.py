@@ -54,10 +54,10 @@ def h_register(username, password, email):
     return True
 
 
-def h_upload(place, titel, caption):
+def h_upload(path, titel, caption):
     # sla de foto op in de database
-    opslaan = db.execute("INSERT INTO fotos (userid, place, titel, caption) VALUES (:id, :pl, :ti, :cp)",
-             id=session['user_id'], pl= place, ti= titel, cp= caption)
+    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:id, :pt, :ti, :cp)",
+             id=session['user_id'], pt= path, ti= titel, cp= caption)
     # stel het gaat mis of hij kan hem niet opslaan
     if not opslaan:
         return apology("something went wrong while uploading")
