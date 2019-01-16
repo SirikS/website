@@ -6,6 +6,7 @@ from flask_session import Session
 from functools import wraps
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
+import os
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///instapet.db")
@@ -53,8 +54,14 @@ def h_register(username, password, email):
     return True
 
 
-def h_upload(file, userid, titel, caption= ""):
-    return apology("todo")
+def h_upload(place, titel, caption):
+    # sla de foto op in de database
+    opslaan = db.execute("INSERT INTO fotos (userid, place, titel, caption) VALUES (:id, :pl, :ti, :cp)",
+             id=session['user_id'], pl=place, ti=titel, cp=caption)
+    # stel het gaat mis of hij kan hem niet opslaan
+    if not opslaan:
+        return apology("something went wrong while uploading")
+    return True
 
 
 def like(fotoid, userid, value):

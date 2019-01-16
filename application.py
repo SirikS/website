@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
+import os
 
 from helpers import *
 
@@ -155,6 +156,28 @@ def manage():
 @app.route("/upload", methods=["GET", "POST"])
 @login_required
 def upload():
+    if request.method == "POST":
+        # the picture that is uploaded is saved in the folder foto_upload
+        foto_upload = os.getcwd() + "/foto_upload"
+        file = request.files['uploadfile']
+        # this is the path to the picture in the folder
+        path = os.path.join(foto_upload, file.filename)
+
+        # zorg dat de gebruiker een titel en een caption toevoegd
+        title = request.form.get("titel")
+        caption = request.form.get("caption")
+
+        if not title or not caption:
+            return apology("please enter a title and caption")
+
+        # probeer de foto (het pad naar de foto) op te slaan in de database
+        # opslaan = db.execute("INSERT INTO fotos (userid, place, titel, caption) VALUES (:id, :pl, :ti, :cp)",
+        #                      id=session['user_id'], pl=path, ti=title, cp=caption)
+        # if not opslaan:
+        #     return apology("something went wrong")
+        if h_upload(path, title, caption) == True:
+            return redirect(url_for("home"))
+
     return render_template("upload.html")
 
 @app.route("/logout", methods=["GET", "POST"])
