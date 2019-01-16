@@ -25,12 +25,12 @@ def apology(message, code=400):
                          ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
             s = s.replace(old, new)
         return s
-    return render_template("apology.html", top=code, bottom=escape(message)), code
+    return render_template("apology.html", top= code, bottom= escape(message)), code
 
 
 def h_login(username, password):
     # query database for username
-    rows = db.execute("SELECT * FROM accounts WHERE username = :username", username=username)
+    rows = db.execute("SELECT * FROM accounts WHERE username = :username", username= username)
 
     # ensure username exists and password is correct
     if len(rows) != 1 or not pwd_context.verify(password, rows[0]["password"]):
@@ -45,7 +45,7 @@ def h_login(username, password):
 
 def h_register(username, password, email):
     variable = db.execute("INSERT INTO accounts (username, password, email) VALUES (:us, :ps, :em)",
-                          us=username, ps=password, em=email)
+                          us= username, ps= password, em= email)
 
     if not variable:
         return apology("Username already present")
@@ -57,7 +57,7 @@ def h_register(username, password, email):
 def h_upload(place, titel, caption):
     # sla de foto op in de database
     opslaan = db.execute("INSERT INTO fotos (userid, place, titel, caption) VALUES (:id, :pl, :ti, :cp)",
-             id=session['user_id'], pl=place, ti=titel, cp=caption)
+             id=session['user_id'], pl= place, ti= titel, cp= caption)
     # stel het gaat mis of hij kan hem niet opslaan
     if not opslaan:
         return apology("something went wrong while uploading")
@@ -82,15 +82,15 @@ def h_profile(userid, name = 'NULL', profielfoto = 'NULL', beschrijving = 'NULL'
     # name = display name,  profielfoto = a link to the picture, beschrijving = profielbeschrijving
 
     # if no profile yet, make sure there is a name and profile picture
-    if len(db.execute("SELECT * FROM profiel WHERE userid = :userid", userid=userid)) == 0:
+    if len(db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)) == 0:
         if name == 'NULL':
             return apology("must fill in a Name!")
         elif profielfoto == 'NULL':
             return apology("Emma fix please")
         else:
             #insert into database
-            db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto,:beschrijving)",
-                       userid=userid, name = name, profielfoto= profielfoto, beschrijving = beschrijving)
+            db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
+                       userid= userid, name= name, profielfoto= profielfoto, beschrijving= beschrijving)
         return True
     # else if a value is not changed, get the old values
     if name == 'NULL':
@@ -107,13 +107,13 @@ def h_profile(userid, name = 'NULL', profielfoto = 'NULL', beschrijving = 'NULL'
 
 def follow(userid, volgerid):
     # Looks how many rows there are in the database
-    rows = db.execute("SELECT * FROM volgers WHERE userid = :userid AND volgerid+ :volgerid", userid=userid, volgerid = volgerid)
+    rows = db.execute("SELECT * FROM volgers WHERE userid= :userid AND volgerid= :volgerid", userid= userid, volgerid= volgerid)
     # if no rows, add the follow
     if len(rows) == 0:
-        db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid", userid = userid, volgerid = volgerid)
+        db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
     # if 1 row, unfollow
     elif len(rows) == 1:
-        db.execute("DELETE FROM volgers (userid, volgerid) VALUES (:userid, :volgerid", userid = userid, volgerid = volgerid)
+        db.execute("DELETE FROM volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
     # else something gone wrong inside the database
     else:
         return apology("Er ging iets fout in de database")
