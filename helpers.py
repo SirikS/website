@@ -72,11 +72,15 @@ def like(fotoid, userid, value):
 
 
 def follow(userid, volgerid):
+    # Looks how many rows there are in the database
     rows = db.execute("SELECT * FROM volgers WHERE userid = :userid AND volgerid+ :volgerid", userid=userid, volgerid = volgerid)
+    # if no rows, add the follow
     if len(rows) == 0:
         db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid", userid = userid, volgerid = volgerid)
+    # if 1 row, unfollow
     elif len(rows) == 1:
         db.execute("DELETE FROM volgers (userid, volgerid) VALUES (:userid, :volgerid", userid = userid, volgerid = volgerid)
+    # else something gone wrong inside the database
     else:
         return apology("Er ging iets fout in de database")
     return True
