@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<form action="{{ url_for('manage') }}" method="post"> <!--Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
+<form action="{{ url_for('upload') }}" method="post"> <!--Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
         <fieldset class="fieldset">
             <div class="form-group">
                 <input class="form-control" name="uploadfile" placeholder="Upload bestand" type="file"/>
