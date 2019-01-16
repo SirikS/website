@@ -5,21 +5,28 @@
 {% endblock %}
 
 {% block main %}
-<form action="{{ url_for('upload') }}" method="post"> <!--Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
+<form action="{{ url_for('upload') }}" method="post"> <!-- Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
+    <!-- fieldset is een class die de opmaak van het algehele formulier doet -->
     <fieldset class="fieldset">
+        <!-- form-group is een class die de opmaak van de velden doet -->
         <div class="form-group">
+            <!-- Bestand kunnen uploaden -->
             <input class="form-control" name="uploadfile" placeholder="Upload bestand" type="file"/>
         </div>
         <div class="form-group">
+            <!-- Titel kunnen toevoegen -->
             <input class="form-control" name="titel" placeholder="Titel" type="text"/>
         </div>
         <div class="form-group">
+            <!-- Caption kunnen toevoegen -->
             <input class="form-control" name="caption" placeholder="Caption" type="text"/>
         </div>
         <div class="form-group">
+            <!-- Tags kunnen toevoegen -->
             <input class="form-control" name="tags" placeholder="Tags" type="text"/>
         </div>
         <div class="form-group">
+            <!-- Submit knop -->
             <button class="btn btn-default" type="submit">Uploaden</button>
         </div>
     </fieldset>
