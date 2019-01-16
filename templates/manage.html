@@ -6,17 +6,23 @@
 
 {% block main %}
 <form action="{{ url_for('manage') }}" method="post"> <!--Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
+    <!-- fieldset is een class die de opmaak van het algehele formulier doet -->
     <fieldset class="fieldset">
+        <!-- form-group is een class die de opmaak van de velden doet -->
         <div class="form-group">
+            <!-- Profielfoto kunnen uploaden/aanpassen -->
             <input class="form-control" name="profielfoto" placeholder="Upload profielfoto" type="file"/>
         </div>
         <div class="form-group">
+            <!-- Profielnaam kunnen invoeren/aanpassen -->
             <input class="form-control" name="profielnaam" placeholder="Name example" type="text"/>
         </div>
         <div class="form-group">
+            <!-- Profielbio kunnen invoeren/aanpassen -->
             <input class="form-control" name="profielbio" placeholder="Bio example" type="text"/>
         </div>
         <div class="form-group">
+            <!-- Submit knop -->
             <button class="btn btn-default" type="submit">Save changes</button>
         </div>
     </fieldset>
