@@ -57,13 +57,29 @@ def h_upload(file, userid, titel, caption= ""):
     return apology("todo")
 
 
-def like(fileid, userid):
-    # vergeet niet ook de foto database aan te passen!
-    return apology("todo")
+def like(fotoid, userid, value):
+    # value == 1 (like)
+    # value == 0 (dislike)
+    # inserts the like (or dislike) into the database
+    db.execute("INSERT INTO beoordeeld (fotoid, userid, value) VALUES (:fotoid, :userid, :value)",
+               fotoid= fotoid, userid= userid, value = value)
+    # inserts the like/dislike into the total like/dislike count in foto database
+    if value == 1:
+        db.execute("UPDATE foto's SET totaallikes = totaallikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
+    else:
+        db.execute("UPDATE foto's SET totaaldislikes = totaaldislikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
+    return True
 
 
-def follow(userid, useridVOLGER):
-    return apology("todo")
+def follow(userid, volgerid):
+    rows = db.execute("SELECT * FROM volgers WHERE userid = :userid AND volgerid+ :volgerid", userid=userid, volgerid = volgerid)
+    if len(rows) == 0:
+        db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid", userid = userid, volgerid = volgerid)
+    elif len(rows) == 1:
+        db.execute("DELETE FROM volgers (userid, volgerid) VALUES (:userid, :volgerid", userid = userid, volgerid = volgerid)
+    else:
+        return apology("Er ging iets fout in de database")
+    return True
 
 
 def login_required(f):
