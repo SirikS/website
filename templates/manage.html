@@ -6,22 +6,19 @@
 
 {% block main %}
 <form action="{{ url_for('manage') }}" method="post"> <!--Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
-        <fieldset class="fieldset">
-            <div class="form-group">
-                <input class="form-control" name="file" placeholder="Upload bestand" type="file"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="email" placeholder="E-mailadres" type="email"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="password" placeholder="Password" type="password"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="confirmation" placeholder="Password confirmation" type="password"/>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-default" type="submit">Register</button>
-            </div>
-        </fieldset>
-    </form>
+    <fieldset class="fieldset">
+        <div class="form-group">
+            <input class="form-control" name="profielfoto" placeholder="Upload profielfoto" type="file"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="profielnaam" placeholder="Name example" type="text"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="profielbio" placeholder="Bio example" type="text"/>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default" type="submit">Save changes</button>
+        </div>
+    </fieldset>
+</form>
 {% endblock %}
