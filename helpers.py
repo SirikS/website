@@ -48,6 +48,7 @@ def h_register(username, password, email):
 
     if not variable:
         return apology("Username already present")
+    print(variable)
     session["user_id"] = variable
     return True
 
@@ -56,7 +57,7 @@ def h_upload(file, userid, titel, caption= ""):
     return apology("todo")
 
 
-def like(fileid, userid, ):
+def like(fileid, userid):
     # vergeet niet ook de foto database aan te passen!
     return apology("todo")
 
