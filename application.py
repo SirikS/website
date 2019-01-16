@@ -170,11 +170,14 @@ def upload():
         if not title or not caption:
             return apology("please enter a title and caption")
 
+        #### als het niet werkt in helpers.py, probeer dan met dit en kijk of het wel werkt.
+
         # probeer de foto (het pad naar de foto) op te slaan in de database
         # opslaan = db.execute("INSERT INTO fotos (userid, place, titel, caption) VALUES (:id, :pl, :ti, :cp)",
         #                      id=session['user_id'], pl=path, ti=title, cp=caption)
         # if not opslaan:
         #     return apology("something went wrong")
+
         if h_upload(path, title, caption) == True:
             return redirect(url_for("home"))
 
