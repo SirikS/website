@@ -32,7 +32,7 @@ def index():
 
 
 @app.route("/profile", methods=["GET", "POST"])
-# @login_required
+@login_required
 def profile():
     # Laad profielfoto
     #Laad bio
@@ -75,19 +75,9 @@ def login():
         return render_template("index.html")
 
 
-# @app.route("/logout")
-# def logout():
-#     """Log user out."""
-
-#     # forget any user_id
-#     session.clear()
-
-#     # redirect user to login form
-#     return redirect(url_for("index"))
-
 
 @app.route("/manage", methods=["GET", "POST"])
-# @login_required
+@login_required
 def beheer():
     # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
     # Laad velden met aanpasbare gegevens
@@ -134,7 +124,7 @@ def register():
 
 
 @app.route("/home", methods=["GET", "POST"])
-# @login_required
+@login_required
 def home():
     # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
     # Laad random fotoID
@@ -147,7 +137,7 @@ def home():
 
 
 @app.route("/pack", methods=["GET", "POST"])
-# @login_required
+@login_required
 def pack():
     # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
     # Laad fotoID van profiel uit database met gevolgden door gebruiker (chronologische volgorde)
@@ -158,17 +148,20 @@ def pack():
     return render_template("pack.html")
 
 @app.route("/manage", methods=["GET", "POST"])
-# @login_required
+@login_required
 def manage():
     return render_template("manage.html")
 
 @app.route("/upload", methods=["GET", "POST"])
-# @login_required
+@login_required
 def upload():
     return render_template("upload.html")
 
 @app.route("/logout", methods=["GET", "POST"])
-# @login_required
+@login_required
 def logout():
-    return render_template("index.html")
+
+    session.clear()
+
+    return redirect(url_for("index"))
 
