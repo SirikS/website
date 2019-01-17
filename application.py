@@ -39,14 +39,17 @@ def profile():
     url= request.url
     parsed = urlparse(url)
     account = parse_qs(parsed.query)['account'][0]
-    get_profiel(account)
+    lijst = get_profiel(account)
+    profielfoto = lijst["profielfoto"]
+    profielnaam = lijst["name"]
+    bio = lijst["beschrijving"]
 
     #Laad foto's geplaatst door profiel
     #Laad gelikte foto's door profiel
     #Laad likes en dislikes op
     #Controle of gebruiker eigenaar is van profiel
     #Zo ja, laad bewerkknop voor profiel die redirect naar profiel beheerpagina.
-    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio)
+    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, bio= bio)
 
 
 
