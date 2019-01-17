@@ -161,10 +161,12 @@ def upload():
         # the picture that is uploaded is saved in the folder foto_upload
         foto_upload = os.getcwd() + "/foto_upload"
         file = request.files['uploadfile']
+
         # this is the path to the picture in the folder
         path= os.path.join(foto_upload, file.filename)
 
         file.save(path)
+        filename = request.files['uploadfile'].filename
 
         # zorg dat de gebruiker een titel en een caption toevoegd
         title = request.form.get("titel")
@@ -173,7 +175,7 @@ def upload():
         if not title or not caption:
             return apology("please enter a title and caption")
 
-        if h_upload(path, title, caption) == True:
+        if h_upload(path, title, caption, filename) == True:
             return redirect(url_for("home"))
 
     return render_template("upload.html")

@@ -54,13 +54,27 @@ def h_register(username, password, email):
     return True
 
 
-def h_upload(path, titel, caption):
+def h_upload(path, titel, caption, filename):
     # sla de foto op in de database
     opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:id, :pt, :ti, :cp)",
-             id=session['user_id'], pt= path, ti= titel, cp= caption)
-    # stel het gaat mis of hij kan hem niet opslaan
-    if not opslaan:
-        return apology("something went wrong while uploading")
+                          id=session['user_id'], pt= path, ti= titel, cp= caption)
+    # haal de fotoid van de huidige foto op
+    fotoid_list_dict = db.execute("SELECT fotoid FROM pictures WHERE userid = :usid AND path = :pt", usid=session['user_id'], pt=path)
+    fotoid = fotoid_list_dict[0]["fotoid"]
+
+    # verander de naam van de foto in de map foto_upload
+    old_file = os.path.join("foto_upload", filename)
+    new_name = str(fotoid) + ".jpg"
+    new_file = os.path.join("foto_upload", new_name)
+    os.rename(old_file, new_file)
+
+    # maak een nieuw pad aan met de nieuwe naam
+    new_path = os.getcwd() + "/foto_upload" + "/" + new_name
+
+    # voeg het nieuwe pad toe aan de database
+    db.execute("UPDATE pictures SET path = :pt WHERE userid = :id AND fotoid = :fid",
+                id=session['user_id'], fid=fotoid, pt=new_path)
+
     return True
 
 
