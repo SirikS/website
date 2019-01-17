@@ -69,7 +69,7 @@ def h_upload(path, titel, caption, filename):
     os.rename(old_file, new_file)
 
     # maak een nieuw pad aan met de nieuwe naam
-    new_path = os.getcwd() + "/foto_upload" + "/" + new_name
+    new_path = "/foto_upload" + "/" + new_name
 
     # voeg het nieuwe pad toe aan de database
     db.execute("UPDATE pictures SET path = :pt WHERE userid = :id AND fotoid = :fid",

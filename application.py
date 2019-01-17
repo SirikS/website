@@ -170,6 +170,7 @@ def upload():
 
         # this is the path to the picture in the folder
         path= os.path.join(foto_upload, file.filename)
+        print(path)
 
         file.save(path)
         filename = request.files['uploadfile'].filename
