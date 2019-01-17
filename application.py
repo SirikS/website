@@ -88,10 +88,7 @@ def login():
 @login_required
 def manage():
     if request.method == "POST":
-        file = request.files["uploadfile"]
-        profielfoto = 'NULL'
-        if file:
-
+        try:
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/pf_upload"
 
@@ -101,9 +98,16 @@ def manage():
             file.save(path)
             filename = request.files['uploadfile'].filename
             profielfoto = pf_upload(path, filename)
-
-        name = request.form.get("profielnaam")
-        beschrijving = request.form.get("profielbio")
+        except:
+            profielfoto = "NULL"
+        try:
+            name = request.form.get("profielnaam")
+        except:
+            name = "NULL"
+        try:
+            beschrijving = request.form.get("profielbio")
+        except:
+            beschrijving = "NULL"
         if h_profile(name, profielfoto, beschrijving):
             return redirect(url_for("home"))
 
