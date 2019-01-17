@@ -43,13 +43,14 @@ def profile():
     profielfoto = lijst["profielfoto"]
     profielnaam = lijst["name"]
     bio = lijst["beschrijving"]
+    aantalvolgers = lijst["volgers"]
 
     #Laad foto's geplaatst door profiel
     #Laad gelikte foto's door profiel
     #Laad likes en dislikes op
     #Controle of gebruiker eigenaar is van profiel
     #Zo ja, laad bewerkknop voor profiel die redirect naar profiel beheerpagina.
-    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, bio= bio)
+    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio)
 
 
 
