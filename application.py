@@ -87,6 +87,27 @@ def login():
 @app.route("/manage", methods=["GET", "POST"])
 @login_required
 def manage():
+    if request.method == "POST":
+        # the picture that is uploaded is saved in the folder foto_upload
+        foto_upload = os.getcwd() + "/static/pf_upload"
+        file = request.files["profielfoto"]
+        print("ho")
+        name = request.form.get("profielnaam")
+        print("hi")
+        beschrijving = request.form.get("profielbio")
+        print("ha")
+
+        # this is the path to the picture in the folder
+        path= os.path.join(foto_upload, file.filename)
+        print(path)
+
+        file.save(path)
+        filename = request.files['uploadfile'].filename
+        if pf_upload(path, filename):
+            return apology("todo")
+
+        if h_profile(userid, name, profielfoto, beschrijving) == True:
+            return redirect(url_for("home"))
     # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
     # Laad velden met aanpasbare gegevens
     # Vul velden met huidige data uit database. (Kan ook default waarde zijn.) Na drukken op 'bijwerken'

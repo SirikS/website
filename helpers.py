@@ -78,6 +78,26 @@ def h_upload(path, titel, caption, filename):
 
     return True
 
+def pf_upload(path, filename):
+    opslaan = db.execute("INSERT INTO profielfotos (path) VALUES (:path)", path= path)
+    fotoid_list_dict = db.execute("SELECT pfid FROM profielfotos WHERE path = :pt", pt=path)
+    fotoid = fotoid_list_dict[0]["fotoid"]
+
+    # verander de naam van de foto in de map foto_upload
+    old_file = os.path.join("static/pf_upload", filename)
+    new_name = str(fotoid) + ".jpg"
+    new_file = os.path.join("static/pf_upload", new_name)
+
+    os.rename(old_file, new_file)
+
+    # maak een nieuw pad aan met de nieuwe naam
+    new_path = "/static/pf_upload/" + new_name
+
+    # voeg het nieuwe pad toe aan de database
+    db.execute("UPDATE profielfotos SET path = :pt WHERE pfid = :id", pfid=fotoid)
+
+    return True
+
 
 def like(fotoid, userid, value):
     # value == 1 (like)
