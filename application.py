@@ -88,26 +88,25 @@ def login():
 @login_required
 def manage():
     if request.method == "POST":
-        # the picture that is uploaded is saved in the folder foto_upload
-        foto_upload = os.getcwd() + "/static/pf_upload"
-        file = request.files["profielfoto"]
-        print("ho")
+        file = request.files["uploadfile"]
+        profielfoto = 'NULL'
+        if file:
+
+            # the picture that is uploaded is saved in the folder foto_upload
+            foto_upload = os.getcwd() + "/static/pf_upload"
+
+            # this is the path to the picture in the folder
+            path= os.path.join(foto_upload, file.filename)
+
+            file.save(path)
+            filename = request.files['uploadfile'].filename
+            profielfoto = pf_upload(path, filename)
+
         name = request.form.get("profielnaam")
-        print("hi")
         beschrijving = request.form.get("profielbio")
-        print("ha")
-
-        # this is the path to the picture in the folder
-        path= os.path.join(foto_upload, file.filename)
-        print(path)
-
-        file.save(path)
-        filename = request.files['uploadfile'].filename
-        if pf_upload(path, filename):
-            return apology("todo")
-
-        if h_profile(userid, name, profielfoto, beschrijving) == True:
+        if h_profile(name, profielfoto, beschrijving):
             return redirect(url_for("home"))
+
     # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
     # Laad velden met aanpasbare gegevens
     # Vul velden met huidige data uit database. (Kan ook default waarde zijn.) Na drukken op 'bijwerken'
@@ -188,7 +187,6 @@ def upload():
 
         # this is the path to the picture in the folder
         path= os.path.join(foto_upload, file.filename)
-        print(path)
 
         file.save(path)
         filename = request.files['uploadfile'].filename
