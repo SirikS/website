@@ -105,9 +105,9 @@ def like(fotoid, userid, value):
                fotoid= fotoid, userid= userid, value = value)
     # inserts the like/dislike into the total like/dislike count in foto database
     if value == 1:
-        db.execute("UPDATE foto's SET totaallikes = totaallikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
+        db.execute("UPDATE pictures SET totaallikes = totaallikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
     else:
-        db.execute("UPDATE foto's SET totaaldislikes = totaaldislikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
+        db.execute("UPDATE pictures SET totaaldislikes = totaaldislikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
     return True
 
 
@@ -151,13 +151,23 @@ def follow(userid, volgerid):
     # if no rows, add the follow
     if len(rows) == 0:
         db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
+        db.execute("UPDATE profiel SET volgers = volgers + 1 WHERE userid = :userid AND vogerid= :volgerid", userid= userid, volgerid= volgerid)
     # if 1 row, unfollow
     elif len(rows) == 1:
         db.execute("DELETE FROM volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
+        db.execute("UPDATE profiel SET volgers = volgers - 1 WHERE userid = :userid AND vogerid= :volgerid", userid= userid, volgerid= volgerid)
     # else something gone wrong inside the database
     else:
         return apology("Er ging iets fout in de database")
     return True
+
+
+def volgcheck(profielnaam):
+    userid = naamid(profielnaam)
+    volgerid = session["user_id"]
+    if len(db.execute("SELECT * FROM volgers WHERE userid = :userid AND volgerid = :volgerid", userid= userid, volgerid= volgerid)) == 1:
+        return True
+    return False
 
 
 def login_required(f):
@@ -172,3 +182,6 @@ def login_required(f):
             return redirect("/")
         return f(*args, **kwargs)
     return decorated_function
+
+def naamid(username):
+    return db.execute("SELECT userid FROM accounts WHERE username= :username", username = username)[0]["userid"]
