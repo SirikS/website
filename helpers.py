@@ -120,7 +120,7 @@ def h_profile(userid, name = 'NULL', profielfoto = 'NULL', beschrijving = 'NULL'
 
 
 def get_profiel(account):
-    userid = db.execute("SELECT userid FROM accounts WHERE username = :username", username= account)
+    userid = db.execute("SELECT userid FROM accounts WHERE username = :username", username= account)[0]["userid"]
     print(userid)
     lijst = db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)
     print(lijst)
