@@ -44,3 +44,75 @@ main td
     /* left-align tables' cells */
     text-align: left;
 }
+
+
+/* =============== Profiel pagina =============== */
+.profielpagina
+{
+    /* Move it off the top of the page, then centre it horizontally */
+    margin: 50px auto;
+    width: 635px;
+
+/* For visibility. Delete me */
+border: 1px solid red;
+}
+
+.kolomlinks
+{
+    /* Move it to the left */
+    float: left;
+
+    width: 200px;
+    text-align: center;
+
+    /* Move it away from the content */
+    margin-right: 20px;
+
+/* For visibility. Delete me */
+border: 1px solid brown;
+}
+
+.profielfoto
+{
+    /* Width and height of photo container */
+    width: 200px;
+    height: 200px;
+
+/* For visibility. Delete me */
+border: 1px solid green;
+}
+
+.info
+{
+    width: 400px;
+    text-align: center;
+
+    /* Move it to the right */
+    float: right;
+
+/* For visibility. Delete me */
+border: 1px solid blue;
+}
+
+.info strong
+{
+    /* Give it a width */
+    display: inline-block;
+    width: 100px;
+
+    /* Zorgt dat info kop boven aan vak blijft staan */
+    vertical-align: top;
+
+/* For visibility. Delete me */
+border: 1px solid orange;
+}
+
+.info span
+{
+    /* Give it a width */
+    display: inline-block;
+    width: 250px;
+
+/* For visibility. Delete me */
+border: 1px solid purple;
+}
