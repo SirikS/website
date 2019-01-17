@@ -10,28 +10,41 @@
     <!-- Verdeling van div profielpagina in linker en recter kolom -->
     <div class="kolomlinks">
         <!-- div met class voor profielfoto (In linker kolom) -->
-        <div class="profielfoto">{{ profielfoto }}</div>
+        <div class="profielfoto"><img scr="{{ profielfoto }}"/></div>
     </div>
     <!-- Buitentste div voor alle informatie(in rechter kolom) -->
     <div class="info">
         <!-- Ophalen profielnaam -->
         <p>
             <strong>Name:</strong>
-            <span style="text-align: center">{{ profielnaam }}Hallo</span>
+            <span style="text-align: center">{{ profielnaam }}</span>
         </p>
         <!-- Ophalen aantal volgers van profiel -->
         <p>
             <strong>Followers</strong>
-            <span style="text-align: center">{{ aantalvolgers }}12434</span>
+            <span style="text-align: center">{{ aantalvolgers }}</span>
         </p>
         <!-- Ophalen bio van profiel -->
         <p>
             <strong>Bio</strong>
-            <span>{{ bio }}My little pony fanclub! My little pony fanclub! My little pony fanclub! My little pony fanclub! My little pony fanclub! My little pony fanclub!</span>
+            <span>{{ bio }}</span>
         </p>
     </div>
 
     <!-- Needed because other elements inside ProfilePage have floats -->
     <div style="clear:both"></div>
 </div>
+<div class="tab">
+  <button class="tablinks" onclick="fotoladen(event, 'personal')">Personal pictures</button>
+  <button class="tablinks" onclick="fotoladen(event, 'liked')">Liked pictures</button>
+</div>
+<div id="personal" class="tabcontent">
+  <h3>Personal pictures</h3>
+  <span>{{ persoonlijkefotos }}</span>
+</div>
+<div id="liked" class="tabcontent">
+  <h3>Liked pictures</h3>
+  <span>{{ likedfotos }}</span>
+</div>
+
 {% endblock %}
