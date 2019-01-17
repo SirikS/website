@@ -66,6 +66,7 @@ def h_upload(path, titel, caption, filename):
     old_file = os.path.join("static/foto_upload", filename)
     new_name = str(fotoid) + ".jpg"
     new_file = os.path.join("static/foto_upload", new_name)
+
     os.rename(old_file, new_file)
 
     # maak een nieuw pad aan met de nieuwe naam
