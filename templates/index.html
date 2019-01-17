@@ -1,72 +1,60 @@
 <!DOCTYPE html>
 
 <html lang="en">
+  <head>
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 
-    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}" type="text/css" media="screen"/>
+      <title>Instapet</title>
+  </head>
 
-        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
-        <meta charset="utf-8"/>
-        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+  <body>
+    <div class="container-fluid">
+       <div class="row no-gutter">
 
-        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+        <div class="previewfoto"><img src="static/preview_foto/preview1_kat.jpg"/>
+        </div>
+        </div>
+        <div class="col-md-8 col-lg-6">
+          <div class="login d-flex align-items-center py-5">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-9 col-lg-8 mx-auto">
 
-        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+                  <h3 class="register-heading mb-4">Sign up now!</h3>
+                  <form action="{{ url_for('register') }}" method="post">
+                    <div class="form-label-group">
+                      <input type="username" name="username"id="inputUsername" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="form-label-group">
+                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                    </div>
+                    <div class="form-label-group">
+                      <input type="password" name="password"id="inputPassword" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="form-label-group">
+                      <input type="password" name="conformation" id="inputPassword" class="form-control" placeholder="Repeat password" required>
+                    </div>
+                    <button class="btn1 btn btn-lg btn-block text-uppercase font-weight-bold mb-2" type="submit">Sign up</button>
+                    <br>
+                  </form>
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <title>Instapet | Acroniem voor Snoeters</title>
-    </head>
-    <body>
-    <div>
-        <h1 class="instapet-titel">Instapet<h1>
+                  <h5 class="login-header mb-4">Do you already have an account? Log in!</h5>
+                  <form action="{{ url_for('login') }}" method="post">
+                    <div class="form-label-group">
+                      <input type="username" name="username"id="inputUsername" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="form-label-group">
+                      <input type="password" name="password"id="inputPassword" class="form-control" placeholder="Password" required>
+                    </div>
+                    <button class="btn btn-lg btn-block text-uppercase font-weight-bold mb-2" type="submit">Log in</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <form action="{{ url_for('register') }}" method="post">
-        <fieldset class="fieldset">
-            <div>
-                <h4>Register</h4>
-            </div>
-            <div class="form-group">
-                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="email" placeholder="E-mailadres" type="email"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="password" placeholder="Password" type="password"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="confirmation" placeholder="Password confirmation" type="password"/>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-default" type="submit">Register</button>
-            </div>
-        </fieldset>
-    </form>
-
-    <form action="{{ url_for('login') }}" method="post">
-        <fieldset class="fieldset">
-            <div>
-                <h4>Login</h4>
-            </div>
-            <div class="form-group">
-                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="password" placeholder="Password" type="password"/>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-default" type="submit">Login</button>
-            </div>
-        </fieldset>
-    </form>
-    </body>
-<!--{% block title %}-->
-<!--    Index-->
-<!--{% endblock %}-->
-
-<!--{% block main %}-->
-
-<!--{% endblock %}-->
-
-</html>
+  </body>
