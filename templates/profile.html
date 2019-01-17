@@ -23,6 +23,11 @@
         <p>
             <strong>Followers</strong>
             <span style="text-align: center">{{ aantalvolgers }}</span>
+            {% if welvolg %}
+            <button>Ontvolg</button>
+            {% else %}
+            <button>Volg</button>
+            {% endif %}
         </p>
         <!-- Ophalen bio van profiel -->
         <p>
