@@ -49,7 +49,6 @@ def h_register(username, password, email):
 
     if not variable:
         return apology("Username already present")
-    print(variable)
     session["user_id"] = variable
     return True
 
@@ -81,7 +80,7 @@ def h_upload(path, titel, caption, filename):
 def pf_upload(path, filename):
     opslaan = db.execute("INSERT INTO profielfotos (path) VALUES (:path)", path= path)
     fotoid_list_dict = db.execute("SELECT pfid FROM profielfotos WHERE path = :pt", pt=path)
-    fotoid = fotoid_list_dict[0]["fotoid"]
+    fotoid = fotoid_list_dict[0]["pfid"]
 
     # verander de naam van de foto in de map foto_upload
     old_file = os.path.join("static/pf_upload", filename)
@@ -94,9 +93,8 @@ def pf_upload(path, filename):
     new_path = "/static/pf_upload/" + new_name
 
     # voeg het nieuwe pad toe aan de database
-    db.execute("UPDATE profielfotos SET path = :pt WHERE pfid = :id", pfid=fotoid)
-
-    return True
+    db.execute("UPDATE profielfotos SET path = :pt WHERE pfid = :pfid", pt = new_path, pfid=fotoid)
+    return new_path
 
 
 def like(fotoid, userid, value):
@@ -113,19 +111,18 @@ def like(fotoid, userid, value):
     return True
 
 
-def h_profile(userid, name = 'NULL', profielfoto = 'NULL', beschrijving = 'NULL'):
+def h_profile(name = 'NULL', profielfoto = 'NULL', beschrijving = ''):
     # name = display name,  profielfoto = a link to the picture, beschrijving = profielbeschrijving
-
+    userid = session['user_id']
     # if no profile yet, make sure there is a name and profile picture
     if len(db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)) == 0:
         if name == 'NULL':
             return apology("must fill in a Name!")
         elif profielfoto == 'NULL':
-            return apology("Emma fix please")
-        else:
-            #insert into database
-            db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
-                       userid= userid, name= name, profielfoto= profielfoto, beschrijving= beschrijving)
+            profielfoto = "/static_pfupload/1.jpg"
+        #insert into database
+        db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
+                   userid= userid, name= name, profielfoto= profielfoto, beschrijving= beschrijving)
         return True
     # else if a value is not changed, get the old values
     if name == 'NULL':
@@ -142,7 +139,6 @@ def h_profile(userid, name = 'NULL', profielfoto = 'NULL', beschrijving = 'NULL'
 
 def get_profiel(account):
     userid = db.execute("SELECT userid FROM accounts WHERE username = :username", username= account)[0]["userid"]
-    print(userid)
     lijst = db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)[0]
     return lijst
 
