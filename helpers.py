@@ -119,6 +119,14 @@ def h_profile(userid, name = 'NULL', profielfoto = 'NULL', beschrijving = 'NULL'
     return True
 
 
+def get_profiel(account):
+    userid = db.execute("SELECT userid FROM accounts WHERE username = :username", username= account)
+    print(userid)
+    lijst = db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)
+    print(lijst)
+    return apology("TODO")
+
+
 def follow(userid, volgerid):
     # Looks how many rows there are in the database
     rows = db.execute("SELECT * FROM volgers WHERE userid= :userid AND volgerid= :volgerid", userid= userid, volgerid= volgerid)

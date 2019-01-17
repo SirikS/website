@@ -35,15 +35,17 @@ def index():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    # Laad profielfoto
-    #Laad bio
-    #Laad aantal volgers
+    url= request.url
+    parsed = urlparse(url)
+    account = parse_qs(parsed.query)['account'][0]
+    get_profiel(account)
+
     #Laad foto's geplaatst door profiel
     #Laad gelikte foto's door profiel
     #Laad likes en dislikes op
     #Controle of gebruiker eigenaar is van profiel
     #Zo ja, laad bewerkknop voor profiel die redirect naar profiel beheerpagina.
-    return render_template("profile.html")
+    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio)
 
 
 
