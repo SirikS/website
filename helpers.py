@@ -147,6 +147,11 @@ def get_profiel(account):
     return lijst
 
 
+def pfname(userid):
+    profielfoto = db.execute("SELECT profielfoto FROM profiel WHERE userid = :userid", userid = userid)[0]["profielfoto"]
+    name = db.execute("SELECT name FROM profiel WHERE userid = :userid", userid = userid)[0]["name"]
+    return profielfoto, name
+
 def follow():
     volgerid = session["user_id"]
     url= request.url
@@ -208,5 +213,5 @@ def check(fotoid):
         return False
     return True
 
-def foto(fotoid):
+def get_foto(fotoid):
     return db.execute("SELECT * FROM pictures WHERE fotoid = :fotoid", fotoid = fotoid)[0]

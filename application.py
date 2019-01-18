@@ -165,13 +165,15 @@ def home():
         return apology("geen foto's meer")
     while not check(fotoid):
         fotoid= random_fotoid()
-    data = foto(fotoid)
-    print(data)
-
-    # Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
+    data = get_foto(fotoid)
+    foto = data['path']
+    caption = data["caption"]
+    titel = data["titel"]
+    date = data["date"]
+    profielfoto, naam = pfname(data["userid"])
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("home.html")
+    return render_template("home.html", foto = foto, caption= caption, titel= titel, date= date, prfielfoto= profielfoto, naam= naam)
     #
 
 
