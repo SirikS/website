@@ -234,7 +234,7 @@ def get_comments(fotoid):
         profielfoto, naam = pfname(rows[row]["userid"])
         comment["profielfotocomment"] = profielfoto
         comment["profielnaamcomment"] = naam
-        comment["commentaccount"] = idname(rows[row]["userid"])
+        comment["commentaccount"] = idnaam(rows[row]["userid"])
         comments.append(comment)
     return comments
 
