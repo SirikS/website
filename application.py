@@ -190,7 +190,7 @@ def comment():
 @app.route("/pack", methods=["GET", "POST"])
 @login_required
 def pack():
-
+    volger_fotoid()
     # Laad fotoID van profiel uit database met gevolgden door gebruiker (chronologische volgorde)
     # Controle of gebruiker bericht al eens heeft beoordeeld (Loop door random fotoID's tot foto wordt gevonden, die nog niet is beoordeeld door gebruiker.)
     # Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
