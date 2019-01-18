@@ -198,12 +198,20 @@ def login_required(f):
 def naamid(username):
     return db.execute("SELECT userid FROM accounts WHERE username= :username", username = username)[0]["userid"]
 
+def idnaam(userid):
+    return db.execute("SELECT username FROM accounts WHERE userid= :userid", userid = userid)[0]["username"]
+
+
 def random_fotoid():
     userid = session["user_id"]
+    fotoid = 0
+    while not check(fotoid):
+        fotoid= random_fotoid()
     lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid", userid = userid)
     if lijst == []:
         return False
     fotoid = random.choice(lijst)["fotoid"]
+
     return fotoid
 
 def check(fotoid):
@@ -229,8 +237,5 @@ def get_comments(fotoid):
         comments.append(comment)
     return comments
 
-
-
-    # profielfotocomment
-    # profielnaamcomment
-    # berichtcomment
+def volger_fotoid():
+    userid = session["user_id"]

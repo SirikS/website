@@ -166,6 +166,7 @@ def home():
     while not check(fotoid):
         fotoid= random_fotoid()
     data = get_foto(fotoid)
+    username = idnaam(session["user_id"])
     foto = data['path']
     caption = data["caption"]
     titel = data["titel"]
@@ -175,14 +176,21 @@ def home():
     print(comments)
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("home.html", foto = foto, caption= caption, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments)
-    #
+    return render_template("home.html", foto = foto, caption= caption, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam = username)
+
+
+@app.route("/comment", methods=["POST"])
+@login_required
+def comment():
+    uploadcomment = request.form.get("uploadcomment")
+    userid = session["user_id"]
+    return apology("todo")
 
 
 @app.route("/pack", methods=["GET", "POST"])
 @login_required
 def pack():
-    # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
+
     # Laad fotoID van profiel uit database met gevolgden door gebruiker (chronologische volgorde)
     # Controle of gebruiker bericht al eens heeft beoordeeld (Loop door random fotoID's tot foto wordt gevonden, die nog niet is beoordeeld door gebruiker.)
     # Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
