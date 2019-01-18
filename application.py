@@ -163,10 +163,9 @@ def home():
     fotoid = random_fotoid()
     if not fotoid:
         return apology("geen foto's meer")
-    while not check(fotoid):
-        fotoid= random_fotoid()
     data = get_foto(fotoid)
     username = idnaam(data["userid"])
+    fotoid = data["fotoid"]
     foto = data['path']
     caption = data["caption"]
     titel = data["titel"]
@@ -176,7 +175,7 @@ def home():
     print(comments)
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("home.html", foto = foto, caption= caption, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam = username)
+    return render_template("home.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
 
 
 @app.route("/comment", methods=["POST"])
@@ -190,13 +189,24 @@ def comment():
 @app.route("/pack", methods=["GET", "POST"])
 @login_required
 def pack():
-    volger_fotoid()
-    # Laad fotoID van profiel uit database met gevolgden door gebruiker (chronologische volgorde)
-    # Controle of gebruiker bericht al eens heeft beoordeeld (Loop door random fotoID's tot foto wordt gevonden, die nog niet is beoordeeld door gebruiker.)
-    # Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
+    fotoid = volger_fotoid()
+    if not fotoid:
+        return apology("geen foto's meer")
+    data = get_foto(fotoid)
+    username = idnaam(data["userid"])
+    fotoid = data["fotoid"]
+    foto = data['path']
+    caption = data["caption"]
+    titel = data["titel"]
+    date = data["date"]
+    profielfoto, naam = pfname(data["userid"])
+    comments = get_comments(fotoid)
+    print(comments)
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("pack.html")
+    # Laad like en dislike knop
+    # Laad share mogelijkheden
+    return render_template("pack.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
 
 
 

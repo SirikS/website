@@ -206,15 +206,15 @@ def random_fotoid():
     userid = session["user_id"]
     fotoid = 0
     while not check(fotoid):
-        fotoid= random_fotoid()
-    lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid", userid = userid)
-    if lijst == []:
-        return False
-    fotoid = random.choice(lijst)["fotoid"]
-
+        lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid", userid = userid)
+        if lijst == []:
+            return False
+        fotoid = random.choice(lijst)["fotoid"]
     return fotoid
 
 def check(fotoid):
+    if fotoid == 0:
+        return False
     userid = session["user_id"]
     rows = db.execute("SELECT * FROM beoordeeld WHERE userid = :userid AND fotoid = :fotoid", userid= userid, fotoid= fotoid)
     if len(rows) == 1:
@@ -240,9 +240,22 @@ def get_comments(fotoid):
 
 def volger_fotoid():
     userid = session["user_id"]
-    volgenden = db.execute("SELECT userid FROM volgers WHERE volgerid = :volgerid", volgerid= userid)
-    print(volgenden)
-    print(volgenden[0])
-    print(volgenden[1])
+    volgend = get_volgend(userid)
+    fotoid = 0
+    while not check(fotoid):
+        print('ja')
+        lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend)", volgend = get_volgend(userid))
+        if lijst == []:
+            return False
+        print(lijst)
+        fotoid = random.choice(lijst)["fotoid"]
+    print(fotoid)
+    return fotoid
 
-    return False
+
+def get_volgend(userid):
+    volgenden = db.execute("SELECT userid FROM volgers WHERE volgerid = :volgerid", volgerid= userid)
+    volgend = []
+    for x in range(len(volgenden)):
+        volgend.append(volgenden[x]["userid"])
+    return volgend
