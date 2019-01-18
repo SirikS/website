@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}" type="text/css" media="screen"/>
-      <title>Instapet | {% block title %}{% endblock %}</title>
-  </head>
+<head>
+
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="{{ url_for('static', filename='layout.css') }}" rel="stylesheet" type="text/css" media="screen"//>
+
+        <script>
+            function fotoladen(evt, soortfoto) {
+                // Declare all variables
+                var i, tabcontent, tablinks;
+                // Get all elements with class="tabcontent" and hide them
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                // Get all elements with class="tablinks" and remove the class "active"
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                // Show the current tab, and add an "active" class to the button that opened the tab
+                document.getElementById(soortfoto).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+            function volgknop() {
+                var x = document.getElementById("knop");
+                if (x.innerHTML === "Ontvolg") {
+                    x.innerHTML = "Volg";
+                }
+                else {
+                    x.innerHTML = "Ontvolg";
+                }
+            }
+        </script>
+
+
+        <title>Instapet | {% block title %}{% endblock %}</title>
+
+    </head>
 
 <script>
 /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
