@@ -171,9 +171,11 @@ def home():
     titel = data["titel"]
     date = data["date"]
     profielfoto, naam = pfname(data["userid"])
+    comments = get_comments(fotoid)
+    print(comments)
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("home.html", foto = foto, caption= caption, titel= titel, date= date, profielfoto= profielfoto, naam= naam)
+    return render_template("home.html", foto = foto, caption= caption, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments)
     #
 
 

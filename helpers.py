@@ -215,3 +215,22 @@ def check(fotoid):
 
 def get_foto(fotoid):
     return db.execute("SELECT * FROM pictures WHERE fotoid = :fotoid", fotoid = fotoid)[0]
+
+
+def get_comments(fotoid):
+    rows = db.execute("SELECT * FROM comments WHERE fotoid= :fotoid", fotoid = fotoid)
+    comments= []
+    for row in range(len(rows)):
+        comment = {}
+        comment["berichtcomment"] = rows[row]["comment"]
+        profielfoto, naam = pfname(rows[row]["userid"])
+        comment["profielfotocomment"] = profielfoto
+        comment["profielnaamcomment"] = naam
+        comments.append(comment)
+    return comments
+
+
+
+    # profielfotocomment
+    # profielnaamcomment
+    # berichtcomment
