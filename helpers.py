@@ -234,8 +234,15 @@ def get_comments(fotoid):
         profielfoto, naam = pfname(rows[row]["userid"])
         comment["profielfotocomment"] = profielfoto
         comment["profielnaamcomment"] = naam
+        comment["commentaccount"] = idnaam(rows[row]["userid"])
         comments.append(comment)
     return comments
 
 def volger_fotoid():
     userid = session["user_id"]
+    volgenden = db.execute("SELECT userid FROM volgers WHERE volgerid = :volgerid", volgerid= userid)
+    print(volgenden)
+    print(volgenden[0])
+    print(volgenden[1])
+
+    return False

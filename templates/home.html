@@ -38,7 +38,7 @@
             <!-- De profielfoto van de plaatser van de comment -->
             <div class="profielfoto-comment"><img style="height: 100px; width: 100px" src="{{ comment.profielfotocomment }}"/></div>
             <!-- De profielnaam van de plaatser van de comment -->
-            <div class="profielnaam-comment">{{ comment.profielnaamcomment }}</div>
+            <div class="profielnaam-comment"><a href="/profile?account={{ comment.commentaccount }}">{{ comment.profielnaamcomment }}</a></div>
             <!-- De daadwerkelijk comment -->
             <div class="bericht-comment">{{ comment.berichtcomment }}</div>
             {% endfor %}
