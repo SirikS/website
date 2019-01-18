@@ -45,7 +45,7 @@ def profile():
     bio = lijst["beschrijving"]
     aantalvolgers = lijst["volgers"]
     welvolg = volgcheck(account)
-    
+
     #TODO
     #Laad foto's geplaatst door profiel
     #Laad gelikte foto's door profiel
@@ -160,9 +160,14 @@ def register():
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
-    # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
-    # Laad random fotoID
-    # Controle of gebruiker bericht al eens heeft beoordeeld (Loop door random fotoID's tot foto wordt gevonden, die nog niet is beoordeeld door gebruiker.)
+    fotoid = random_fotoid()
+    if not fotoid:
+        return apology("geen foto's meer")
+    while not check(fotoid):
+        fotoid= random_fotoid()
+    data = foto(fotoid)
+    print(data)
+
     # Laad foto met bijbehorende caption, comments, profielfoto van plaatser, profielnaam van plaatser, titel, timestamp.
     # Laad like en dislike knop
     # Laad share mogelijkheden

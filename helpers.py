@@ -7,6 +7,8 @@ from functools import wraps
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 import os
+import random
+from urllib.parse import urlparse, parse_qs
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///instapet.db")
@@ -145,7 +147,12 @@ def get_profiel(account):
     return lijst
 
 
-def follow(userid, volgerid):
+def follow():
+    volgerid = session["user_id"]
+    url= request.url
+    parsed = urlparse(url)
+    user = parse_qs(parsed.query)['account'][0]
+    userid = naamid(user)
     # Looks how many rows there are in the database
     rows = db.execute("SELECT * FROM volgers WHERE userid= :userid AND volgerid= :volgerid", userid= userid, volgerid= volgerid)
     # if no rows, add the follow
@@ -185,3 +192,21 @@ def login_required(f):
 
 def naamid(username):
     return db.execute("SELECT userid FROM accounts WHERE username= :username", username = username)[0]["userid"]
+
+def random_fotoid():
+    userid = session["user_id"]
+    lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid", userid = userid)
+    if lijst == []:
+        return False
+    fotoid = random.choice(lijst)["fotoid"]
+    return fotoid
+
+def check(fotoid):
+    userid = session["user_id"]
+    rows = db.execute("SELECT * FROM beoordeeld WHERE userid = :userid AND fotoid = :fotoid", userid= userid, fotoid= fotoid)
+    if len(rows) == 1:
+        return False
+    return True
+
+def foto(fotoid):
+    return db.execute("SELECT * FROM pictures WHERE fotoid = :fotoid", fotoid = fotoid)[0]
