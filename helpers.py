@@ -30,6 +30,7 @@ def apology(message, code=400):
     return render_template("apology.html", top= code, bottom= escape(message)), code
 
 
+
 def h_login(username, password):
     # query database for username
     rows = db.execute("SELECT * FROM accounts WHERE username = :username", username= username)
@@ -45,58 +46,59 @@ def h_login(username, password):
     return True
 
 
+
 def h_register(username, password, email):
+    # put the user into the database
     variable = db.execute("INSERT INTO accounts (username, password, email) VALUES (:us, :ps, :em)",
                           us= username, ps= password, em= email)
-
+    # if it didnt work, the username is allready present
     if not variable:
         return apology("Username already present")
+    # save the session
     session["user_id"] = variable
     return True
 
 
+
 def h_upload(path, titel, caption, filename):
-    # sla de foto op in de database
+    # save the picture in the database
     opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:id, :pt, :ti, :cp)",
                           id=session['user_id'], pt= path, ti= titel, cp= caption)
-    # haal de fotoid van de huidige foto op
-    fotoid_list_dict = db.execute("SELECT fotoid FROM pictures WHERE userid = :usid AND path = :pt", usid=session['user_id'], pt=path)
-    fotoid = fotoid_list_dict[0]["fotoid"]
+    # get the newly made fotoid
+    fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :usid AND path = :pt", usid=session['user_id'], pt=path)[0]["fotoid"]
 
-    # verander de naam van de foto in de map foto_upload
+    # change the name in the correct folder, so it cant be there twice
     old_file = os.path.join("static/foto_upload", filename)
     new_name = str(fotoid) + ".jpg"
     new_file = os.path.join("static/foto_upload", new_name)
-
     os.rename(old_file, new_file)
 
-    # maak een nieuw pad aan met de nieuwe naam
+    # adjust the path in the database
     new_path = "/static/foto_upload/" + new_name
-
-    # voeg het nieuwe pad toe aan de database
     db.execute("UPDATE pictures SET path = :pt WHERE userid = :id AND fotoid = :fid",
                 id=session['user_id'], fid=fotoid, pt=new_path)
-
     return True
 
-def pf_upload(path, filename):
-    opslaan = db.execute("INSERT INTO profielfotos (path) VALUES (:path)", path= path)
-    fotoid_list_dict = db.execute("SELECT pfid FROM profielfotos WHERE path = :pt", pt=path)
-    fotoid = fotoid_list_dict[0]["pfid"]
 
-    # verander de naam van de foto in de map foto_upload
+
+def pf_upload(path, filename):
+    # save the picture in the database
+    opslaan = db.execute("INSERT INTO profielfotos (path) VALUES (:path)", path= path)
+
+    # get the newly made pfid
+    fotoid = db.execute("SELECT pfid FROM profielfotos WHERE path = :pt", pt=path)[0]["pfid"]
+
+    # change the name in the correct folder
     old_file = os.path.join("static/pf_upload", filename)
     new_name = str(fotoid) + ".jpg"
     new_file = os.path.join("static/pf_upload", new_name)
-
     os.rename(old_file, new_file)
 
-    # maak een nieuw pad aan met de nieuwe naam
+    # adjust the path in the database
     new_path = "/static/pf_upload/" + new_name
-
-    # voeg het nieuwe pad toe aan de database
     db.execute("UPDATE profielfotos SET path = :pt WHERE pfid = :pfid", pt = new_path, pfid=fotoid)
     return new_path
+
 
 
 def like(fotoid, userid, value):
@@ -113,8 +115,9 @@ def like(fotoid, userid, value):
     return True
 
 
+
 def h_profile(name, profielfoto, beschrijving):
-    # name = display name,  profielfoto = a link to the picture, beschrijving = profielbeschrijving
+    # get the persons user id
     userid = session['user_id']
     # if no profile yet, make sure there is a name and profile picture
     if len(db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)) == 0:
@@ -141,45 +144,61 @@ def h_profile(name, profielfoto, beschrijving):
     return True
 
 
+
 def get_profiel(account):
-    userid = db.execute("SELECT userid FROM accounts WHERE username = :username", username= account)[0]["userid"]
+    # try to get the userid of the account else the profile does not exist
+    try:
+        userid = db.execute("SELECT userid FROM accounts WHERE username= :username", username = account)[0]["userid"]
+    except:
+        return False
+    # give the whole profile back
     lijst = db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)[0]
     return lijst
 
 
+
 def pfname(userid):
+    # gets the profile pic and name for example a comment
     profielfoto = db.execute("SELECT profielfoto FROM profiel WHERE userid = :userid", userid = userid)[0]["profielfoto"]
     name = db.execute("SELECT name FROM profiel WHERE userid = :userid", userid = userid)[0]["name"]
     return profielfoto, name
 
+
+
 def follow():
+    # the user is the follower
     volgerid = session["user_id"]
+    # the followed is the person who's profile is in the link
     url= request.url
     parsed = urlparse(url)
     user = parse_qs(parsed.query)['account'][0]
     userid = naamid(user)
+
     # Looks how many rows there are in the database
     rows = db.execute("SELECT * FROM volgers WHERE userid= :userid AND volgerid= :volgerid", userid= userid, volgerid= volgerid)
     # if no rows, add the follow
     if len(rows) == 0:
         db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
         db.execute("UPDATE profiel SET volgers = volgers + 1 WHERE userid = :userid AND vogerid= :volgerid", userid= userid, volgerid= volgerid)
-    # if 1 row, unfollow
+    # if there is a row, unfollow
     elif len(rows) == 1:
         db.execute("DELETE FROM volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
         db.execute("UPDATE profiel SET volgers = volgers - 1 WHERE userid = :userid AND vogerid= :volgerid", userid= userid, volgerid= volgerid)
-    # else something gone wrong inside the database
+    # else something gone wrong inside of the database
     else:
         return apology("Er ging iets fout in de database")
     return True
 
 
+
 def volgcheck(profielnaam):
+    # returns a true or false statement depending on if the person is followed
     userid = naamid(profielnaam)
     volgerid = session["user_id"]
     if len(db.execute("SELECT * FROM volgers WHERE userid = :userid AND volgerid = :volgerid", userid= userid, volgerid= volgerid)) == 1:
         return True
     return False
+
 
 
 def login_required(f):
@@ -195,24 +214,54 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
+
 def naamid(username):
+    # returns the userid of a username
     return db.execute("SELECT userid FROM accounts WHERE username= :username", username = username)[0]["userid"]
 
+
+
 def idnaam(userid):
+    # returns the username of a userid
     return db.execute("SELECT username FROM accounts WHERE userid= :userid", userid = userid)[0]["username"]
 
 
+
 def random_fotoid():
+    # get a random photo
+
     userid = session["user_id"]
     fotoid = 0
+    # make sure to get a photo that has not been seen.
     while not check(fotoid):
+        # gets a list of pictures that are not their own's
         lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid", userid = userid)
+        # if empty, there are no photo's
+        if lijst == []:
+            return False
+        # get a random photo
+        fotoid = random.choice(lijst)["fotoid"]
+    return fotoid
+
+
+
+def volger_fotoid():
+    # same as random but gets only pictures from followed accounts
+    userid = session["user_id"]
+    volgend = get_volgend(userid)
+    fotoid = 0
+    while not check(fotoid):
+        lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend)", volgend = get_volgend(userid))
         if lijst == []:
             return False
         fotoid = random.choice(lijst)["fotoid"]
     return fotoid
 
+
+
 def check(fotoid):
+    # returns a boolean depending if the foto had been "beoordeeld" yet
     if fotoid == 0:
         return False
     userid = session["user_id"]
@@ -221,13 +270,20 @@ def check(fotoid):
         return False
     return True
 
+
+
 def get_foto(fotoid):
+    # returns all variable's of a photo
     return db.execute("SELECT * FROM pictures WHERE fotoid = :fotoid", fotoid = fotoid)[0]
 
 
+
 def get_comments(fotoid):
+    # get all comments of a photo
     rows = db.execute("SELECT * FROM comments WHERE fotoid= :fotoid", fotoid = fotoid)
     comments= []
+
+    # for every comment, put the comment, profile pic, name and profile pic in the dict
     for row in range(len(rows)):
         comment = {}
         comment["berichtcomment"] = rows[row]["comment"]
@@ -238,23 +294,21 @@ def get_comments(fotoid):
         comments.append(comment)
     return comments
 
-def volger_fotoid():
-    userid = session["user_id"]
-    volgend = get_volgend(userid)
-    fotoid = 0
-    while not check(fotoid):
-        print('ja')
-        lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend)", volgend = get_volgend(userid))
-        if lijst == []:
-            return False
-        print(lijst)
-        fotoid = random.choice(lijst)["fotoid"]
-    print(fotoid)
-    return fotoid
 
 
 def get_volgend(userid):
+    # returns a list of people they follow
     volgenden = db.execute("SELECT userid FROM volgers WHERE volgerid = :volgerid", volgerid= userid)
+    volgend = []
+    for x in range(len(volgenden)):
+        volgend.append(volgenden[x]["userid"])
+    return volgend
+
+
+
+def get_gevolgd(userid):
+    # returns a list of people that he/she is followed by
+    volgenden = db.execute("SELECT volgerid FROM volgers WHERE userid = :userid", userid= userid)
     volgend = []
     for x in range(len(volgenden)):
         volgend.append(volgenden[x]["userid"])

@@ -28,22 +28,41 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
 
 
+
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
+    #get the query accountname
     url= request.url
     parsed = urlparse(url)
-    account = parse_qs(parsed.query)['account'][0]
+    try:
+        account = parse_qs(parsed.query)['account'][0]
+        # if account is the searched account, just go to the normal /profile page
+        if account == idnaam(session["user_id"]):
+            return redirect(url_for("profile"))
+    except:
+        # if no query, is is the normal /profile page so its the user's account
+        account = idnaam(session["user_id"])
+
+    # get all profile attributes
     lijst = get_profiel(account)
+    # if account is unvalid, go to their own page
+    if not lijst:
+        return redirect(url_for("profile"))
+
+    # set all variables ready for template
     profielfoto = lijst["profielfoto"]
     profielnaam = lijst["name"]
     bio = lijst["beschrijving"]
     aantalvolgers = lijst["volgers"]
+
+    # look if the profile is followed
     welvolg = volgcheck(account)
 
     #TODO
@@ -122,6 +141,7 @@ def manage():
     return render_template("manage.html")
 
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user."""
@@ -131,6 +151,7 @@ def register():
 
     if request.method == "POST":
 
+        # temporaily save the
         username = request.form.get("username")
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
@@ -157,56 +178,77 @@ def register():
     return render_template("index.html")
 
 
+
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
+    # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
     fotoid = random_fotoid()
     if not fotoid:
         return apology("geen foto's meer")
+
+    # get all the data of a photo
     data = get_foto(fotoid)
+
+    # get all values ready for template
     username = idnaam(data["userid"])
     fotoid = data["fotoid"]
     foto = data['path']
     caption = data["caption"]
     titel = data["titel"]
     date = data["date"]
+
+    # get the uploader's profile pic and name
     profielfoto, naam = pfname(data["userid"])
+
+    # also get the comments
     comments = get_comments(fotoid)
-    print(comments)
     # Laad like en dislike knop
     # Laad share mogelijkheden
     return render_template("home.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
 
 
-@app.route("/comment", methods=["POST"])
-@login_required
-def comment():
-    uploadcomment = request.form.get("uploadcomment")
-    userid = session["user_id"]
-    return apology("todo")
-
 
 @app.route("/pack", methods=["GET", "POST"])
 @login_required
 def pack():
+    # same as home() but then for the follow page
+    # get a valid photo (not seen and by a person they follow)
     fotoid = volger_fotoid()
     if not fotoid:
         return apology("geen foto's meer")
+
+    # get all data of a photo
     data = get_foto(fotoid)
+
+    # get all values ready for template
     username = idnaam(data["userid"])
     fotoid = data["fotoid"]
     foto = data['path']
     caption = data["caption"]
     titel = data["titel"]
     date = data["date"]
+
+    # get the uploaders profile pic and name
     profielfoto, naam = pfname(data["userid"])
+
+    # also get the comments
     comments = get_comments(fotoid)
-    print(comments)
     # Laad like en dislike knop
     # Laad share mogelijkheden
     # Laad like en dislike knop
     # Laad share mogelijkheden
     return render_template("pack.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
+
+
+
+@app.route("/comment", methods=["POST"])
+@login_required
+def comment():
+    # todo
+    uploadcomment = request.form.get("uploadcomment")
+    userid = session["user_id"]
+    return apology("todo")
 
 
 
@@ -236,11 +278,12 @@ def upload():
 
     return render_template("upload.html")
 
+
+
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
 def logout():
-
+    # clears sessin and goes back to index page
     session.clear()
-
     return redirect(url_for("index"))
 
