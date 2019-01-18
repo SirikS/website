@@ -242,6 +242,24 @@ def pack():
 
 
 
+@app.route("/like/<fotoid>")
+@login_required
+def like(fotoid):
+    userid = session["user_id"]
+    h_like(fotoid, userid, '1')
+    return redirect(url_for("home"))
+
+
+
+@app.route("/dislike/<fotoid>")
+@login_required
+def dislike(fotoid):
+    userid = session["user_id"]
+    h_like(fotoid, userid, '0')
+    return redirect(url_for("home"))
+
+
+
 @app.route("/comment", methods=["POST"])
 @login_required
 def comment():

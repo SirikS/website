@@ -101,12 +101,12 @@ def pf_upload(path, filename):
 
 
 
-def like(fotoid, userid, value):
+def h_like(fotoid, userid, value):
     # value == 1 (like)
     # value == 0 (dislike)
     # inserts the like (or dislike) into the database
-    db.execute("INSERT INTO beoordeeld (fotoid, userid, value) VALUES (:fotoid, :userid, :value)",
-               fotoid= fotoid, userid= userid, value = value)
+    db.execute("INSERT INTO beoordeeld (fotoid, userid, liked) VALUES (:fotoid, :userid, :liked)",
+               fotoid= fotoid, userid= userid, liked = value)
     # inserts the like/dislike into the total like/dislike count in foto database
     if value == 1:
         db.execute("UPDATE pictures SET totaallikes = totaallikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
@@ -230,21 +230,29 @@ def idnaam(userid):
 
 def random_fotoid():
     # get a random photo
-
     userid = session["user_id"]
-    fotoid = 0
-    # make sure to get a photo that has not been seen.
-    while not check(fotoid):
-        # gets a list of pictures that are not their own's
-        lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid", userid = userid)
-        # if empty, there are no photo's
-        if lijst == []:
-            return False
-        # get a random photo
-        fotoid = random.choice(lijst)["fotoid"]
+
+    beoordeeld = get_beoordeeld(userid)
+    print(beoordeeld)
+    # gets a list of pictures that are not their own's
+    lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid AND fotoid NOT IN (:beoordeeld)", userid = userid, beoordeeld = beoordeeld)
+
+    # if empty, there are no photo's
+    if lijst == []:
+        return False
+
+    # choose a random photo
+    fotoid = random.choice(lijst)["fotoid"]
     return fotoid
 
 
+
+def get_beoordeeld(userid):
+    lijst = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid", userid= userid)
+    beoordeeld = []
+    for x in range(len(lijst)):
+        beoordeeld.append(lijst[x]["fotoid"])
+    return beoordeeld
 
 def volger_fotoid():
     # same as random but gets only pictures from followed accounts
