@@ -34,24 +34,20 @@ def index():
     return render_template("index.html")
 
 
-
 @app.route("/profile", methods=["GET", "POST"])
+@app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
-def profile():
-    #get the query accountname
-    url= request.url
-    parsed = urlparse(url)
-    try:
-        account = parse_qs(parsed.query)['account'][0]
-        # if account is the searched account, just go to the normal /profile page
-        if account == idnaam(session["user_id"]):
-            return redirect(url_for("profile"))
-    except:
-        # if no query, is is the normal /profile page so its the user's account
-        account = idnaam(session["user_id"])
+def profile(username = ''):
+    # check if it is its own profile
+    if username == idnaam(session["user_id"]):
+        return redirect(url_for("profile"))
+
+    # if no profile show his/her own
+    if username == '':
+        username = idnaam(session["user_id"])
 
     # get all profile attributes
-    lijst = get_profiel(account)
+    lijst = get_profiel(username)
     # if account is unvalid, go to their own page
     if not lijst:
         return redirect(url_for("profile"))
@@ -63,7 +59,7 @@ def profile():
     aantalvolgers = lijst["volgers"]
 
     # look if the profile is followed
-    welvolg = volgcheck(account)
+    welvolg = volgcheck(username)
 
     #TODO
     #Laad foto's geplaatst door profiel
