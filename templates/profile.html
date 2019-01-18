@@ -24,9 +24,9 @@
             <strong>Followers</strong>
             <span style="text-align: center">{{ aantalvolgers }}</span>
             {% if welvolg %}
-            <button onclick="volgknop()" id="knop">Ontvolg</button>
+            <button onclick="volgknop(); follow()" id="knop">Ontvolg</button>
             {% else %}
-            <button onclick="volgknop()" id="knop">Volg</button>
+            <button onclick="volgknop(); follow()" id="knop">Volg</button>
             {% endif %}
         </p>
         <!-- Ophalen bio van profiel -->

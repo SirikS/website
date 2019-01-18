@@ -12,9 +12,9 @@
         <!-- De topbar van de fotoweergave, hierin staat de profielfoto en naam van de uploader, samen met de titel en timestamp -->
         <div class="fotoweergave-top">
             <!-- Profielfoto van de uploader -->
-            <div class="profielfoto-tinder"><img src="{{ profielfoto }}"/></div>
+            <div class="profielfoto-tinder"><img style="height: 100px; width: 100px" src="{{ profielfoto }}"/></div>
             <!-- Naam van de uploader -->
-            <div class="naam-tinder">{{ naam }}</div>
+            <div class="naam-tinder"><a href="/profile?account={{ accountnaam }}">{{ naam }}</a></div>
             <!-- Titel van de post -->
             <div class="titel-tinder">{{ titel }}</div>
             <!-- Datum/timestamp van de post -->
@@ -23,7 +23,7 @@
         <!-- Het middelste deel van de fotoweergave, hier staat alleen de foto -->
         <div class="fotoweergave-mid">
             <!-- De foto waar het om draait -->
-            <div class="foto-tinder"><img src="{{ foto }}"/></div>
+            <div class="foto-tinder"><img style="height: 100px; width: 100px" src="{{ foto }}"/></div>
         </div>
         <!-- Het onderste deel van de fotoweergave, hierin staat de caption -->
         <div class="fotoweergave-bot">
@@ -36,7 +36,7 @@
         <!-- Loop door geplaatste comments -->
         {% for comment in comments %}
             <!-- De profielfoto van de plaatser van de comment -->
-            <div class="profielfoto-comment"><img src="{{ comment.profielfotocomment }}"/></div>
+            <div class="profielfoto-comment"><img style="height: 100px; width: 100px" src="{{ comment.profielfotocomment }}"/></div>
             <!-- De profielnaam van de plaatser van de comment -->
             <div class="profielnaam-comment">{{ comment.profielnaamcomment }}</div>
             <!-- De daadwerkelijk comment -->
