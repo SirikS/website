@@ -166,7 +166,7 @@ def home():
     while not check(fotoid):
         fotoid= random_fotoid()
     data = get_foto(fotoid)
-    username = idnaam(session["user_id"])
+    username = idnaam(data["userid"])
     foto = data['path']
     caption = data["caption"]
     titel = data["titel"]

@@ -239,3 +239,4 @@ def get_comments(fotoid):
 
 def volger_fotoid():
     userid = session["user_id"]
+    volgend = db.execute("SELECT userid FROM volgers WHERE volgerid = :volgerid", volgerid= userid)
