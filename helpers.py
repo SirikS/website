@@ -258,25 +258,15 @@ def volger_fotoid():
     # same as random but gets only pictures from followed accounts
     userid = session["user_id"]
     volgend = get_volgend(userid)
-    fotoid = 0
-    while not check(fotoid):
-        lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend)", volgend = get_volgend(userid))
-        if lijst == []:
-            return False
-        fotoid = random.choice(lijst)["fotoid"]
+    beoordeeld = get_beoordeeld(userid)
+
+    # get the list of pictures to be seen
+    lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend) AND fotoid NOT IN (:beoordeeld)", volgend = volgend, beoordeeld= beoordeeld)
+    if lijst == []:
+        return False
+    # choose a random one
+    fotoid = random.choice(lijst)["fotoid"]
     return fotoid
-
-
-
-def check(fotoid):
-    # returns a boolean depending if the foto had been "beoordeeld" yet
-    if fotoid == 0:
-        return False
-    userid = session["user_id"]
-    rows = db.execute("SELECT * FROM beoordeeld WHERE userid = :userid AND fotoid = :fotoid", userid= userid, fotoid= fotoid)
-    if len(rows) == 1:
-        return False
-    return True
 
 
 
