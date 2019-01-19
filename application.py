@@ -301,3 +301,14 @@ def logout():
     session.clear()
     return redirect(url_for("index"))
 
+# Dit zorgt ervoor dat de pagina niet hoeft te refreshen (als ik het goed heb)
+@app.route('/json')
+def json():
+    return render_template('profile.html')
+
+# Dit is de functie die wordt aangeroepen in de 'neppe' refresh van de javascript. Hierin moet dus de volg functie worden aangeroepen.
+# Voor nu print hij even 'Hello' zodat ik in de frontend kon testen of het werkte. Als je flask runt en op een profiel nu op volg of ontvolg klikt, zie je in de terminal dat Hello wordt geprint.
+@app.route('/followtest')
+def followtest():
+    print ("Hello")
+    return "nothing"
