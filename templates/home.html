@@ -1,55 +1,114 @@
 {% extends "layout.html" %}
 
+
+
 {% block title %}
     Home
 {% endblock %}
 
 {% block main %}
-<!-- Overkoepelende div voor homepage -->
-<div class="homepage">
-    <!-- Dislike knop (Voorlopig nog gewoon een link) -->
-    <div class="dislike-veld">
-        <a href="/dislike/{{ fotoid }}">Dislike</a>
-    </div>
-    <!-- Like knop (Voorlopig nog gewoon een link) -->
+
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" type="text/css" media="screen"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='foto.css') }}" type="text/css" media="screen"/>
+
+<div class="container_right">
+
+  <div class="right_flex">
     <div class="like-veld">
-        <a href="/like/{{ fotoid }}">Like</a>
+        <a href="/like/{{ fotoid }}">
+          <img src="static/like_knop.png" alt="like button" style="object-fit:cover" class="likebutton">
+        </a>
     </div>
-    <!-- Complete fotoweergave, exclusief comments -->
-    <div class="fotoweergave">
-        <!-- De topbar van de fotoweergave, hierin staat de profielfoto en naam van de uploader, samen met de titel en timestamp -->
-        <div class="fotoweergave-top">
-            <!-- Profielfoto van de uploader -->
-            <div class="profielfoto-tinder"><img style="height: 100px; width: 100px" src="{{ profielfoto }}"/></div>
-            <!-- Naam van de uploader -->
-            <div class="naam-tinder"><a href="/profile/{{ accountnaam }}">{{ naam }}</a></div>
-            <!-- Titel van de post -->
-            <div class="titel-tinder">{{ titel }}</div>
-            <!-- Datum/timestamp van de post -->
-            <div class="date-tinder">{{ date }}</div>
-        </div>
-        <!-- Het middelste deel van de fotoweergave, hier staat alleen de foto -->
-        <div class="fotoweergave-mid">
-            <!-- De foto waar het om draait -->
-            <div class="foto-tinder"><img style="height: 100px; width: 100px" src="{{ foto }}"/></div>
-        </div>
-        <!-- Het onderste deel van de fotoweergave, hierin staat de caption -->
-        <div class="fotoweergave-bot">
-            <!-- De caption die bij de post hoort -->
-            <div class="caption-tinder">{{ caption }}</div>
-        </div>
-    </div>
-    <!-- Onderstaand staat los van de fotoweergave en weergeeft de comments van de post -->
-    <div class="fotoweergave-comments">
-        <!-- Loop door geplaatste comments -->
-        {% for comment in comments %}
-            <!-- De profielfoto van de plaatser van de comment -->
-            <div class="profielfoto-comment"><img style="height: 100px; width: 100px" src="{{ comment.profielfotocomment }}"/></div>
-            <!-- De profielnaam van de plaatser van de comment -->
-            <div class="profielnaam-comment"><a href="/profile/{{ comment.commentaccount }}">{{ comment.profielnaamcomment }}</a></div>
-            <!-- De daadwerkelijk comment -->
-            <div class="bericht-comment">{{ comment.berichtcomment }}</div>
-            {% endfor %}
-    </div>
+  </div>
+
 </div>
+
+<div class="container_left">
+
+  <div class="left_flex">
+    <div class="dislike-veld">
+        <a href="/dislike/{{ fotoid }}">
+          <img src="static/dislike_knop.png" alt="dislike button" style="object-fit:cover" class="dislikebutton">
+        </a>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="container">
+
+  <div class="flex-container" >
+    <div class="location_pf">
+      <a href="/profile/{{ accountnaam }}">
+        <img src="{{ profielfoto }}" alt="profilepicture" style="object-fit:cover;" class="profilepicture">
+      </a>
+    </div>
+    <div>
+
+      <p>{{ titel }}</p>
+    </div>
+    <div>
+      <div style="align-self: center">{{ date }}</div>
+      <div style="align-self: center">
+        <button type="submit" class="volgknop btn">-Follow-</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="main-image">
+    <img src="{{ foto }}" alt="Norway" style="object-fit:cover;">
+  </div>
+
+
+   <div class="flex-container2">
+    <div>
+      {{ caption }}
+    </div>
+    <div>
+      <div>
+        <div>
+          -705-
+        </div>
+      </div>
+      <div>
+        likes
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="comments">
+    {% for comment in comments %}
+    <div class="flex-comment">
+      <div>
+        <a href="/profile/{{ comment.commentaccount }}">
+          <img src="{{ comment.profielfotocomment }}" alt="profilepicture" style="object-fit:cover;" class="comment_pf">
+        </a>
+      </div>
+
+      <div>
+        <div>
+            {{ comment.profielnaamcomment }}
+        </div>
+        <div>
+           {{ comment.berichtcomment }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+
+  <div class="flex-commentfield">
+    <div class="commentfield">
+      <form action="/action_page.php" autocomplete=off>
+        <textarea placeholder="Leave a comment" name="user_comment" class="user_comment"></textarea>
+      <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
+
 {% endblock %}

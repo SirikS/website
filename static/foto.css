@@ -1,0 +1,237 @@
+
+/*de middelste container met de foto*/
+.container{
+    width:50%;
+}
+
+/*opmaak van de profielfoto van de uploader*/
+.profilepicture{
+    border-radius: 50%;
+    width:95px;
+    height:95px;
+    padding:5px;
+}
+
+/*opmaak van het vak waarin de pf, titel, datestamp en volgknop zitten*/
+.flex-container{
+    background-color: #f1f1f1;
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex-container > div {
+    margin: 5px;
+    text-align: center;
+    font-size: 30px;
+}
+
+/*opmaak van het vak waarin de profielfoto staat*/
+.flex-container> div:nth-child(1) {
+    line-height: 75px;
+    margin-right: 20px;
+
+}
+
+/*opmaak van het vak voor de titel*/
+.flex-container> div:nth-child(2) {
+    flex: 1 1 100%;
+    line-height: 100%;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*opmaak van de titel*/
+.flex-container> div:nth-child(2) >p {
+    padding:1%;
+    font-size:20px;
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-weight: bold
+}
+
+/*opmaak van het vak voor de datestamp en volgknop*/
+.flex-container> div:nth-child(3) {
+    margin-right: 20px;
+    flex: 1 1 30%;
+    flex-direction: column;
+}
+
+/*opmaak van het vak voor de datestamp*/
+.flex-container> div:nth-child(3) >div:nth-child(1) {
+    font-size: 12px;
+    margin-top: 20%;
+}
+
+/*opmaak van de volgknop*/
+.flex-container> div:nth-child(3) >div:nth-child(2) >.volgknop{
+    font-size:18px;
+    text-align: center;
+    margin-top:10%;
+    width: 90px;
+    height: 40px;
+    background-color:lightblue;
+}
+
+/*opmaak van de container met de caption en aantal likes*/
+.flex-container2{
+    background-color: #f1f1f1;
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.flex-container2 > div {
+    margin: 5px;
+    text-align: center;
+    font-size: 30px;
+
+}
+
+/*opmaak van de caption*/
+.flex-container2 > div:nth-child(1){
+    flex: 1 1 100%;
+    font-size: 100%;
+
+    padding:2%;
+    padding-left:3%;
+    padding-right:3%;
+    text-align: left;
+
+}
+
+/*opmaak van het vak voor het aantal likes en het woord "likes"*/
+.flex-container2 > div:nth-child(2){
+    max-height:80px;
+    width:140px;
+    flex-direction: column;
+    font-size: 12px;
+    background-color: lightblue;
+    border-radius: 10px
+
+}
+
+/*opmaak van het vak voor het aantal likes*/
+.flex-container2 > div:nth-child(2) >div:nth-child(1){;
+    height:60%;
+}
+
+/*opmaak van de weergave van het aantal likes*/
+.flex-container2 > div:nth-child(2) >div:nth-child(1) >div:nth-child(1){
+    font-size: 30px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-weight: bold
+}
+
+/*opmaak van het vak met het woord "likes"*/
+.flex-container2 > div:nth-child(2) >div:nth-child(2){
+    height:40%;
+    flex: 1 1 100%;
+    font-size: 20px;
+    background-color: lightgrey;
+    text-transform: uppercase;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+/*opmaak van de middelste foto*/
+.main-image{
+    width:100%;
+    height:400px;
+}
+
+.main-image > img {
+    width:100%;
+    height:100%;
+}
+
+
+/*opmaak van het commentveld*/
+.comments {
+    width: 100%;
+    height: 150px;
+    overflow: auto;
+    padding-top: 10px;
+    padding-bottom:10px;
+    border: 5px #f1f1f1;
+    margin: 0;
+}
+
+/*opmaak voor één complete comment*/
+.flex-comment{
+    background-color: #f1f1f1;
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: start;
+    margin-bottom:10px;
+}
+
+.flex-comment > div {
+    margin: 5px;
+    text-align: left;
+    font-size: 14px;
+}
+
+/*opmaak voor de profielfoto van degene die de comment heeft achtergelaten*/
+.comment_pf{
+    border-radius: 50%;
+    width:80px;
+    height:80px;
+    padding:5px;
+}
+
+
+/*opmaak voor de gebruikersnaam*/
+.flex-comment > div:nth-child(2) > div:nth-child(1){
+     font-weight: bold;
+}
+
+/*opmaak voor de comment*/
+.flex-comment > div:nth-child(2) > div:nth-child(2){
+    padding-right:10px;
+
+
+}
+
+/*opmaak van het vak waarin je een comment kan typen*/
+.flex-commentfield{
+    background-color: #f1f1f1;
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    justify-content: start;
+    margin-bottom:10px;
+}
+
+.flex-commentfield >div{
+    width:100%;
+    padding: 10px;
+
+}
+
+/*opmaak van het vak waarin getypt wordt*/
+.flex-commentfield >div >form >textarea{
+    border: 2px;
+    border-radius: 4px;
+    width: 100%;
+    height: 80px;
+}
+
+/*opmaak van de submit knop*/
+.flex-commentfield >div >form >button{
+    background-color:lightblue;
+}
