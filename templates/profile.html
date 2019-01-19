@@ -5,6 +5,22 @@
 {% endblock %}
 
 {% block main %}
+<!-- Onderstaand zorgt ervoor dat de volg/ontvolg knop werkt -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+            // button staat hier voor de button tag en het #knop staat voor het id van de button -->
+          $('button#knop').bind('click', function() {
+            $.getJSON('/followtest',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
+
+</div>
 <!-- Buitenste div van profielinformatie inclusief profielfoto -->
 <div class="profielpagina">
     <!-- Verdeling van div profielpagina in linker en recter kolom -->
@@ -28,9 +44,13 @@
             <span style="text-align: center">{{ aantalvolgers }}</span>
             <!-- volg knoppen (eentje voor volg en anders eentje voor ontvolg) -->
             {% if welvolg %}
-            <button onclick="volgknop(); follow()" id="knop">Ontvolg</button>
+            <form>
+            <button onclick="volgknop();" id="knop">Ontvolg</button>
+            </form>
             {% else %}
-            <button onclick="volgknop(); follow()" id="knop">Volg</button>
+            <form>
+            <button onclick="volgknop();" id="knop">Volg</button>
+            </form>
             {% endif %}
         </p>
         </div>
