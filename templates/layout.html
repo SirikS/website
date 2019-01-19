@@ -78,18 +78,24 @@ function closeNav() {
 <!--<button onclick="openNav()" class="openbtn btn" >open</button>-->
 
 <div class="topnav">
-  <button onclick="openNav()" class="openbtn btn" >open</button>
+    <div>
+        <button onclick="openNav()" class="openbtn btn" >open</button>
 
-  <div class="search-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit">🔍</button>
-    </form>
-  </div>
+        <div class="search-container">
+            <form action="/action_page.php">
+                 <input type="text" placeholder="Search.." name="search">
+              <button type="submit">🔍</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 
 <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 <main id="main">
+
+    ??waar komt dit
+
+
     {% block main %}{% endblock %}
 </main>
