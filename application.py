@@ -61,13 +61,16 @@ def profile(username = ''):
     # look if the profile is followed
     welvolg = volgcheck(username)
 
+    persoonlijkefotos = get_persoonfotos(naamid(username))
+    likedfotos = get_likedfotos(naamid(username))
+
     #TODO
     #Laad foto's geplaatst door profiel
     #Laad gelikte foto's door profiel
     #Laad likes en dislikes op
     #Controle of gebruiker eigenaar is van profiel
     #Zo ja, laad bewerkknop voor profiel die redirect naar profiel beheerpagina.
-    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg)
+    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, persoonlijkefotos= persoonlijkefotos, likedfotos= likedfotos)
 
 
 
@@ -251,13 +254,15 @@ def dislike(fotoid):
 
 
 
-@app.route("/comment", methods=["POST"])
-@login_required
-def comment():
-    # todo
-    uploadcomment = request.form.get("uploadcomment")
-    userid = session["user_id"]
-    return apology("todo")
+# @app.route("/comment/<fotoid>", methods=["GET", "POST"])
+# @login_required
+# def comment(fotoid):
+#     if not geldig(fotoid):
+#         return apology("Fill in a valid photo-id")
+#     fotoid= int(fotoid)
+#     comment = request.form.get("uploadcomment")
+#     post_comment(fotoid, comment)
+#     return redirect(url_for("photo/" + str(fotoid)))
 
 
 
@@ -286,6 +291,20 @@ def upload():
             return redirect(url_for("home"))
 
     return render_template("upload.html")
+
+
+
+# @app.route("/photo", methods=["GET", "POST"])
+# @app.route("/photo/<fotoid>", methods=["GET", "POST"])
+# @login_required
+# def photo(fotoid = False):
+#     if not fotoid:
+#         return apology("Fill in a photo-id")
+#     fotoid = int(fotoid)
+#     if not geldig(fotoid):
+#         return apology("Fill in a valid photo-id")
+#     data = get_foto(fotoid)
+#     return render_template("foto.html", data = data)
 
 
 

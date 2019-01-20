@@ -108,7 +108,7 @@ def h_like(fotoid, userid, value):
     db.execute("INSERT INTO beoordeeld (fotoid, userid, liked) VALUES (:fotoid, :userid, :liked)",
                fotoid= fotoid, userid= userid, liked = value)
     # inserts the like/dislike into the total like/dislike count in foto database
-    if value == 1:
+    if value == '1':
         db.execute("UPDATE pictures SET totaallikes = totaallikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
     else:
         db.execute("UPDATE pictures SET totaaldislikes = totaaldislikes + 1 WHERE fotoid= :fotoid", fotoid= fotoid)
@@ -250,6 +250,8 @@ def get_beoordeeld(userid):
         beoordeeld.append(lijst[x]["fotoid"])
     return beoordeeld
 
+
+
 def volger_fotoid():
     # same as random but gets only pictures from followed accounts
     userid = session["user_id"]
@@ -268,7 +270,10 @@ def volger_fotoid():
 
 def get_foto(fotoid):
     # returns all variable's of a photo
-    return db.execute("SELECT * FROM pictures WHERE fotoid = :fotoid", fotoid = fotoid)[0]
+    try:
+        return db.execute("SELECT * FROM pictures WHERE fotoid = :fotoid", fotoid = fotoid)[0]
+    except:
+        return False
 
 
 
@@ -307,3 +312,37 @@ def get_gevolgd(userid):
     for x in range(len(volgenden)):
         volgend.append(volgenden[x]["userid"])
     return volgend
+
+
+
+def get_persoonfotos(userid):
+    paths = db.execute("SELECT path FROM pictures WHERE userid = :userid", userid = userid)
+    for x in range(len(paths)):
+        paths[x] = paths[x]["path"]
+    return paths
+
+
+
+def get_likedfotos(userid):
+    liked = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid AND liked = 1", userid = userid)
+    for x in range(len(liked)):
+        liked[x] = liked[x]["fotoid"]
+    fotos = db.execute("SELECT path FROM pictures WHERE fotoid IN (:liked)", liked= liked)
+    for x in range(len(fotos)):
+        fotos[x] = fotos[x]["path"]
+    return fotos
+
+
+
+def post_comment(fotoid, comment):
+    userid = session["user_id"]
+    db.execute("INSERT INTO comments (fotoid, userid, comment) VALUES (:fotoid, :userid, :comment)", fotoid= fotoid, userid= userid, comment= comment)
+    return True
+
+
+
+def geldig(fotoid):
+    if db.execute("SELECT * FROM pictures WHERE fotoid= :fotoid", fotoid= fotoid):
+        return True
+    else:
+        return False
