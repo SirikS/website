@@ -108,6 +108,7 @@ def manage():
         try:
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/pf_upload"
+            file = request.files['uploadfile']
 
             # this is the path to the picture in the folder
             path= os.path.join(foto_upload, file.filename)
@@ -117,14 +118,8 @@ def manage():
             profielfoto = pf_upload(path, filename)
         except:
             profielfoto = "NULL"
-        try:
-            name = request.form.get("profielnaam")
-        except:
-            name = "NULL"
-        try:
-            beschrijving = request.form.get("profielbio")
-        except:
-            beschrijving = "NULL"
+        name = request.form.get("profielnaam")
+        beschrijving = request.form.get("profielbio")
         if h_profile(name, profielfoto, beschrijving):
             return redirect(url_for("home"))
 
@@ -307,5 +302,8 @@ def logout():
 # Voor nu print hij even 'Hello' zodat ik in de frontend kon testen of het werkte. Als je flask runt en op een profiel nu op volg of ontvolg klikt, zie je in de terminal dat Hello wordt geprint.
 @app.route('/followtest')
 def followtest():
-    print ("Hello")
+    # ff handimatig test of het werkt totdat ik een geldig userid krijg
+    userid = int(1)
+    if not h_follow(userid):
+        return apology("ging iets fout in de database")
     return "nothing"

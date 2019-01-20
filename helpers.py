@@ -121,22 +121,20 @@ def h_profile(name, profielfoto, beschrijving):
     userid = session['user_id']
     # if no profile yet, make sure there is a name and profile picture
     if len(db.execute("SELECT * FROM profiel WHERE userid = :userid", userid= userid)) == 0:
-        if name == 'NULL':
+        if name == ' ':
             return apology("Must fill in a Name!")
-        if profielfoto == 'NULL':
+        if profielfoto == ' ':
             profielfoto = "/static_pfupload/1.jpg"
-        if beschrijving == "NULL":
-            beschrijving = ""
         #insert into database
         db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
                    userid= userid, name= name, profielfoto= profielfoto, beschrijving= beschrijving)
         return True
     # else if a value is not changed, get the old values
-    if name == 'NULL':
+    if not name:
         name = db.execute("SELECT name FROM profiel WHERE userid = :userid", userid=userid)[0]['name']
     if profielfoto == 'NULL':
         profielfoto = db.execute("SELECT profielfoto FROM profiel WHERE userid = :userid", userid=userid)[0]['profielfoto']
-    if beschrijving == 'NULL':
+    if not beschrijving:
         beschrijving = db.execute("SELECT beschrijving FROM profiel WHERE userid = :userid", userid=userid)[0]['beschrijving']
     # adjust the database
     db.execute("UPDATE profiel SET name = :name, profielfoto = :profielfoto, beschrijving = :beschrijving WHERE userid = :userid",
@@ -165,28 +163,27 @@ def pfname(userid):
 
 
 
-def follow():
+def h_follow(userid):
     # the user is the follower
     volgerid = session["user_id"]
     # the followed is the person who's profile is in the link
-    url= request.url
-    parsed = urlparse(url)
-    user = parse_qs(parsed.query)['account'][0]
-    userid = naamid(user)
 
     # Looks how many rows there are in the database
     rows = db.execute("SELECT * FROM volgers WHERE userid= :userid AND volgerid= :volgerid", userid= userid, volgerid= volgerid)
+
     # if no rows, add the follow
     if len(rows) == 0:
-        db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
-        db.execute("UPDATE profiel SET volgers = volgers + 1 WHERE userid = :userid AND vogerid= :volgerid", userid= userid, volgerid= volgerid)
+        db.execute("INSERT INTO volgers (userid, volgerid) VALUES (:userid, :volgerid)", userid= userid, volgerid= volgerid)
+        db.execute("UPDATE profiel SET volgers = volgers + 1 WHERE userid = :userid", userid= userid)
+
     # if there is a row, unfollow
     elif len(rows) == 1:
-        db.execute("DELETE FROM volgers (userid, volgerid) VALUES (:userid, :volgerid", userid= userid, volgerid= volgerid)
-        db.execute("UPDATE profiel SET volgers = volgers - 1 WHERE userid = :userid AND vogerid= :volgerid", userid= userid, volgerid= volgerid)
-    # else something gone wrong inside of the database
+        db.execute("DELETE FROM volgers WHERE userid = :userid AND volgerid= :volgerid", userid= userid, volgerid= volgerid)
+        db.execute("UPDATE profiel SET volgers = volgers - 1 WHERE userid = :userid", userid= userid)
+
+    # else, something gone wrong inside of the database
     else:
-        return apology("Er ging iets fout in de database")
+        return False
     return True
 
 
@@ -233,7 +230,6 @@ def random_fotoid():
     userid = session["user_id"]
 
     beoordeeld = get_beoordeeld(userid)
-    print(beoordeeld)
     # gets a list of pictures that are not their own's
     lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid AND fotoid NOT IN (:beoordeeld)", userid = userid, beoordeeld = beoordeeld)
 
