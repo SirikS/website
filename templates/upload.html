@@ -85,7 +85,8 @@ $(document).ready(function() {
 
     httpGetAsync('https://api.giphy.com/v1/gifs/search?' + params, function(data) {
       var gifs = JSON.parse(data);
-      console.log(gifs.data[0].images.downsized.url);
+      console.log(gifs.data[0].images.original.url);
+      document.getElementById('gif').setAttribute('value', gifs.data[0].images.original.url);
     });
   }
 
@@ -120,12 +121,12 @@ $(document).ready(function() {
     <div class="container">
         </div>
             <div id="query">
-        <input type="text" id="inputQuery"><input type="button" id="submitButton" value="submit">
+        <input type="text" id="inputQuery"><input type="button" id="submitButton" value="Zoek naar GIF">
     </div>
             <div id="image">
             </div>
             <div class="form-group">
-                <input name="gifje" type="file"/>
+                <input id="gif" name="gifje" type="hidden" value=""/>
         </div>
             <div class="form-group">
             <!-- Titel kunnen toevoegen -->
