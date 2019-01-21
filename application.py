@@ -301,7 +301,6 @@ def upload():
 
 
 
-# @app.route("/photo", methods=["GET", "POST"])
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
 @login_required
 def photo(fotoid = False):
