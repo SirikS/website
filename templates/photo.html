@@ -3,39 +3,12 @@
 
 
 {% block title %}
-    Pack
+    Photo
 {% endblock %}
 
 {% block main %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" type="text/css" media="screen"/>
 <link rel="stylesheet" href="{{ url_for('static', filename='foto.css') }}" type="text/css" media="screen"/>
-
-<div class="container_right">
-
-  <div class="right_flex">
-    <div class="like-veld">
-        <a href="/like/{{ fotoid }}/pack">
-          <img src="static/like_knop.png" alt="like button" style="object-fit:cover" class="likebutton">
-        </a>
-    </div>
-  </div>
-
-</div>
-
-<div class="container_left">
-
-  <div class="left_flex">
-    <div class="dislike-veld">
-        <a href="/dislike/{{ fotoid }}/pack">
-          <img src="static/dislike_knop.png" alt="dislike button" style="object-fit:cover" class="dislikebutton">
-        </a>
-    </div>
-  </div>
-
-</div>
-
-
 
 <div class="container">
 
@@ -59,7 +32,7 @@
 
 
   <div class="main-image">
-    <img src="{{ foto }}" alt="Photo" style="object-fit:cover;">
+    <img src="{{ foto }}" alt="photo" style="object-fit:cover;">
   </div>
 
 

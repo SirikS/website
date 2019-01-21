@@ -15,7 +15,7 @@
 
   <div class="right_flex">
     <div class="like-veld">
-        <a href="/like/{{ fotoid }}">
+        <a href="/like/{{ fotoid }}/home">
           <img src="static/like_knop.png" alt="like button" style="object-fit:cover" class="likebutton">
         </a>
     </div>
@@ -27,7 +27,7 @@
 
   <div class="left_flex">
     <div class="dislike-veld">
-        <a href="/dislike/{{ fotoid }}">
+        <a href="/dislike/{{ fotoid }}/home">
           <img src="static/dislike_knop.png" alt="dislike button" style="object-fit:cover" class="dislikebutton">
         </a>
     </div>
@@ -59,7 +59,7 @@
 
 
   <div class="main-image">
-    <img src="{{ foto }}" alt="Norway" style="object-fit:cover;">
+    <img src="{{ foto }}" alt="Photo" style="object-fit:cover;">
   </div>
 
 
@@ -70,7 +70,7 @@
     <div>
       <div>
         <div>
-          -705-
+          {{ likes }}
         </div>
       </div>
       <div>
@@ -102,11 +102,14 @@
     {% endfor %}
     </div>
 
+
+
   <div class="flex-commentfield">
     <div class="commentfield">
-      <form action="/action_page.php" autocomplete=off>
-        <textarea placeholder="Leave a comment" name="user_comment" class="user_comment"></textarea>
-      <button type="submit" class="btn">Submit</button>
+      <form action="/comment/{{fotoid}}" method="post">
+        <textarea name="uploadcomment" placeholder="Leave a comment"></textarea>
+        <br>
+        <input type="submit" class="btn">
       </form>
     </div>
   </div>
