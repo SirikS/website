@@ -13,24 +13,25 @@
     <!-- fieldset is een class die de opmaak van het algehele formulier doet -->
     <fieldset class="fieldset">
         <!-- form-group is een class die de opmaak van de velden doet -->
-<div class="container">
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-		    <div class="form-group">
-              <div class="main-img-preview">
-                <img class="thumbnail img-preview" src="static/preview_foto/upload-image.png" width="400px">
-              </div>
-              <div class="input-group">
-                <div class="input-group-btn">
-                    <input id="logo-id" name="logo" type="file">
-                  </div>
-                </div>
-              </div>
-            </div>
-		</div>
-	</div>
-</div>
-        <div class="form-group">
+        <div class="container">
+        	<div class="row">
+        		<div class="col-md-4 col-md-offset-4">
+        		    <div class="form-group">
+                      <div class="main-img-preview">
+                        <img class="thumbnail img-preview" src="static/preview_foto/upload-image.png" width="400px">
+                      </div>
+                      <div class="input-group">
+                        <div class="input-group-btn">
+                            <input name="uploadfile" id="logo-id" name="uploadfile" type="file" accept="image/*"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        		</div>
+        	</div>
+    <div class="container">
+        </div>
+            <div class="form-group">
             <!-- Titel kunnen toevoegen -->
             <input class="form-control" name="titel" placeholder="Title" type="text"/>
         </div>
@@ -46,11 +47,11 @@
             <!-- Submit knop -->
             <button class="btn btn-default" type="submit">Post</button>
         </div>
+    </div>
     </fieldset>
 </form>
 <script>
     $(document).ready(function() {
-    var brand = document.getElementById('logo-id');
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
