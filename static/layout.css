@@ -4,9 +4,9 @@
   width: 200px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
+  top: 50; /* Stay at the top */
   left: 0;
-  background-color: #b1b8bf; /*gray*/
+  background-color: #2a2b2d; /*gray*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -51,9 +51,9 @@ li{
 }
 
 .topnav {
-    display:flex;
+  display:flex;
+  background-color:#404144;
   overflow: hidden;
-  margin-top:8px;
   width:100%;
 }
 
@@ -64,6 +64,7 @@ li{
 .topnav > div > button{
     margin-left:12px;
     margin-top:10px;
+    margin-bottom:10px;
     font-size: 20px;
     color: white;
     background-color: #b1b8bf;
@@ -126,4 +127,3 @@ li{
 
 /*kleur navbar: background-color: #b1b8bf*/
 /*        border-color: #2e6da4;*/
-

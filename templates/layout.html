@@ -9,6 +9,7 @@
 
         <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <link href="{{ url_for('static', filename='layout.css') }}" rel="stylesheet" type="text/css" media="screen"//>
 
@@ -47,19 +48,29 @@
     </head>
 
 <script>
-/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-function openNav() {
-  document.getElementById("mySidenav").style.width = "200px";
-  document.getElementById("main").style.marginLeft = "200px";
-}
-
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft = "95px";
-}
-
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+        alert(1);
+    });
 </script>
+
+<!-- Use any element to open the sidenav -->
+<!--<button onclick="openNav()" class="openbtn btn" >open</button>-->
+
+<div class="topnav">
+    <div>
+
+        <button onclick="openNav()" style="font-size:24px"> <i class="fa fa-align-justify"></i></button>
+
+        <div class="search-container">
+            <form action="/action_page.php">
+                 <input type="text" placeholder="Search.." name="search">
+              <button type="submit">🔍</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -73,22 +84,6 @@ function closeNav() {
     <a href="{{ url_for('logout') }}" class="logoutknop">Log out</a>
 </div>
 
-
-<!-- Use any element to open the sidenav -->
-<!--<button onclick="openNav()" class="openbtn btn" >open</button>-->
-
-<div class="topnav">
-    <div>
-        <button onclick="openNav()" class="openbtn btn" >open</button>
-
-        <div class="search-container">
-            <form action="/action_page.php">
-                 <input type="text" placeholder="Search.." name="search">
-              <button type="submit">🔍</button>
-            </form>
-        </div>
-    </div>
-</div>
 
 
 <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
