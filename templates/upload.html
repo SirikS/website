@@ -70,19 +70,31 @@ $(document).ready(function() {
 
     // api from https://github.com/Giphy/GiphyAPI#search-endpoint
 
-    httpGetAsync('http://api.giphy.com/v1/gifs/search?' + params, function(data) {
+    httpGetAsync('https://api.giphy.com/v1/gifs/search?' + params, function(data) {
       var gifs = JSON.parse(data);
       var firstgif = gifs.data[0].images.fixed_width.url;
       $("#image").html("<img src='" + firstgif + "'>");
       console.log(gifs.data);
     });
   }
+  function uploadGif(query) {
+    console.log(query);
+    query = query.replace(' ', '+');
+    var params = { 'api_key': apikey, 'q': query};
+    params = encodeQueryData(params);
+
+    httpGetAsync('https://api.giphy.com/v1/gifs/search?' + params, function(data) {
+      var gifs = JSON.parse(data);
+      console.log(gifs.data[0].images.downsized.url);
+    });
+  }
 
   $("#submitButton").on("click", function() {
     var query = $("#inputQuery").val();
     getGif(query);
+    uploadGif(query);
   });
-});
+})
 </script>
 
 <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data"> <!-- Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
@@ -98,7 +110,7 @@ $(document).ready(function() {
                       </div>
                       <div class="input-group">
                         <div class="input-group-btn">
-                            <input name="uploadfile" id="logo-id" name="uploadfile" type="file" accept="image/*"/>
+                            <input id="logo-id" name="uploadfile" type="file" accept="image/*"/>
                           </div>
                         </div>
                       </div>
@@ -113,7 +125,7 @@ $(document).ready(function() {
             <div id="image">
             </div>
             <div class="form-group">
-                <input name="gifje" id="logo-id" name="uploadfile" type="file"/>
+                <input name="gifje" type="file"/>
         </div>
             <div class="form-group">
             <!-- Titel kunnen toevoegen -->
