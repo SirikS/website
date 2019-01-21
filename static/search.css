@@ -1,0 +1,167 @@
+.container{
+    width:100%;
+}
+
+/*opmaak voor de container met wat er is gezocht*/
+.flex_zoek{
+    display:flex;
+    background-color:lightgray;
+    height:10%;
+    flex-direction: column;
+    padding:15px;
+}
+
+/*opmaak voor wat er is gezocht*/
+.flex_zoek > .zoekterm{
+    font-size: 150%;
+    margin-left:5%;
+}
+
+/*opmaak voor het aantal resultaten*/
+.flex_zoek > .aantal_resultaten{
+    font-size: 110%;
+    margin-left:5%;
+    margin-top: auto
+}
+
+
+/*opmaak voor de profielen*/
+.flex_profielen{
+    padding:15px;
+    display:flex;
+    height:25%;
+    flex-direction:column;
+    /*nodig voor de streep*/
+    display: block;
+    border-top: 3px solid #000;
+    border-bottom:3px solid #000;
+    padding-bottom:2%;
+
+}
+
+/*hier staat het woord: users*/
+.flex_profielen > div:nth-child(1){
+    margin-left:5%;
+    margin-top:1%;
+    font-size: 150%;
+}
+
+/* het veld waarin de gebruikers staan*/
+.flex_profielen > div:nth-child(2){
+    display:flex;
+    margin-left:5%;
+    margin-top:1%;
+    /*overflow-x: scroll;*/
+    /*overflow-y: hidden;*/
+    overflow: auto;
+    margin-right:5%;
+
+}
+
+
+/* hokje voor één gebruiker*/
+.flex_profielen > div:nth-child(2) >div{
+    height:70%;
+    display:flex;
+    flex-direction:row;
+    margin-right:3%;
+    margin-bottom:1%;
+}
+
+
+ /*foto in een hokje*/
+.flex_profielen > div:nth-child(2) >div > div:nth-child(1){
+    height:8vw;
+    float:left;
+    width:9vw;
+    border-top-left-radius:50%;
+    border-bottom-left-radius:50%;
+    background-color:lightblue
+}
+
+.profilepicture{
+    height:8vw;
+    float:left;
+    width:8vw;
+    border-radius:50%;
+}
+
+/* hokje van het account*/
+.flex_profielen > div:nth-child(2) >div > div:nth-child(2){
+    font-size: 1.5vw;
+    height:8vw;
+    float:left;
+    width:12vw;
+    background-color:lightblue
+}
+
+/*opmaak van de tekst in het hokje*/
+.flex_profielen > div:nth-child(2) >div > div:nth-child(2) > div{
+    width: 8vw;
+    font-size: 1.5vw;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/*vak waar alle fotos in komen*/
+.flex_fotos{
+    padding:15px;
+}
+
+.flex_fotos >div{
+    justify-content: center;
+    display:flex;
+    flex-wrap: wrap;
+    margin-top:1%;
+
+}
+
+/*opmaak voor het hokje waar de complete foto, titel, likes in komt*/
+.flex_fotos >div > div{
+    display:flex;
+    flex-direction:column;
+    width:27vw;
+    margin-right:2%;
+    margin-bottom:2%;
+}
+
+
+/*opmaak voor de titel*/
+.flex_fotos >div > div > div:nth-child(1){
+    background-color:lightgray;
+    height:3vw;
+}
+
+.flex_fotos >div > div > div:nth-child(1) >div{
+    font-size: 2vw;
+    font-weight: bold;
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+}
+
+/*opmaak voor de foto*/
+.mainpicture{
+    width:27vw;
+    height:17vw;
+}
+
+
+/*opmaak voor het aantal likes*/
+.flex_fotos >div > div > div:nth-child(3){
+    background-color:lightgray;
+    height:2vw;
+}
+
+/*opmaak voor het aantal likes*/
+.flex_fotos >div > div > div:nth-child(3) >div{
+    font-size:1.5vw;
+    font-weight:bold;
+    float:right;
+    margin-right:0.5vw;
+}
