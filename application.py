@@ -254,15 +254,17 @@ def dislike(fotoid):
 
 
 
-# @app.route("/comment/<fotoid>", methods=["GET", "POST"])
-# @login_required
-# def comment(fotoid):
-#     if not geldig(fotoid):
-#         return apology("Fill in a valid photo-id")
-#     fotoid= int(fotoid)
-#     comment = request.form.get("uploadcomment")
-#     post_comment(fotoid, comment)
-#     return redirect(url_for("photo/" + str(fotoid)))
+@app.route("/comment/<fotoid>", methods=["GET", "POST"])
+@login_required
+def comment(fotoid):
+    if not geldig(fotoid):
+        return apology("Fill in a valid photo-id")
+    fotoid= int(fotoid)
+    comment = request.form.get("uploadcomment")
+    print(type(comment), comment)
+    post_comment(fotoid, comment)
+    return redirect(url_for("home"))
+    # return redirect(url_for("photo/" + str(fotoid)))
 
 
 

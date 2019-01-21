@@ -102,11 +102,14 @@
     {% endfor %}
     </div>
 
+
+
   <div class="flex-commentfield">
     <div class="commentfield">
-      <form action="/action_page.php" autocomplete=off>
-        <textarea placeholder="Leave a comment" name="user_comment" class="user_comment"></textarea>
-      <button type="submit" class="btn">Submit</button>
+      <form action="/comment/{{fotoid}}" method="post">
+        <textarea name="uploadcomment" placeholder="Leave a comment"></textarea>
+        <br>
+        <input type="submit" class="btn">
       </form>
     </div>
   </div>
