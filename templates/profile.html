@@ -11,7 +11,7 @@
         $(function() {
             // button staat hier voor de button tag en het #knop staat voor het id van de button -->
           $('button#knop').bind('click', function() {
-            $.getJSON('/followtest',
+            $.getJSON('/follow/{{ userid }}',
                 function(data) {
               //do nothing
             });

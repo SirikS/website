@@ -70,7 +70,7 @@ def profile(username = ''):
     #Laad likes en dislikes op
     #Controle of gebruiker eigenaar is van profiel
     #Zo ja, laad bewerkknop voor profiel die redirect naar profiel beheerpagina.
-    return render_template("profile.html", profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, persoonlijkefotos= persoonlijkefotos, likedfotos= likedfotos)
+    return render_template("profile.html", userid = naamid(username), profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, persoonlijkefotos= persoonlijkefotos, likedfotos= likedfotos)
 
 
 
@@ -191,6 +191,7 @@ def home():
     caption = data["caption"]
     titel = data["titel"]
     date = data["date"]
+    likes = data["totaallikes"]
 
     # get the uploader's profile pic and name
     profielfoto, naam = pfname(data["userid"])
@@ -199,7 +200,7 @@ def home():
     comments = get_comments(fotoid)
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("home.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
+    return render_template("home.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username, likes = likes)
 
 
 
@@ -222,6 +223,7 @@ def pack():
     caption = data["caption"]
     titel = data["titel"]
     date = data["date"]
+    likes = data["totaallikes"]
 
     # get the uploaders profile pic and name
     profielfoto, naam = pfname(data["userid"])
@@ -232,25 +234,25 @@ def pack():
     # Laad share mogelijkheden
     # Laad like en dislike knop
     # Laad share mogelijkheden
-    return render_template("pack.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
+    return render_template("pack.html", likes= likes, foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
 
 
 
-@app.route("/like/<fotoid>")
+@app.route("/like/<fotoid>/<direct>")
 @login_required
-def like(fotoid):
+def like(fotoid, direct = 'home'):
     userid = session["user_id"]
     h_like(fotoid, userid, '1')
-    return redirect(url_for("home"))
+    return redirect(url_for(direct))
 
 
 
-@app.route("/dislike/<fotoid>")
+@app.route("/dislike/<fotoid>/<direct>")
 @login_required
-def dislike(fotoid):
+def dislike(fotoid, direct = 'home'):
     userid = session["user_id"]
     h_like(fotoid, userid, '0')
-    return redirect(url_for("home"))
+    return redirect(url_for(direct))
 
 
 
@@ -263,8 +265,7 @@ def comment(fotoid):
     comment = request.form.get("uploadcomment")
     print(type(comment), comment)
     post_comment(fotoid, comment)
-    return redirect(url_for("home"))
-    # return redirect(url_for("photo/" + str(fotoid)))
+    return redirect(url_for("/photo", fotoid= fotoid))
 
 
 
@@ -289,24 +290,42 @@ def upload():
         if not title or not caption:
             return apology("please enter a title and caption")
 
-        if h_upload(path, title, caption, filename) == True:
-            return redirect(url_for("home"))
+        fotoid = h_upload(path, title, caption, filename)
+        if fotoid:
+            print(fotoid)
+            return redirect(url_for("photo", fotoid= fotoid))
+        else:
+            return apology("ging iets fout")
 
     return render_template("upload.html")
 
 
 
-# @app.route("/photo", methods=["GET", "POST"])
-# @app.route("/photo/<fotoid>", methods=["GET", "POST"])
-# @login_required
-# def photo(fotoid = False):
-#     if not fotoid:
-#         return apology("Fill in a photo-id")
-#     fotoid = int(fotoid)
-#     if not geldig(fotoid):
-#         return apology("Fill in a valid photo-id")
-#     data = get_foto(fotoid)
-#     return render_template("foto.html", data = data)
+@app.route("/photo", methods=["GET", "POST"])
+@app.route("/photo/<fotoid>", methods=["GET", "POST"])
+@login_required
+def photo(fotoid = False):
+    if not fotoid:
+        return apology("Fill in a photo-id")
+    fotoid = int(fotoid)
+    if not geldig(fotoid):
+        return apology("Fill in a valid photo-id")
+    data = get_foto(fotoid)
+
+    username = idnaam(data["userid"])
+    fotoid = data["fotoid"]
+    foto = data['path']
+    caption = data["caption"]
+    titel = data["titel"]
+    date = data["date"]
+    likes = data["totaallikes"]
+
+    # get the uploaders profile pic and name
+    profielfoto, naam = pfname(data["userid"])
+
+    # also get the comments
+    comments = get_comments(fotoid)
+    return render_template("photo.html", fotoid= fotoid, foto=foto, caption= caption, titel= titel, date= date, likes= likes, profielfoto= profielfoto, naam = naam, comments= comments)
 
 
 
@@ -321,10 +340,10 @@ def logout():
 
 # Dit is de functie die wordt aangeroepen in de 'neppe' refresh van de javascript. Hierin moet dus de volg functie worden aangeroepen.
 # Voor nu print hij even 'Hello' zodat ik in de frontend kon testen of het werkte. Als je flask runt en op een profiel nu op volg of ontvolg klikt, zie je in de terminal dat Hello wordt geprint.
-@app.route('/followtest')
-def followtest():
+@app.route('/follow/<userid>')
+def follow(userid):
     # ff handimatig test of het werkt totdat ik een geldig userid krijg
-    userid = int(1)
+    userid = int(userid)
     if not h_follow(userid):
         return apology("ging iets fout in de database")
     return "nothing"

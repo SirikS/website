@@ -77,7 +77,7 @@ def h_upload(path, titel, caption, filename):
     new_path = "/static/foto_upload/" + new_name
     db.execute("UPDATE pictures SET path = :pt WHERE userid = :id AND fotoid = :fid",
                 id=session['user_id'], fid=fotoid, pt=new_path)
-    return True
+    return fotoid
 
 
 
