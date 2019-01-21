@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+    <p>
+        dit zijn de profielen met de naam
+    </p>
+    <div class="profielen">
+        {% for profiel in profiel_search %}
+        <div>
+            <a href="/profile/{{ profiel.account }}">
+              <img src="{{ profiel.profielfoto }}" alt="profilepicture">
+            </a>
+        </div>
+        <div>
+            {{ profiel.profielnaam }}
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <p>
+        dit zijn de fotos met deze naam
+    </p>
+    <div class="fotos">
+        {% for foto in foto_search %}
+        <div>
+            <a href="/photo/{{ foto.foto_id }}">
+              <img src="{{ foto.path }}" alt="picture">
+            </a>
+        </div>
+        <div>
+        {{ foto.likes}}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

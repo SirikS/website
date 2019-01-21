@@ -347,3 +347,16 @@ def follow(userid):
     if not h_follow(userid):
         return apology("ging iets fout in de database")
     return "nothing"
+
+
+
+@app.route("/search", methods=["GET", "POST"])
+@login_required
+def search():
+    zoekopdracht = request.form.get("search")
+
+    # naam-foto = pfname(userid)
+    profiel_search = h_profielsearch(zoekopdracht)
+    foto_search = h_fotosearch(zoekopdracht)
+
+    return render_template("search.html", profiel_search = profiel_search, foto_search = foto_search)

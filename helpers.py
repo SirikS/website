@@ -346,3 +346,42 @@ def geldig(fotoid):
         return True
     else:
         return False
+
+
+
+def h_profielsearch(zoekopdracht):
+    profiel_search = []
+
+    names = db.execute("SELECT * FROM profiel WHERE name= :name", name= zoekopdracht)
+    for name in names:
+        profiel={}
+        profiel["account"] = idnaam(name['userid'])
+        profiel["user_id"] = name['userid']
+        profiel['profielnaam'] = name['name']
+        profiel['profielfoto'] = name['profielfoto']
+        profiel_search.append(profiel)
+
+    usernames = db.execute("SELECT * FROM accounts WHERE username= :name", name= zoekopdracht)
+    for username in usernames:
+        profiel={}
+        profiel["user_id"] = username['userid']
+        naam_foto = pfname(username['userid'])
+        profiel['profielnaam'] = zoekopdracht
+        profiel['profielfoto'] = naam_foto[0]
+        profiel['account'] = zoekopdracht
+        profiel_search.append(profiel)
+
+    return profiel_search
+
+def h_fotosearch(zoekopdracht):
+    foto_search = []
+
+    fotos= db.execute("SELECT * FROM pictures WHERE titel= :ti", ti= zoekopdracht)
+    for foto in fotos:
+        profiel={}
+        profiel["foto_id"] = foto["fotoid"]
+        profiel["path"] = foto["path"]
+        profiel["likes"] = foto["totaallikes"]
+        foto_search.append(profiel)
+
+    return foto_search
