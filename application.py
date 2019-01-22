@@ -61,13 +61,11 @@ def profile(username = ''):
     # look if the profile is followed
     welvolg = volgcheck(username)
 
+    # Laad de data voor de tabjes
     persoonlijkefotos = get_persoonfotos(naamid(username))
     likedfotos = get_likedfotos(naamid(username))
     pack = get_volgend(naamid(username))
     following = get_gevolgd(naamid(username))
-
-    print(pack)
-    print(following)
 
     return render_template("profile.html", userid = naamid(username), profielfoto= profielfoto, profielnaam= profielnaam,
                            aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, persoonlijkefotos= persoonlijkefotos,
@@ -108,6 +106,7 @@ def login():
 @login_required
 def manage():
     if request.method == "POST":
+        # als er een profielfoto geupload wordt dan moet je deze in het systeem zetten
         try:
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/pf_upload"
@@ -119,19 +118,17 @@ def manage():
             file.save(path)
             filename = request.files['uploadfile'].filename
             profielfoto = pf_upload(path, filename)
+        # anders is er geen profielfoto
         except:
             profielfoto = "NULL"
+        # krijg ook de andere velden
+        # TODO: CHECK DAT HET NIET TE LANG IS
         name = request.form.get("profielnaam")
         beschrijving = request.form.get("profielbio")
+        # zet het in de database
         if h_profile(name, profielfoto, beschrijving):
-            return redirect(url_for("home"))
+            return redirect(url_for("profile"))
 
-    # Controle voor sessie gebruiker (Gebruiker moet ingelogt zijn)
-    # Laad velden met aanpasbare gegevens
-    # Vul velden met huidige data uit database. (Kan ook default waarde zijn.) Na drukken op 'bijwerken'
-    # Controle voor correctheid (Velden niet leeg?, maximaal aantal karakters niet overschreden)
-    # Aangepaste gegevens in database updaten
-    # Doorverwijzen naar profielpagina
     return render_template("manage.html")
 
 
@@ -198,7 +195,8 @@ def home():
 
     # also get the comments
     comments = get_comments(fotoid)
-    # Laad like en dislike knop
+
+    # TODO
     # Laad share mogelijkheden
     return render_template("home.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username, likes = likes)
 
@@ -230,9 +228,8 @@ def pack():
 
     # also get the comments
     comments = get_comments(fotoid)
-    # Laad like en dislike knop
-    # Laad share mogelijkheden
-    # Laad like en dislike knop
+
+    # TODO
     # Laad share mogelijkheden
     return render_template("pack.html", likes= likes, foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
 
@@ -241,6 +238,7 @@ def pack():
 @app.route("/like/<fotoid>/<direct>")
 @login_required
 def like(fotoid, direct = 'home'):
+    # geef het een like
     userid = session["user_id"]
     h_like(fotoid, userid, '1')
     return redirect(url_for(direct))
@@ -250,20 +248,23 @@ def like(fotoid, direct = 'home'):
 @app.route("/dislike/<fotoid>/<direct>")
 @login_required
 def dislike(fotoid, direct = 'home'):
+    # geef het een dislike
     userid = session["user_id"]
     h_like(fotoid, userid, '0')
     return redirect(url_for(direct))
 
 
-
+# JOEY MOET DEZE NOG OP DE GOEDE MANIER MET JAVASCRIPT AANROEPEN
 @app.route("/comment/<fotoid>", methods=["GET", "POST"])
 @login_required
 def comment(fotoid):
+    # als het geen geldig fotoid is, dan apology
     if not geldig(fotoid):
         return apology("Fill in a valid photo-id")
+    # krijg de fotoid en comment ready
     fotoid= int(fotoid)
     comment = request.form.get("uploadcomment")
-    print(type(comment), comment)
+    # post de comment
     post_comment(fotoid, comment)
     return redirect(url_for("/photo", fotoid= fotoid))
 
@@ -276,10 +277,9 @@ def upload():
         # zorg dat de gebruiker een titel en een caption toevoegd
         title = request.form.get("titel")
         caption = request.form.get("caption")
-
         if not title or not caption:
             return apology("please enter a title and caption")
-
+        # als er een foto geupload is run dan alles voor een foto
         try:
             file = request.files['uploadfile']
             # the picture that is uploaded is saved in the folder foto_upload
@@ -293,15 +293,19 @@ def upload():
 
             fotoid = h_upload(path, title, caption, filename)
             if fotoid:
-                print(fotoid)
                 return redirect(url_for("photo", fotoid= fotoid))
             else:
                 return apology("ging iets fout")
+
+        # anders moet je het gifje uploaden
         except:
             path= request.form.get("gifje")
+
+            # stop m in de database
             fotoid = h_gifje(path, title, caption)
+
+            # als het is gelukt, ga naar de individuele pagina
             if fotoid:
-                print(fotoid)
                 return redirect(url_for("photo", fotoid= fotoid))
             else:
                 return apology("ging iets fout")
@@ -314,13 +318,17 @@ def upload():
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
 @login_required
 def photo(fotoid = False):
+    # als er geen of een ongeldig fotoid is, geef apology
     if not fotoid:
         return apology("Fill in a photo-id")
     fotoid = int(fotoid)
     if not geldig(fotoid):
         return apology("Fill in a valid photo-id")
+
+    # Vezamel alle data van de foto
     data = get_foto(fotoid)
 
+    #ze de data klaar voor de template
     username = idnaam(data["userid"])
     fotoid = data["fotoid"]
     foto = data['path']
@@ -348,10 +356,9 @@ def logout():
 
 
 # Dit is de functie die wordt aangeroepen in de 'neppe' refresh van de javascript. Hierin moet dus de volg functie worden aangeroepen.
-# Voor nu print hij even 'Hello' zodat ik in de frontend kon testen of het werkte. Als je flask runt en op een profiel nu op volg of ontvolg klikt, zie je in de terminal dat Hello wordt geprint.
 @app.route('/follow/<userid>')
 def follow(userid):
-    # ff handimatig test of het werkt totdat ik een geldig userid krijg
+    # krijgt een gevolgd userid mee, en deze wordt in/uit de database gezet.
     userid = int(userid)
     if not h_follow(userid):
         return apology("ging iets fout in de database")

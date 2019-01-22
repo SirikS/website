@@ -244,6 +244,7 @@ def random_fotoid():
 
 
 def get_beoordeeld(userid):
+    # returns all fotoid's of pictures that have been "beoordeed" yet
     lijst = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid", userid= userid)
     beoordeeld = []
     for x in range(len(lijst)):
@@ -316,6 +317,7 @@ def get_gevolgd(userid):
 
 
 def get_persoonfotos(userid):
+    # Haalt alle paden van geuploade foto's van een gebruiker
     paths = db.execute("SELECT path FROM pictures WHERE userid = :userid", userid = userid)
     for x in range(len(paths)):
         paths[x] = paths[x]["path"]
@@ -324,6 +326,7 @@ def get_persoonfotos(userid):
 
 
 def get_likedfotos(userid):
+    # Haalt de paden van alle gelikte foto's
     liked = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid AND liked = 1", userid = userid)
     for x in range(len(liked)):
         liked[x] = liked[x]["fotoid"]
@@ -335,6 +338,7 @@ def get_likedfotos(userid):
 
 
 def post_comment(fotoid, comment):
+    # plaatst de comment in de database
     userid = session["user_id"]
     db.execute("INSERT INTO comments (fotoid, userid, comment) VALUES (:fotoid, :userid, :comment)", fotoid= fotoid, userid= userid, comment= comment)
     return True
@@ -342,6 +346,7 @@ def post_comment(fotoid, comment):
 
 
 def geldig(fotoid):
+    # kijkt of een fotoid in de database staat
     if db.execute("SELECT * FROM pictures WHERE fotoid= :fotoid", fotoid= fotoid):
         return True
     else:
@@ -390,6 +395,7 @@ def h_fotosearch(zoekopdracht):
 
 
 def h_gifje(path, title, caption):
+    # uploads a path to the .gif file in the database and returns the fotoid
     userid = session["user_id"]
     opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:userid, :path, :titel, :caption)",
                           userid= userid, path= path, titel= title, caption= caption)
