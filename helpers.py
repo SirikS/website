@@ -382,6 +382,7 @@ def h_fotosearch(zoekopdracht):
         profiel["foto_id"] = foto["fotoid"]
         profiel["path"] = foto["path"]
         profiel["likes"] = foto["totaallikes"]
+        profiel["titel"] = foto["titel"]
         foto_search.append(profiel)
 
     return foto_search
