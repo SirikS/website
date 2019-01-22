@@ -49,6 +49,12 @@
     </head>
 
 <script>
+function openpage()
+{
+    document.getElementById("main").style.marginLeft= "250px";
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
 function openNav() {
     var e = document.getElementById("mySidenav");
     if (e.style.width == '250px')
@@ -69,7 +75,7 @@ function closeNav() {
 }
 
 </script>
-
+<body onload="openpage()">
 <!-- Use any element to open the sidenav -->
 <!--<button onclick="openNav()" class="openbtn btn" >open</button>-->
 
@@ -103,3 +109,5 @@ function closeNav() {
 <main id="main">
     {% block main %}{% endblock %}
 </main>
+
+</body>
