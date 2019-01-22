@@ -273,16 +273,6 @@ def comment(fotoid):
 @login_required
 def upload():
     if request.method == "POST":
-        # the picture that is uploaded is saved in the folder foto_upload
-        foto_upload = os.getcwd() + "/static/foto_upload"
-        file = request.files['uploadfile']
-
-        # this is the path to the picture in the folder
-        path= os.path.join(foto_upload, file.filename)
-
-        file.save(path)
-        filename = request.files['uploadfile'].filename
-
         # zorg dat de gebruiker een titel en een caption toevoegd
         title = request.form.get("titel")
         caption = request.form.get("caption")
@@ -290,12 +280,31 @@ def upload():
         if not title or not caption:
             return apology("please enter a title and caption")
 
-        fotoid = h_upload(path, title, caption, filename)
-        if fotoid:
-            print(fotoid)
-            return redirect(url_for("photo", fotoid= fotoid))
-        else:
-            return apology("ging iets fout")
+        try:
+            file = request.files['uploadfile']
+            # the picture that is uploaded is saved in the folder foto_upload
+            foto_upload = os.getcwd() + "/static/foto_upload"
+
+            # this is the path to the picture in the folder
+            path= os.path.join(foto_upload, file.filename)
+
+            file.save(path)
+            filename = request.files['uploadfile'].filename
+
+            fotoid = h_upload(path, title, caption, filename)
+            if fotoid:
+                print(fotoid)
+                return redirect(url_for("photo", fotoid= fotoid))
+            else:
+                return apology("ging iets fout")
+        except:
+            path= request.form.get("gifje")
+            fotoid = h_gifje(path, title, caption)
+            if fotoid:
+                print(fotoid)
+                return redirect(url_for("photo", fotoid= fotoid))
+            else:
+                return apology("ging iets fout")
 
     return render_template("upload.html")
 

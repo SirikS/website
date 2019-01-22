@@ -386,3 +386,12 @@ def h_fotosearch(zoekopdracht):
         foto_search.append(profiel)
 
     return foto_search
+
+
+
+def h_gifje(path, title, caption):
+    userid = session["user_id"]
+    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:userid, :path, :titel, :caption)",
+                          userid= userid, path= path, titel= title, caption= caption)
+    fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :userid AND path = :path", userid= userid, path=path)[0]["fotoid"]
+    return fotoid
