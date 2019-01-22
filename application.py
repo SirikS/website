@@ -355,8 +355,9 @@ def follow(userid):
 def search():
     zoekopdracht = request.form.get("search")
 
-    # naam-foto = pfname(userid)
     profiel_search = h_profielsearch(zoekopdracht)
     foto_search = h_fotosearch(zoekopdracht)
 
-    return render_template("search.html", profiel_search = profiel_search, foto_search = foto_search)
+    # tel het totaal aantal resultaten bij elkaar op
+    aantalres = len(profiel_search) + len(foto_search)
+    return render_template("search.html", profiel_search = profiel_search, foto_search = foto_search, zoekopdracht = zoekopdracht, aantalres = aantalres)
