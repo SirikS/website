@@ -310,7 +310,7 @@ def get_gevolgd(userid):
     volgenden = db.execute("SELECT volgerid FROM volgers WHERE userid = :userid", userid= userid)
     volgend = []
     for x in range(len(volgenden)):
-        volgend.append(volgenden[x]["userid"])
+        volgend.append(volgenden[x]["volgerid"])
     return volgend
 
 

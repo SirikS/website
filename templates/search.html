@@ -7,36 +7,77 @@
 {% endblock %}
 
 {% block main %}
-    <p>
-        dit zijn de profielen met de naam
-    </p>
-    <div class="profielen">
-        {% for profiel in profiel_search %}
-        <div>
-            <a href="/profile/{{ profiel.account }}">
-              <img src="{{ profiel.profielfoto }}" alt="profilepicture">
-            </a>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='search.css') }}" type="text/css" media="screen"/>
+
+<div class="container">
+    <br>
+    <!--hier wordt aangegeven waarop is gezocht-->
+    <div class="flex_zoek">
+        <div class = "zoekterm">
+            Search term: {{ zoekopdracht }}
         </div>
-        <div>
-            {{ profiel.profielnaam }}
+        <div class = "aantal_resultaten">
+            {{ aantalres }} results
         </div>
-        {% endfor %}
+    </div>
+
+    <div class="flex_profielen">
+        <div>
+            Users:
+        </div>
+        <!--vak waarin alle hokjes met profielen komen-->
+        <div>
+            {% for profiel in profiel_search %}
+            <!--hokje voor een profiel-->
+            <div>
+                <!--foto van een profiel-->
+                <div>
+                    <a href="/profile/{{ profiel.account }}">
+                        <img src="{{ profiel.profielfoto }}"alt="profilepicture" style="object-fit:cover;" class="profilepicture">
+                    </a>
+                </div>
+                <!--naam van een profiel-->
+                <div>
+                    <div>
+                        {{ profiel.profielnaam }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
 
-    <p>
-        dit zijn de fotos met deze naam
-    </p>
-    <div class="fotos">
-        {% for foto in foto_search %}
+
+    <div class="flex_fotos">
         <div>
-            <a href="/photo/{{ foto.foto_id }}">
-              <img src="{{ foto.path }}" alt="picture">
-            </a>
+            {% for foto in foto_search %}
+            <!--hokje voor een foto met titel, etc-->
+            <div>
+                <!--bovenkant hokje met titel-->
+                <div>
+                    <div>
+                    {{ foto.titel }}
+                    </div>
+                </div>
+                <!--middenstuk hokje met plaatje-->
+                <div>
+                    <a href="/photo/{{ foto.foto_id }}">
+                        <img src="{{ foto.path }}" alt="picture" style="object-fit:cover;" class="mainpicture">
+                    </a>
+                </div>
+                <!--onderkant hokje met likes-->
+                <div>
+                    <div>
+                    {{ foto.likes}} 💚
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <div>
-        {{ foto.likes}}
-        </div>
-        {% endfor %}
+    </div>
+
     </div>
 {% endblock %}
