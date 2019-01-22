@@ -2,6 +2,7 @@
 /*de middelste container met de foto*/
 .container{
     width:50%;
+    margin-top: 50px;
 }
 
 /*opmaak van de profielfoto van de uploader*/

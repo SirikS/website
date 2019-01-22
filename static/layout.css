@@ -1,10 +1,10 @@
 /* The side navigation menu */
 .sidenav {
   height: 100%; /* 100% Full-height */
-  width: 250px; /* 0 width - change this with JavaScript */
-  position: absolute; /* Stay in place */
+  position: fixed; /* Stay in place */
+  width:250px;
   z-index: 1; /* Stay on top */
-  top: 50; /* Stay at the top */
+  margin-top: 56px; /* Stay at the top */
   left: 0;
   background-color: #2a2b2d; /*gray*/
   overflow-x: hidden; /* Disable horizontal scroll */
@@ -35,8 +35,17 @@
 .sidenav .logoutknop{
     font-size: 20px;
     color:white;
-    display: block;
-    padding-top:50px;
+}
+
+.instapet-titel
+{
+    font-family: Lucida Handwriting;
+    text-align: center;
+    text-decoration:bold;
+    color:white;
+    font-size: 38px;
+    margin-top:20px;
+    margin-left:10px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
@@ -52,6 +61,7 @@ li{
 
 .topnav {
   display:flex;
+  position: fixed;
   background-color:#404144;
   overflow: hidden;
   width:100%;
@@ -61,7 +71,7 @@ li{
 .topnav > div{
     width:100%;
 }
-..topnav > div > button{
+.topnav > div > button{
     margin-left:12px;
     margin-top:10px;
     margin-bottom:10px;
@@ -89,6 +99,7 @@ li{
   padding: 8px 10px;
   margin-top: 8px;
   margin-right: 16px;
+  margin-bottom: 8px;
   background: #ddd;
   font-size: 17px;
   border: none;
