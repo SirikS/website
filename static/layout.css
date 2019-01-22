@@ -1,8 +1,8 @@
 /* The side navigation menu */
 .sidenav {
   height: 100%; /* 100% Full-height */
-  width: 200px; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
+  width: 250px; /* 0 width - change this with JavaScript */
+  position: absolute; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 50; /* Stay at the top */
   left: 0;
@@ -61,7 +61,7 @@ li{
 .topnav > div{
     width:100%;
 }
-.topnav > div > button{
+..topnav > div > button{
     margin-left:12px;
     margin-top:10px;
     margin-bottom:10px;
