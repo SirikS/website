@@ -256,7 +256,8 @@ def pack():
 def like(fotoid, direct = 'home'):
     # geef het een like
     userid = session["user_id"]
-    h_like(fotoid, userid, '1')
+    if not h_like(fotoid, userid, '1'):
+        return apology("You have liked/disliked this allready")
     return redirect(url_for(direct))
 
 
@@ -266,7 +267,8 @@ def like(fotoid, direct = 'home'):
 def dislike(fotoid, direct = 'home'):
     # geef het een dislike
     userid = session["user_id"]
-    h_like(fotoid, userid, '0')
+    if not h_like(fotoid, userid, '0'):
+        return apology("You have liked/disliked this allready")
     return redirect(url_for(direct))
 
 
@@ -377,7 +379,7 @@ def follow(userid):
     # krijgt een gevolgd userid mee, en deze wordt in/uit de database gezet.
     userid = int(userid)
     if not h_follow(userid):
-        return apology("ging iets fout in de database")
+        return apology("You can not follow yourself")
     return "nothing"
 
 
