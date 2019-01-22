@@ -63,15 +63,15 @@ def profile(username = ''):
 
     persoonlijkefotos = get_persoonfotos(naamid(username))
     likedfotos = get_likedfotos(naamid(username))
+    pack = get_volgend(naamid(username))
+    following = get_gevolgd(naamid(username))
 
-    #TODO
-    #Laad foto's geplaatst door profiel
-    #Laad gelikte foto's door profiel
-    #Laad likes en dislikes op
-    #Controle of gebruiker eigenaar is van profiel
-    #Zo ja, laad bewerkknop voor profiel die redirect naar profiel beheerpagina.
-    return render_template("profile.html", userid = naamid(username), profielfoto= profielfoto, profielnaam= profielnaam, aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, persoonlijkefotos= persoonlijkefotos, likedfotos= likedfotos)
+    print(pack)
+    print(following)
 
+    return render_template("profile.html", userid = naamid(username), profielfoto= profielfoto, profielnaam= profielnaam,
+                           aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, persoonlijkefotos= persoonlijkefotos,
+                           likedfotos= likedfotos, pack= pack, following= following)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -301,6 +301,7 @@ def upload():
 
 
 
+@app.route("/photo", methods=["GET", "POST"])
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
 @login_required
 def photo(fotoid = False):
