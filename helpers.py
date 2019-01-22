@@ -401,3 +401,27 @@ def h_gifje(path, title, caption):
                           userid= userid, path= path, titel= title, caption= caption)
     fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :userid AND path = :path", userid= userid, path=path)[0]["fotoid"]
     return fotoid
+
+
+
+def info_door_path(path):
+    # This function takes the path to a picture and returns the info in a dict
+    info ={}
+    fotos= db.execute("SELECT * FROM pictures WHERE path= :pt", pt= path)
+    for foto in fotos:
+        info["path"] = path
+        info["foto_id"] = foto["fotoid"]
+        info["likes"] = foto["totaallikes"]
+        info["titel"] = foto["titel"]
+    return info
+
+def prof_info_door_id(userid):
+    # This function takes the userid  and returns the info in a dict
+    info ={}
+    names = db.execute("SELECT * FROM profiel WHERE userid= :id", id= userid)
+    for name in names:
+        info["account"] = idnaam(name['userid'])
+        info['profielnaam'] = name['name']
+        info['profielfoto'] = name['profielfoto']
+    return info
+
