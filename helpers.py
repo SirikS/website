@@ -69,7 +69,12 @@ def h_upload(path, titel, caption, filename):
 
     # change the name in the correct folder, so it cant be there twice
     old_file = os.path.join("static/foto_upload", filename)
-    new_name = str(fotoid) + ".jpg"
+
+    # split the old file name to get the type of image (jpg, jpeg, png, etc)
+    split_filename = filename.split('.')
+
+   # rename the file
+    new_name = str(fotoid) + "." + str(split_filename[-1])
     new_file = os.path.join("static/foto_upload", new_name)
     os.rename(old_file, new_file)
 
@@ -90,7 +95,12 @@ def pf_upload(path, filename):
 
     # change the name in the correct folder
     old_file = os.path.join("static/pf_upload", filename)
-    new_name = str(fotoid) + ".jpg"
+
+    # split the old file name to get the type of image (jpg, jpeg, png, etc)
+    split_filename = filename.split('.')
+
+    # rename the file
+    new_name = str(fotoid) + "." + str(split_filename[-1])
     new_file = os.path.join("static/pf_upload", new_name)
     os.rename(old_file, new_file)
 
@@ -363,7 +373,7 @@ def geldig(fotoid):
 def h_profielsearch(zoekopdracht):
     profiel_search = []
 
-    names = db.execute("SELECT * FROM profiel WHERE name= :name", name= zoekopdracht)
+    names = db.execute("SELECT * FROM profiel WHERE UPPER(name)= :name", name= zoekopdracht.upper())
     for name in names:
         profiel={}
         profiel["account"] = idnaam(name['userid'])
@@ -372,12 +382,12 @@ def h_profielsearch(zoekopdracht):
         profiel['profielfoto'] = name['profielfoto']
         profiel_search.append(profiel)
 
-    usernames = db.execute("SELECT * FROM accounts WHERE username= :name", name= zoekopdracht)
+    usernames = db.execute("SELECT * FROM accounts WHERE UPPER(username)= :name", name= zoekopdracht.upper())
     for username in usernames:
         profiel={}
         profiel["user_id"] = username['userid']
         naam_foto = pfname(username['userid'])
-        profiel['profielnaam'] = zoekopdracht
+        profiel['profielnaam'] = idnaam(username['userid'])
         profiel['profielfoto'] = naam_foto[0]
         profiel['account'] = zoekopdracht
         profiel_search.append(profiel)
@@ -387,7 +397,7 @@ def h_profielsearch(zoekopdracht):
 def h_fotosearch(zoekopdracht):
     foto_search = []
 
-    fotos= db.execute("SELECT * FROM pictures WHERE titel= :ti", ti= zoekopdracht)
+    fotos= db.execute("SELECT * FROM pictures WHERE UPPER(titel)= :ti", ti= zoekopdracht.upper())
     for foto in fotos:
         profiel={}
         profiel["foto_id"] = foto["fotoid"]
