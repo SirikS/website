@@ -79,7 +79,7 @@ function closeNav() {
 <!-- Use any element to open the sidenav -->
 <!--<button onclick="openNav()" class="openbtn btn" >open</button>-->
 
-<div class="topnav">
+<div class="topnav fixed-top">
     <div>
         <button class="btn btn-primary fa fa-align-justify" onclick="openNav()"></button>
         <a class="instapet-titel" href="{{ url_for('home') }}">Instapet</a>
@@ -93,7 +93,7 @@ function closeNav() {
     </div>
 </div>
 
-<div id="mySidenav" class="sidenav">
+<div id="mySidenav" class="sidenav fixed-top">
     <li><a class="fas fa-home" href="{{ url_for('home') }}">&nbsp;Home</a></li>
     <li><a class="fas fa-dragon" href="{{ url_for('pack') }}">&nbsp;Pack</a></li>
     <li><a class="fas fa-cloud-upload-alt" href="{{ url_for('upload') }}">&nbsp;Upload</a></li>

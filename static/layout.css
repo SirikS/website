@@ -12,6 +12,9 @@
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+body{
+  padding-top:60px;
+}
 /* The navigation menu links */
 .sidenav a {
   padding: 8px 8px 8px 32px;
@@ -61,7 +64,6 @@ li{
 
 .topnav {
   display:flex;
-  position: fixed;
   background-color:#404144;
   overflow: hidden;
   width:100%;
