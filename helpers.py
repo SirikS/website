@@ -441,3 +441,15 @@ def prof_info_door_id(userid):
         info['profielfoto'] = name['profielfoto']
     return info
 
+def is_it_image(file):
+        # get the last thing after the dot (jpg, png, etc) and make it lowercase
+    type_file = str(file.filename.split('.')[-1]).lower()
+
+    # list of most (if not all) types of image files
+    image_files =['tif', 'tiff', 'gif', 'jpeg', 'jpg', 'jif', 'jfif', 'jp2', 'jpx', 'j2k', 'j2x', 'fpx', 'pcd', 'png']
+
+    # return apology if file is not an image
+    if type_file not in image_files:
+        return False
+    else:
+        return True

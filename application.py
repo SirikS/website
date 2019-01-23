@@ -147,6 +147,10 @@ def manage():
             foto_upload = os.getcwd() + "/static/pf_upload"
             file = request.files['uploadfile']
 
+            # if the file is not an image file, return an apology
+            if is_it_image(file) == False:
+                return apology('please submit an image file')
+
             # this is the path to the picture in the folder
             path= os.path.join(foto_upload, file.filename)
 
@@ -319,6 +323,11 @@ def upload():
         # als er een foto geupload is run dan alles voor een foto
         try:
             file = request.files['uploadfile']
+
+            # if the file is not an image file, return an apology
+            if is_it_image(file) == False:
+                return apology('please submit an image file')
+
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/foto_upload"
 
