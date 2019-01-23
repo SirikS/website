@@ -96,7 +96,7 @@
 
     <div class="onderste_flex">
 
-        <div id="personal" class="fotos tabcontent">
+        <div id="personal" class="fotos tabcontent" style="display: flex">
             {% for foto in p_fotos%}
             <!--hokje voor een foto met titel, etc-->
             <div>
@@ -123,7 +123,7 @@
         </div>
 
 
-        <div id="liked" class="fotos tabcontent">
+        <div id="liked" class="fotos tabcontent" style="display: none">
             {% for foto in l_fotos %}
             <!--hokje voor een foto met titel, etc-->
             <div>
@@ -150,7 +150,7 @@
         </div>
 
         <!--vak waarin alle hokjes met profielen komen-->
-        <div id="pack" class="profielen tabcontent">
+        <div id="pack" class="profielen tabcontent" style="display: none">
 
             {% for profiel in p_profiel %}
             <div>
@@ -171,7 +171,7 @@
         </div>
 
         <!--vak waarin alle hokjes met profielen komen-->
-        <div id="following" class="profielen tabcontent">
+        <div id="following" class="profielen tabcontent" style="display: none">
             {% for profiel in f_profiel %}
             <!--hokje voor een profiel-->
             <div>
