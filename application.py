@@ -34,6 +34,25 @@ def index():
     return render_template("index.html")
 
 
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
+
+
+@app.route("/tos")
+def tos():
+    return render_template("tos.html")
+
+
+
+@app.route("/support")
+def support():
+    return render_template("support.html")
+
+
+
 @app.route("/profile", methods=["GET", "POST"])
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
@@ -256,7 +275,8 @@ def pack():
 def like(fotoid, direct = 'home'):
     # geef het een like
     userid = session["user_id"]
-    h_like(fotoid, userid, '1')
+    if not h_like(fotoid, userid, '1'):
+        return apology("You have liked/disliked this allready")
     return redirect(url_for(direct))
 
 
@@ -266,7 +286,8 @@ def like(fotoid, direct = 'home'):
 def dislike(fotoid, direct = 'home'):
     # geef het een dislike
     userid = session["user_id"]
-    h_like(fotoid, userid, '0')
+    if not h_like(fotoid, userid, '0'):
+        return apology("You have liked/disliked this allready")
     return redirect(url_for(direct))
 
 
@@ -377,7 +398,7 @@ def follow(userid):
     # krijgt een gevolgd userid mee, en deze wordt in/uit de database gezet.
     userid = int(userid)
     if not h_follow(userid):
-        return apology("ging iets fout in de database")
+        return apology("You can not follow yourself")
     return "nothing"
 
 

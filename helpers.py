@@ -105,6 +105,9 @@ def h_like(fotoid, userid, value):
     # value == 1 (like)
     # value == 0 (dislike)
     # inserts the like (or dislike) into the database
+    if len(db.execute("SELECT * FROM beoordeeld WHERE userid = :userid AND fotoid = :fotoid",
+                      fotoid= fotoid, userid= userid)) != 0:
+        return False
     db.execute("INSERT INTO beoordeeld (fotoid, userid, liked) VALUES (:fotoid, :userid, :liked)",
                fotoid= fotoid, userid= userid, liked = value)
     # inserts the like/dislike into the total like/dislike count in foto database
@@ -124,6 +127,7 @@ def h_profile(name, profielfoto, beschrijving):
         if name == ' ':
             return apology("Must fill in a Name!")
         if profielfoto == ' ':
+        # TODO
             profielfoto = "/static_pfupload/1.jpg"
         #insert into database
         db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
@@ -166,6 +170,8 @@ def pfname(userid):
 def h_follow(userid):
     # the user is the follower
     volgerid = session["user_id"]
+    if userid == volgerid:
+        return False
     # the followed is the person who's profile is in the link
 
     # Looks how many rows there are in the database
