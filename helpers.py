@@ -105,6 +105,9 @@ def h_like(fotoid, userid, value):
     # value == 1 (like)
     # value == 0 (dislike)
     # inserts the like (or dislike) into the database
+    if len(db.execute("SELECT * FROM beoordeeld WHERE userid = :userid AND fotoid = :fotoid",
+                      fotoid= fotoid, userid= userid)) != 0:
+        return False
     db.execute("INSERT INTO beoordeeld (fotoid, userid, liked) VALUES (:fotoid, :userid, :liked)",
                fotoid= fotoid, userid= userid, liked = value)
     # inserts the like/dislike into the total like/dislike count in foto database
@@ -166,6 +169,8 @@ def pfname(userid):
 def h_follow(userid):
     # the user is the follower
     volgerid = session["user_id"]
+    if userid == volgerid:
+        return False
     # the followed is the person who's profile is in the link
 
     # Looks how many rows there are in the database
@@ -401,3 +406,27 @@ def h_gifje(path, title, caption):
                           userid= userid, path= path, titel= title, caption= caption)
     fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :userid AND path = :path", userid= userid, path=path)[0]["fotoid"]
     return fotoid
+
+
+
+def info_door_path(path):
+    # This function takes the path to a picture and returns the info in a dict
+    info ={}
+    fotos= db.execute("SELECT * FROM pictures WHERE path= :pt", pt= path)
+    for foto in fotos:
+        info["path"] = path
+        info["foto_id"] = foto["fotoid"]
+        info["likes"] = foto["totaallikes"]
+        info["titel"] = foto["titel"]
+    return info
+
+def prof_info_door_id(userid):
+    # This function takes the userid  and returns the info in a dict
+    info ={}
+    names = db.execute("SELECT * FROM profiel WHERE userid= :id", id= userid)
+    for name in names:
+        info["account"] = idnaam(name['userid'])
+        info['profielnaam'] = name['name']
+        info['profielfoto'] = name['profielfoto']
+    return info
+

@@ -62,14 +62,30 @@ def profile(username = ''):
     welvolg = volgcheck(username)
 
     # Laad de data voor de tabjes
+    # lijst met dictionaries met info over de fotos
+    p_fotos = []
     persoonlijkefotos = get_persoonfotos(naamid(username))
-    likedfotos = get_likedfotos(naamid(username))
-    pack = get_volgend(naamid(username))
-    following = get_gevolgd(naamid(username))
+    for path in persoonlijkefotos:
+        p_fotos.append(info_door_path(path))
 
+    l_fotos = []
+    likedfotos = get_likedfotos(naamid(username))
+    for path in likedfotos:
+        l_fotos.append(info_door_path(path))
+
+    # lijst met dictionaries met info over de profielen
+    p_profiel = []
+    pack = get_volgend(naamid(username))
+    for userid in pack:
+        p_profiel.append(prof_info_door_id(userid))
+
+    f_profiel = []
+    following = get_gevolgd(naamid(username))
+    for userid in following:
+        p_profiel.append(prof_info_door_id(userid))
     return render_template("profile.html", userid = naamid(username), profielfoto= profielfoto, profielnaam= profielnaam,
-                           aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, persoonlijkefotos= persoonlijkefotos,
-                           likedfotos= likedfotos, pack= pack, following= following)
+                           aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
+                           p_profiel=p_profiel, f_profiel=f_profiel)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -240,7 +256,8 @@ def pack():
 def like(fotoid, direct = 'home'):
     # geef het een like
     userid = session["user_id"]
-    h_like(fotoid, userid, '1')
+    if not h_like(fotoid, userid, '1'):
+        return apology("You have liked/disliked this allready")
     return redirect(url_for(direct))
 
 
@@ -250,7 +267,8 @@ def like(fotoid, direct = 'home'):
 def dislike(fotoid, direct = 'home'):
     # geef het een dislike
     userid = session["user_id"]
-    h_like(fotoid, userid, '0')
+    if not h_like(fotoid, userid, '0'):
+        return apology("You have liked/disliked this allready")
     return redirect(url_for(direct))
 
 
@@ -361,7 +379,7 @@ def follow(userid):
     # krijgt een gevolgd userid mee, en deze wordt in/uit de database gezet.
     userid = int(userid)
     if not h_follow(userid):
-        return apology("ging iets fout in de database")
+        return apology("You can not follow yourself")
     return "nothing"
 
 
