@@ -127,6 +127,7 @@ def h_profile(name, profielfoto, beschrijving):
         if name == ' ':
             return apology("Must fill in a Name!")
         if profielfoto == ' ':
+        # TODO
             profielfoto = "/static_pfupload/1.jpg"
         #insert into database
         db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
