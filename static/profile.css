@@ -1,0 +1,234 @@
+.container{
+    width:100%;
+}
+
+/*opmaak van het bovenste gedeelde van de pagina*/
+.bovenste_flex{
+    display:flex;
+    flex-direction: row;
+    padding:15px;
+}
+
+/*Opmaak voor de weergave van de profielfoto*/
+.profilepicture{
+    margin-left: 2%;
+    margin-top:2%;
+    height:18vw;
+    float:left;
+    width:18vw;
+    border-radius:50%;
+    border: 3px solid #000;
+}
+
+
+/*opmaak van het vak met daarin de naam en omschrijving*/
+.bovenste_flex >div:nth-child(2){
+    display:flex;
+    flex-direction: column;
+    margin-left:2vw;
+    padding:1vw;
+    width:63%;
+}
+
+/*opmaak voor het vak met de naam */
+.bovenste_flex >div:nth-child(2) >div:nth-child(1){
+    height:3vw;
+    font-size:2vw;
+    font-weight:bold;
+}
+
+/*opmaak voor het vak met de omschrijving*/
+.bovenste_flex >div:nth-child(2) >div:nth-child(2){
+    height:18vw;
+    overflow: auto;
+    margin-top:1vw;
+    height: 15vw;
+    font-size: 1.3vw;
+}
+
+/*opmaak van het vak met daarin de volgknop en het aantal volgers*/
+.bovenste_flex >div:nth-child(3){
+    display:flex;
+    flex-direction: column;
+    width:12%;
+}
+
+/*hier komt het vak met hierin de volg knop*/
+.bovenste_flex >div:nth-child(3) >div:nth-child(1){
+    width: 100%;
+    height:5vw;
+    margin-top:1vw;
+}
+
+/*de volg knop*/
+.bovenste_flex >div:nth-child(3) >div:nth-child(1) > form > .btn{
+    width: 100%;
+    height:5vw;
+    font-size:2vw;
+}
+
+/*het vak met hoeveel volger*/
+.bovenste_flex >div:nth-child(3) >div:nth-child(2){
+    width: 100%;
+    height:3vw;
+    margin-top:1vw;
+}
+
+/*de tekst met hoeveel volgers*/
+.bovenste_flex >div:nth-child(3) >div:nth-child(2) >div{
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight:bold;
+    font-size:1.3vw;
+}
+
+
+/*het vak met alle knoppen in het midden*/
+.middelste_flex{
+    height: 7vw;
+    display:flex;
+    flex-direction: row;
+    justify-content:center;
+    align-content: space-between;
+    background-color:lightgray;
+    border-top:3px solid #000;
+    border-bottom:3px solid#000;
+}
+
+/*alle vakken hebben hetzelfde formaat*/
+.middelste_flex >div{
+    width:25%;
+    margin:1vw;
+}
+
+/*alle knoppen hebben dezelfde opmaak*/
+.middelste_flex>div> button{
+    width:100%;
+    height:5vw;
+    font-size:1.5vw;
+}
+
+
+
+.onderste_flex{
+    padding:15px;
+}
+
+.onderste_flex > .fotos{
+    display:flex;
+    flex-wrap: wrap;
+    /*margin-left:10%;*/
+    margin-top:1%;
+    /*margin-right:4%;*/
+
+}
+
+
+
+/*opmaak voor het hokje waar de complete foto, titel, likes in komt*/
+.onderste_flex >.fotos > div{
+    display:flex;
+    flex-direction:column;
+    width:27vw;
+    margin-right:2%;
+    margin-bottom:2%;
+}
+
+
+/*opmaak voor de titel*/
+.onderste_flex  >.fotos > div > div:nth-child(1){
+    background-color:lightgray;
+    height:3vw;
+}
+
+.onderste_flex  >.fotos > div > div:nth-child(1) >div{
+    font-size: 2vw;
+    font-weight: bold;
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+}
+
+/*opmaak voor de foto*/
+.mainpicture{
+    width:27vw;
+    height:17vw;
+}
+
+
+/*opmaak voor het aantal likes*/
+.onderste_flex >.fotos > div > div:nth-child(3){
+    background-color:lightgray;
+    height:2vw;
+}
+
+/*opmaak voor het aantal likes*/
+.onderste_flex  >.fotos > div > div:nth-child(3) >div{
+    font-size:1.5vw;
+    font-weight:bold;
+    float:right;
+    margin-right:0.5vw;
+}
+
+
+
+/* het veld waarin de gebruikers staan*/
+.onderste_flex > .profielen{
+    display:flex;
+    flex-wrap: wrap;
+    margin-left:4%;
+    margin-top:1%;
+    margin-right:4%;
+
+}
+
+
+/* hokje voor één gebruiker*/
+.onderste_flex > .profielen >div{
+    display:flex;
+    flex-direction:row;
+    margin-right:3%;
+    margin-bottom:2%;
+}
+
+
+ /*foto in een hokje*/
+.onderste_flex > .profielen>div > div:nth-child(1){
+    height:10vw;
+    float:left;
+    width:11vw;
+    border-top-left-radius:50%;
+    border-bottom-left-radius:50%;
+    background-color:lightblue
+}
+
+.profilepicture2{
+    height:10vw;
+    float:left;
+    width:10vw;
+    border-radius:50%;
+}
+
+/* hokje van het account*/
+.onderste_flex> .profielen >div > div:nth-child(2){
+    font-size: 1.5vw;
+    height:10vw;
+    float:left;
+    width:14vw;
+    background-color:lightblue
+}
+
+/*opmaak van de tekst in het hokje*/
+.onderste_flex > .profielen >div > div:nth-child(2) > div{
+    width: 8vw;
+    font-size: 1.5vw;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}

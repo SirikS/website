@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block main %}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}" type="text/css" media="screen"/>
+
+
 <!-- Onderstaand zorgt ervoor dat de volg/ontvolg knop werkt -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type=text/javascript>
@@ -20,62 +25,173 @@
         });
 </script>
 
-</div>
-<!-- Buitenste div van profielinformatie inclusief profielfoto -->
-<div class="profielpagina">
-    <!-- Verdeling van div profielpagina in linker en recter kolom -->
-    <div class="kolomlinks">
-        <!-- div met class voor profielfoto (In linker kolom) -->
-        <div class="profielfoto"><img src="{{ profielfoto }}"/></div>
-    </div>
-    <!-- Buitentste div voor alle informatie(in rechter kolom) -->
-    <div class="info">
-        <!-- Veld met profielnaam -->
-        <div class="naam-info">
-        <p>
-            <strong>Name:</strong>
-            <span style="text-align: center">{{ profielnaam }}</span>
-        </p>
+<div class="container">
+    <div class="bovenste_flex">
+        <!--plek voor de foto-->
+        <div>
+            <img src="{{ profielfoto }}"alt="profilepicture" style="object-fit:cover;" class="profilepicture">
         </div>
-        <!-- Veld met volgers en volg knop -->
-        <div class="volgers-info">
-        <p>
-            <strong>Followers</strong>
-            <span style="text-align: center">{{ aantalvolgers }}</span>
-            <!-- volg knoppen (eentje voor volg en anders eentje voor ontvolg) -->
-            {% if welvolg %}
-            <form>
-            <button onclick="volgknop();" id="knop">Ontvolg</button>
-            </form>
-            {% else %}
-            <form>
-            <button onclick="volgknop();" id="knop">Volg</button>
-            </form>
-            {% endif %}
-        </p>
+
+        <!--plek voor de profielnaam en omschrijving-->
+        <div>
+            <!--plek voor de profielnaam-->
+            <div>
+                {{ profielnaam }}
+            </div>
+            <!--plek voor de omschrijving-->
+            <div>
+               {{ bio }}
+            </div>
         </div>
-        <!-- Veld met bio van profiel -->
-        <div class="bio-info">
-        <p>
-            <strong>Bio</strong>
-            <span>{{ bio }}</span>
-        </p>
+
+        <!--plek voor de volgknop en het aantal volgers-->
+        <div>
+            <!--plek voor de volgknop-->
+            <div>
+                            <!-- volg knoppen (eentje voor volg en anders eentje voor ontvolg) -->
+                {% if welvolg %}
+                <form>
+                    <button onclick="volgknop();" id="knop" class="btn">Ontvolg</button>
+                </form>
+                {% else %}
+                <form>
+                    <button onclick="volgknop();" id="knop" class="btn">Volg</button>
+                </form>
+                {% endif %}
+            </div>
+            <!--plek voor het aantal volgers-->
+            <div>
+                <div>
+                {{ aantalvolgers }}<br>
+                FOLLOWERS
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Needed because other elements inside ProfilePage have floats -->
     <div style="clear:both"></div>
-</div>
-<div class="tab">
-  <button class="tablinks active" onclick="fotoladen(event, 'personal')">Personal pictures</button>
-  <button class="tablinks" onclick="fotoladen(event, 'liked')">Liked pictures</button>
-</div>
-<div id="personal" class="tabcontent" style="display:block">
-  <h3>Personal pictures</h3>
-  <span>{{ persoonlijkefotos }}</span>
-</div>
-<div id="liked" class="tabcontent">
-  <h3>Liked pictures</h3>
-  <span>{{ likedfotos }}</span>
+    <!--<div style="clear:both"></div>-->
+    <div class="middelste_flex">
+        <!--knop voor jouw fotos-->
+        <div>
+            <button class="tablinks active" onclick="fotoladen(event, 'personal')">personal pictures</button>
+
+        </div>
+        <!--knop voor gelikede fotos-->
+        <div>
+            <button class="tablinks active" onclick="fotoladen(event, 'liked')">liked pictures</button>
+
+        </div>
+        <!--volgt:-->
+        <div>
+            <button class="tablinks active" onclick="fotoladen(event, 'pack')">follows (pack)</button>
+
+        </div>
+        <!--gevolgt door:-->
+        <div>
+            <button class="tablinks active" onclick="fotoladen(event, 'following')">following</button>
+
+        </div>
+    </div>
+
+    <div class="onderste_flex">
+
+        <div id="personal" class="fotos tabcontent">
+            {% for foto in p_fotos%}
+            <!--hokje voor een foto met titel, etc-->
+            <div>
+                <!--bovenkant hokje met titel-->
+                <div>
+                    <div>
+                    {{ foto.titel }}
+                    </div>
+                </div>
+                <!--middenstuk hokje met plaatje-->
+                <div>
+                    <a href="/photo/{{ foto.foto_id }}">
+                        <img src="{{foto.path}}" alt="picture" style="object-fit:cover;" class="mainpicture">
+                    </a>
+                </div>
+                <!--onderkant hokje met likes-->
+                <div>
+                    <div>
+                    {{ foto.likes}} 💚
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <div id="liked" class="fotos tabcontent">
+            {% for foto in l_fotos %}
+            <!--hokje voor een foto met titel, etc-->
+            <div>
+                <!--bovenkant hokje met titel-->
+                <div>
+                    <div>
+                    {{ foto.titel }}
+                    </div>
+                </div>
+                <!--middenstuk hokje met plaatje-->
+                <div>
+                    <a href="/photo/{{ foto.foto_id }}">
+                        <img src="{{foto.path}}" alt="picture" style="object-fit:cover;" class="mainpicture">
+                    </a>
+                </div>
+                <!--onderkant hokje met likes-->
+                <div>
+                    <div>
+                    {{ foto.likes}} 💚
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!--vak waarin alle hokjes met profielen komen-->
+        <div id="pack" class="profielen tabcontent">
+
+            {% for profiel in p_profiel %}
+            <div>
+                <!--foto van een profiel-->
+                <div>
+                    <a href="{{profiel.account}}">
+                        <img src="{{profiel.profielfoto}}"  alt="profilepicture2" style="object-fit:cover;" class="profilepicture2">
+                    </a>
+                </div>
+                <!--naam van een profiel-->
+                <div>
+                    <div>
+                        {{ profiel.profielnaam }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!--vak waarin alle hokjes met profielen komen-->
+        <div id="following" class="profielen tabcontent">
+            {% for profiel in f_profiel %}
+            <!--hokje voor een profiel-->
+            <div>
+                <!--foto van een profiel-->
+                <div>
+                    <a href="{{profiel.account}}">
+                        <img src="{{profiel.profielfoto}}" alt="profilepicture2" style="object-fit:cover;" class="profilepicture2">
+                    </a>
+                </div>
+                <!--naam van een profiel-->
+                <div>
+                    <div>
+                        {{ profiel.profielnaam }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
