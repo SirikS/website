@@ -234,10 +234,11 @@ def home():
 
     # also get the comments
     comments = get_comments(fotoid)
+    aantalcomments = lengte_comments(comments)
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("home.html", foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username, likes = likes)
+    return render_template("home.html", aantalcomments= aantalcomments, foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username, likes = likes)
 
 
 
@@ -267,10 +268,11 @@ def pack():
 
     # also get the comments
     comments = get_comments(fotoid)
+    aantalcomments = lengte_comments(comments)
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("pack.html", likes= likes, foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
+    return render_template("pack.html", aantalcomments= aantalcomments, likes= likes, foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
 
 
 
@@ -388,7 +390,9 @@ def photo(fotoid = False):
 
     # also get the comments
     comments = get_comments(fotoid)
-    return render_template("photo.html", fotoid= fotoid, foto=foto, caption= caption, titel= titel, date= date, likes= likes, profielfoto= profielfoto, naam = naam, comments= comments)
+    aantalcomments = lengte_comments(comments)
+
+    return render_template("photo.html", aantalcomments= aantalcomments, fotoid= fotoid, foto=foto, caption= caption, titel= titel, date= date, likes= likes, profielfoto= profielfoto, naam = naam, comments= comments)
 
 
 
