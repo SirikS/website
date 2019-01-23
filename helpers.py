@@ -431,6 +431,8 @@ def info_door_path(path):
         info["titel"] = foto["titel"]
     return info
 
+
+
 def prof_info_door_id(userid):
     # This function takes the userid  and returns the info in a dict
     info ={}
@@ -440,6 +442,8 @@ def prof_info_door_id(userid):
         info['profielnaam'] = name['name']
         info['profielfoto'] = name['profielfoto']
     return info
+
+
 
 def is_it_image(file):
         # get the last thing after the dot (jpg, png, etc) and make it lowercase
@@ -453,3 +457,12 @@ def is_it_image(file):
         return False
     else:
         return True
+
+
+def lengte_comments(comments):
+    if len(comments) == 1:
+        return True
+    elif len(comments) == 0:
+        return False
+    else:
+        return 'langer'
