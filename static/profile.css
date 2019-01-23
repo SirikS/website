@@ -193,7 +193,7 @@
 .onderste_flex > .profielen >div{
     display:flex;
     flex-direction:row;
-    margin-right:3%;
+    margin-right:10px;
     margin-bottom:2%;
 }
 
