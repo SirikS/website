@@ -34,6 +34,25 @@ def index():
     return render_template("index.html")
 
 
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
+
+
+@app.route("/tos")
+def tos():
+    return render_template("tos.html")
+
+
+
+@app.route("/support")
+def support():
+    return render_template("support.html")
+
+
+
 @app.route("/profile", methods=["GET", "POST"])
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
