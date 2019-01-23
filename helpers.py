@@ -69,7 +69,12 @@ def h_upload(path, titel, caption, filename):
 
     # change the name in the correct folder, so it cant be there twice
     old_file = os.path.join("static/foto_upload", filename)
-    new_name = str(fotoid) + ".jpg"
+
+    # split the old file name to get the type of image (jpg, jpeg, png, etc)
+    split_filename = filename.split('.')
+
+   # rename the file
+    new_name = str(fotoid) + "." + str(split_filename[-1])
     new_file = os.path.join("static/foto_upload", new_name)
     os.rename(old_file, new_file)
 
@@ -90,7 +95,12 @@ def pf_upload(path, filename):
 
     # change the name in the correct folder
     old_file = os.path.join("static/pf_upload", filename)
-    new_name = str(fotoid) + ".jpg"
+
+    # split the old file name to get the type of image (jpg, jpeg, png, etc)
+    split_filename = filename.split('.')
+
+    # rename the file
+    new_name = str(fotoid) + "." + str(split_filename[-1])
     new_file = os.path.join("static/pf_upload", new_name)
     os.rename(old_file, new_file)
 
