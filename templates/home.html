@@ -80,8 +80,13 @@
   </div>
 
 
-
-  <div class="comments">
+  {% if not aantalcomments %}
+  <div class="comments" style="height: 0px">
+  {% elif aantalcomments %}
+  <div class="comments" style="height: 110px">
+  {% elif langer %}
+  <div class="comments" style="height: 150px">
+  {% endif %}
     {% for comment in comments %}
     <div class="flex-comment">
       <div>
