@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}" type="text/css" media="screen"/>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
@@ -15,7 +15,6 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
             reader.onload = function(e) {
                 $('.img-preview').attr('src', e.target.result);
             };
@@ -30,14 +29,11 @@
 
 <script>
 var apikey = 'CKjyWZfmOSGZIuHTwxgR5YB91CBmT7pj';
-
 $(document).ready(function() {
-
   /*
   * The following two functions are used for making the API call using
   * pure Javascript. I wouldn't worry about the details
   */
-
   function encodeQueryData(data)
   {
      var ret = [];
@@ -45,7 +41,6 @@ $(document).ready(function() {
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
      return ret.join("&");
   }
-
   function httpGetAsync(theUrl, callback)
   {
       var xmlHttp = new XMLHttpRequest();
@@ -56,20 +51,16 @@ $(document).ready(function() {
       xmlHttp.open("GET", theUrl, true); // true for asynchronous
       xmlHttp.send(null);
   }
-
   /*
   * The following functions are what do the work for retrieving and displaying gifs
   * that we search for.
   */
-
   function getGif(query) {
     console.log(query);
     query = query.replace(' ', '+');
     var params = { 'api_key': apikey, 'q': query};
     params = encodeQueryData(params);
-
     // api from https://github.com/Giphy/GiphyAPI#search-endpoint
-
     httpGetAsync('https://api.giphy.com/v1/gifs/search?' + params, function(data) {
       var gifs = JSON.parse(data);
       var firstgif = gifs.data[0].images.fixed_width.url;
@@ -82,14 +73,12 @@ $(document).ready(function() {
     query = query.replace(' ', '+');
     var params = { 'api_key': apikey, 'q': query};
     params = encodeQueryData(params);
-
     httpGetAsync('https://api.giphy.com/v1/gifs/search?' + params, function(data) {
       var gifs = JSON.parse(data);
       console.log(gifs.data[0].images.original.url);
       document.getElementById('gif').setAttribute('value', gifs.data[0].images.original.url);
     });
   }
-
   $("#submitButton").on("click", function() {
     var query = $("#inputQuery").val();
     getGif(query);
@@ -98,16 +87,16 @@ $(document).ready(function() {
 })
 </script>
 
-<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data"> <!-- Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
+<form class="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data"> <!-- Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
     <!-- fieldset is een class die de opmaak van het algehele formulier doet -->
     <fieldset class="fieldset">
         <!-- form-group is een class die de opmaak van de velden doet -->
-        <div class="container">
+        <div class="container-fluid">
         	<div class="row">
-        		<div class="col-md-4 col-md-offset-4">
+        		<div class="col-lg-6">
         		    <div class="form-group">
                       <div class="main-img-preview">
-                        <img class="thumbnail img-preview" src="static/preview_foto/upload-image.png" width="400px">
+                        <img class="thumbnail img-preview" src="static/preview_foto/upload-image.png">
                       </div>
                       <div class="input-group">
                         <div class="input-group-btn">
@@ -116,17 +105,15 @@ $(document).ready(function() {
                         </div>
                       </div>
                     </div>
-        		</div>
-        	</div>
-    <div class="container">
+
+        <div class="col-lg-6">
+        <div id="query">
+            <input type="text" id="inputQuery"><input type="button" id="submitButton" value="Zoek naar GIF">
         </div>
-            <div id="query">
-        <input type="text" id="inputQuery"><input type="button" id="submitButton" value="Zoek naar GIF">
-    </div>
-            <div id="image">
-            </div>
-            <div class="form-group">
-                <input id="gif" name="gifje" type="hidden" value=""/>
+        <div id="image">
+        </div>
+        <div class="form-group">
+            <input id="gif" name="gifje" type="hidden" value=""/>
         </div>
             <div class="form-group">
             <!-- Titel kunnen toevoegen -->
@@ -134,7 +121,7 @@ $(document).ready(function() {
         </div>
         <div class="form-group">
             <!-- Caption kunnen toevoegen -->
-            <input class="form-control" name="caption" placeholder="Caption" type="text"/>
+            <input class="form-control caption" name="caption" placeholder="Caption" type="text"/>
         </div>
         <div class="form-group">
             <!-- Tags kunnen toevoegen -->
@@ -142,8 +129,10 @@ $(document).ready(function() {
         </div>
         <div class="form-group">
             <!-- Submit knop -->
-            <button class="btn btn-default" type="submit">Post</button>
+            <button class="btn-primary btn-lg btn-block login-button" type="submit">Post</button>
         </div>
+    </div>
+    </div>
     </div>
     </fieldset>
 </form>
