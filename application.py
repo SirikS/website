@@ -411,6 +411,11 @@ def search():
     profiel_search = h_profielsearch(zoekopdracht)
     foto_search = h_fotosearch(zoekopdracht)
 
+    print(profiel_search)
+
+    # remove duplicates (if any) from searchresults for username and profilename
+    profiel_search = [dict(t) for t in {tuple(d.items()) for d in profiel_search}]
+    print(profiel_search)
     # tel het totaal aantal resultaten bij elkaar op
     aantalres = len(profiel_search) + len(foto_search)
     return render_template("search.html", profiel_search = profiel_search, foto_search = foto_search, zoekopdracht = zoekopdracht, aantalres = aantalres)
