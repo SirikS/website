@@ -385,11 +385,11 @@ def h_profielsearch(zoekopdracht):
     usernames = db.execute("SELECT * FROM accounts WHERE UPPER(username)= :name", name= zoekopdracht.upper())
     for username in usernames:
         profiel={}
+        profiel['account'] = username["username"]
         profiel["user_id"] = username['userid']
         naam_foto = pfname(username['userid'])
-        profiel['profielnaam'] = idnaam(username['userid'])
+        profiel['profielnaam'] = naam_foto[1]
         profiel['profielfoto'] = naam_foto[0]
-        profiel['account'] = zoekopdracht
         profiel_search.append(profiel)
 
     return profiel_search
