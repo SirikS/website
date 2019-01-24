@@ -461,8 +461,10 @@ def is_it_image(file):
 
 def lengte_comments(comments):
     if len(comments) == 1:
-        return True
+        return 'True'
     elif len(comments) == 0:
-        return False
-    else:
+        return 'False'
+    elif len(comments) == 2:
         return 'langer'
+    else:
+        return "nog_langer"
