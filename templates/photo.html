@@ -54,7 +54,15 @@
 
 
 
-  <div class="comments">
+  {% if aantalcomments == 'False' %}
+  <div class="comments" style="height: 0px">
+  {% elif aantalcomments == 'True' %}
+  <div class="comments" style="height: 110px">
+  {% elif aantalcomments == 'langer' %}
+  <div class="comments" style="height: 220px">
+  {% elif aantalcomments == 'nog_langer' %}
+  <div class="comments" style="height: 250px">
+  {% endif %}
     {% for comment in comments %}
     <div class="flex-comment">
       <div>
