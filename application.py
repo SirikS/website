@@ -48,7 +48,7 @@ def support():
     return render_template("support.html")
 
 
-@app.route("/profile", methods=["GET", "POST"])
+@app.route("/profile/", methods=["GET", "POST"])
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
 def profile(username=''):
@@ -135,6 +135,16 @@ def login():
 @login_required
 def manage():
     if request.method == "POST":
+        # krijg de naam en beschrijving
+        name = request.form.get("profielnaam")
+        beschrijving = request.form.get("profielbio")
+
+        # voorwaarden van de naam en bio
+        if len(name) > 63:
+            return apology("Your name is too long!")
+        if len(beschrijving) > 255:
+            return apology("Your bio is too long!")
+
         # als er een profielfoto geupload wordt dan moet je deze in het systeem zetten
         try:
             # the picture that is uploaded is saved in the folder foto_upload
@@ -308,8 +318,15 @@ def upload():
         # zorg dat de gebruiker een titel en een caption toevoegd
         title = request.form.get("titel")
         caption = request.form.get("caption")
+
+        # een paar voorwaardes voor een post
         if not title or not caption:
             return apology("please enter a title and caption")
+        if len(title) > 255:
+            return apology("Your title is too long!")
+        if len(caption) > 255:
+            return apology("Your caption is too long!")
+
         # als er een foto geupload is run dan alles voor een foto
         try:
             file = request.files['uploadfile']
@@ -349,9 +366,10 @@ def upload():
     return render_template("upload.html")
 
 
-@app.route("/photo", methods=["GET", "POST"])
+@app.route("/photo/", methods=["GET", "POST"])
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
 def photo(fotoid=False):
+    print(fotoid)
     # als er geen of een ongeldig fotoid is, geef apology
     if not fotoid:
         return apology("Fill in a photo-id")
