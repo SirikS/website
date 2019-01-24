@@ -309,7 +309,7 @@ def comment(fotoid):
     comment = request.form.get("uploadcomment")
     # post de comment
     post_comment(fotoid, comment)
-    return redirect(url_for("/photo", fotoid= fotoid))
+    return redirect(url_for("photo", fotoid= fotoid))
 
 
 
@@ -364,7 +364,6 @@ def upload():
 
 @app.route("/photo", methods=["GET", "POST"])
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
-@login_required
 def photo(fotoid = False):
     # als er geen of een ongeldig fotoid is, geef apology
     if not fotoid:
