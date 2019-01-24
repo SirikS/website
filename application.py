@@ -28,11 +28,9 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 
 @app.route("/privacy")
@@ -40,11 +38,9 @@ def privacy():
     return render_template("privacy.html")
 
 
-
 @app.route("/tos")
 def tos():
     return render_template("tos.html")
-
 
 
 @app.route("/support")
@@ -52,11 +48,10 @@ def support():
     return render_template("support.html")
 
 
-
 @app.route("/profile", methods=["GET", "POST"])
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
-def profile(username = ''):
+def profile(username=''):
     # check if it is its own profile
     if username == idnaam(session["user_id"]):
         return redirect(url_for("profile"))
@@ -102,8 +97,8 @@ def profile(username = ''):
     following = get_gevolgd(naamid(username))
     for userid in following:
         p_profiel.append(prof_info_door_id(userid))
-    return render_template("profile.html", userid = naamid(username), profielfoto= profielfoto, profielnaam= profielnaam,
-                           aantalvolgers= aantalvolgers, bio= bio, welvolg= welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
+    return render_template("profile.html", userid=naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
+                           aantalvolgers=aantalvolgers, bio=bio, welvolg=welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
                            p_profiel=p_profiel, f_profiel=f_profiel)
 
 
@@ -136,7 +131,6 @@ def login():
         return render_template("index.html")
 
 
-
 @app.route("/manage", methods=["GET", "POST"])
 @login_required
 def manage():
@@ -152,7 +146,7 @@ def manage():
                 return apology('please submit an image file')
 
             # this is the path to the picture in the folder
-            path= os.path.join(foto_upload, file.filename)
+            path = os.path.join(foto_upload, file.filename)
 
             file.save(path)
             filename = request.files['uploadfile'].filename
@@ -169,7 +163,6 @@ def manage():
             return redirect(url_for("profile"))
 
     return render_template("manage.html")
-
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -208,7 +201,6 @@ def register():
     return render_template("index.html")
 
 
-
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
@@ -238,8 +230,7 @@ def home():
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("home.html", aantalcomments= aantalcomments, foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username, likes = likes)
-
+    return render_template("home.html", aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
 
 
 @app.route("/pack", methods=["GET", "POST"])
@@ -272,13 +263,12 @@ def pack():
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("pack.html", aantalcomments= aantalcomments, likes= likes, foto= foto, caption= caption, fotoid= fotoid, titel= titel, date= date, profielfoto= profielfoto, naam= naam, comments= comments, accountnaam= username)
-
+    return render_template("pack.html", aantalcomments=aantalcomments, likes=likes, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
 @app.route("/like/<fotoid>/<direct>")
 @login_required
-def like(fotoid, direct = 'home'):
+def like(fotoid, direct='home'):
     # geef het een like
     userid = session["user_id"]
     if not h_like(fotoid, userid, '1'):
@@ -286,10 +276,9 @@ def like(fotoid, direct = 'home'):
     return redirect(url_for(direct))
 
 
-
 @app.route("/dislike/<fotoid>/<direct>")
 @login_required
-def dislike(fotoid, direct = 'home'):
+def dislike(fotoid, direct='home'):
     # geef het een dislike
     userid = session["user_id"]
     if not h_like(fotoid, userid, '0'):
@@ -305,12 +294,11 @@ def comment(fotoid):
     if not geldig(fotoid):
         return apology("Fill in a valid photo-id")
     # krijg de fotoid en comment ready
-    fotoid= int(fotoid)
+    fotoid = int(fotoid)
     comment = request.form.get("uploadcomment")
     # post de comment
     post_comment(fotoid, comment)
-    return redirect(url_for("photo", fotoid= fotoid))
-
+    return redirect(url_for("photo", fotoid=fotoid))
 
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -334,37 +322,36 @@ def upload():
             foto_upload = os.getcwd() + "/static/foto_upload"
 
             # this is the path to the picture in the folder
-            path= os.path.join(foto_upload, file.filename)
+            path = os.path.join(foto_upload, file.filename)
 
             file.save(path)
             filename = request.files['uploadfile'].filename
 
             fotoid = h_upload(path, title, caption, filename)
             if fotoid:
-                return redirect(url_for("photo", fotoid= fotoid))
+                return redirect(url_for("photo", fotoid=fotoid))
             else:
                 return apology("ging iets fout")
 
         # anders moet je het gifje uploaden
         except:
-            path= request.form.get("gifje")
+            path = request.form.get("gifje")
 
             # stop m in de database
             fotoid = h_gifje(path, title, caption)
 
             # als het is gelukt, ga naar de individuele pagina
             if fotoid:
-                return redirect(url_for("photo", fotoid= fotoid))
+                return redirect(url_for("photo", fotoid=fotoid))
             else:
                 return apology("ging iets fout")
 
     return render_template("upload.html")
 
 
-
 @app.route("/photo", methods=["GET", "POST"])
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
-def photo(fotoid = False):
+def photo(fotoid=False):
     # als er geen of een ongeldig fotoid is, geef apology
     if not fotoid:
         return apology("Fill in a photo-id")
@@ -372,10 +359,10 @@ def photo(fotoid = False):
     if not geldig(fotoid):
         return apology("Fill in a valid photo-id")
 
-    # Vezamel alle data van de foto
+    # Verzamel alle data van de foto
     data = get_foto(fotoid)
 
-    #ze de data klaar voor de template
+    # zet de data klaar voor de template
     username = idnaam(data["userid"])
     fotoid = data["fotoid"]
     foto = data['path']
@@ -390,8 +377,7 @@ def photo(fotoid = False):
     # also get the comments
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
-    return render_template("photo.html", aantalcomments= aantalcomments, fotoid= fotoid, foto=foto, caption= caption, titel= titel, date= date, likes= likes, profielfoto= profielfoto, naam = naam, comments= comments)
-
+    return render_template("photo.html", aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments)
 
 
 @app.route("/logout", methods=["GET", "POST"])
@@ -402,7 +388,6 @@ def logout():
     return redirect(url_for("index"))
 
 
-
 # Dit is de functie die wordt aangeroepen in de 'neppe' refresh van de javascript. Hierin moet dus de volg functie worden aangeroepen.
 @app.route('/follow/<userid>')
 def follow(userid):
@@ -411,7 +396,6 @@ def follow(userid):
     if not h_follow(userid):
         return apology("You can not follow yourself")
     return "nothing"
-
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -426,4 +410,4 @@ def search():
     profiel_search = [dict(t) for t in {tuple(d.items()) for d in profiel_search}]
     # tel het totaal aantal resultaten bij elkaar op
     aantalres = len(profiel_search) + len(foto_search)
-    return render_template("search.html", profiel_search = profiel_search, foto_search = foto_search, zoekopdracht = zoekopdracht, aantalres = aantalres)
+    return render_template("search.html", profiel_search=profiel_search, foto_search=foto_search, zoekopdracht=zoekopdracht, aantalres=aantalres)
