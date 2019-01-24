@@ -49,7 +49,11 @@
             <!--plek voor de volgknop-->
             <div>
                             <!-- volg knoppen (eentje voor volg en anders eentje voor ontvolg) -->
-                {% if welvolg %}
+                {% if eigenacc %}
+                <form>
+                    <a href="/manage" class="btn btn-default">Manage</a>
+                </form>
+                {% elif welvolg %}
                 <form>
                     <button onclick="volgknop();" id="knop" class="btn">Ontvolg</button>
                 </form>

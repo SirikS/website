@@ -52,6 +52,7 @@ def support():
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
 def profile(username=''):
+    eigenacc = False
     # check if it is its own profile
     if username == idnaam(session["user_id"]):
         return redirect(url_for("profile"))
@@ -59,6 +60,7 @@ def profile(username=''):
     # if no profile show his/her own
     if username == '':
         username = idnaam(session["user_id"])
+        eigenacc = True
 
     # get all profile attributes
     lijst = get_profiel(username)
@@ -99,7 +101,7 @@ def profile(username=''):
         p_profiel.append(prof_info_door_id(userid))
     return render_template("profile.html", userid=naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
                            aantalvolgers=aantalvolgers, bio=bio, welvolg=welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
-                           p_profiel=p_profiel, f_profiel=f_profiel)
+                           p_profiel=p_profiel, f_profiel=f_profiel, eigenacc=eigenacc)
 
 
 @app.route("/login", methods=["GET", "POST"])
