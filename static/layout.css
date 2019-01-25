@@ -2,7 +2,7 @@
 .sidenav {
   height: 100%; /* 100% Full-height */
   position: fixed; /* Stay in place */
-  width:250px;
+  width:0px;
   z-index: 1; /* Stay on top */
   margin-top: 56px; /* Stay at the top */
   margin-left: 0;
@@ -20,7 +20,7 @@ body{
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #5d5f60; /*tekskleur is standaard donkergrijs*/
+  color: #bdbfc1; /*tekskleur is standaard donkergrijs*/
   display: block;
   transition: 0.3s;
 }
@@ -51,11 +51,11 @@ body{
     margin-left:10px;
 }
 
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+ /*Style page content - use this if you want to push the page content to the right when you open the side navigation*/
 main {
   transition: margin-left .5s;
   padding: 20px;
-  margin-left: 200px;
+/*  margin-left: 200px;*/
 }
 
 li{
@@ -103,6 +103,7 @@ li{
   margin-top: 8px;
   margin-right: 16px;
   margin-bottom: 8px;
+  margin-left: 5px;
   background: #ddd;
   font-size: 17px;
   border: none;

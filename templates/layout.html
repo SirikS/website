@@ -49,29 +49,27 @@
     </head>
 
 <script>
+
+// open de navbar automatisch, zorgt dat je niet de eerste keer 2x moet klikken om hem dicht te doen
 function openpage()
 {
-    document.getElementById("main").style.marginLeft= "250px";
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.width = "0";
 }
 
+//  functie op de navbar open en dicht te doen
 function openNav() {
+    // kijk hoe breed de navbar is
     var e = document.getElementById("mySidenav");
+    // als de navbar 250px is, sluit hem dan
     if (e.style.width == '250px')
     {
-        e.style.width = '10px';
-        document.getElementById("main").style.marginLeft= "10px";
+        document.getElementById("mySidenav").style.width = "0";
     }
+    // anders, open de navbar
     else
     {
-        e.style.width = '250px';
-        document.getElementById("main").style.marginLeft= "250px";
+        document.getElementById("mySidenav").style.width = "250px";
     }
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "10px";
-    document.getElementById("main").style.marginLeft= "10px";
 }
 
 </script>
