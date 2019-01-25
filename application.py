@@ -234,6 +234,7 @@ def home():
     titel = data["titel"]
     date = data["date"]
     likes = data["totaallikes"]
+    userid= data["userid"]
 
     # get the uploader's profile pic and name
     profielfoto, naam = pfname(data["userid"])
@@ -245,7 +246,7 @@ def home():
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("home.html", welvolg=welvolg, aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
+    return render_template("home.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
 
 
 @app.route("/pack", methods=["GET", "POST"])
@@ -268,6 +269,7 @@ def pack():
     titel = data["titel"]
     date = data["date"]
     likes = data["totaallikes"]
+    userid= data["userid"]
 
     # get the uploaders profile pic and name
     profielfoto, naam = pfname(data["userid"])
@@ -279,7 +281,7 @@ def pack():
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("pack.html", welvolg=welvolg, aantalcomments=aantalcomments, likes=likes, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
+    return render_template("pack.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, likes=likes, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
 @app.route("/like/<fotoid>/<direct>")
@@ -402,8 +404,9 @@ def photo(fotoid=False):
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
     welvolg = volgcheck(username)
+    userid= data["userid"]
 
-    return render_template("photo.html", welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments)
+    return render_template("photo.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments)
 
 
 @app.route("/logout", methods=["GET", "POST"])
