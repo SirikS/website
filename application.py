@@ -215,11 +215,13 @@ def register():
     return render_template("index.html")
 
 
-@app.route("/home", methods=["GET", "POST"])
+@app.route("/home/", methods=["GET", "POST"])
+@app.route("/home/<fotoid>", methods=["GET", "POST"])
 @login_required
-def home():
+def home(fotoid = False):
     # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
-    fotoid = random_fotoid()
+    if not fotoid:
+        fotoid = random_fotoid()
     if not fotoid:
         return apology("geen foto's meer")
 
@@ -250,13 +252,16 @@ def home():
 
 
 @app.route("/pack", methods=["GET", "POST"])
+@app.route("/pack/<fotoid>", methods=["GET", "POST"])
 @login_required
-def pack():
+def pack(fotoid = False):
     # same as home() but then for the follow page
-    # get a valid photo (not seen and by a person they follow)
-    fotoid = volger_fotoid()
+    # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
+    if not fotoid:
+        fotoid = random_fotoid()
     if not fotoid:
         return apology("geen foto's meer")
+
 
     # get all data of a photo
     data = get_foto(fotoid)
@@ -305,9 +310,9 @@ def dislike(fotoid, direct='home'):
 
 
 # JOEY MOET DEZE NOG OP DE GOEDE MANIER MET JAVASCRIPT AANROEPEN
-@app.route("/comment/<fotoid>", methods=["GET", "POST"])
+@app.route("/comment/<fotoid>/<direct>", methods=["GET", "POST"])
 @login_required
-def comment(fotoid):
+def comment(fotoid, direct='home'):
     # als het geen geldig fotoid is, dan apology
     if not geldig(fotoid):
         return apology("Fill in a valid photo-id")
@@ -316,7 +321,7 @@ def comment(fotoid):
     comment = request.form.get("uploadcomment")
     # post de comment
     post_comment(fotoid, comment)
-    return redirect(url_for("photo", fotoid=fotoid))
+    return redirect(url_for(direct, fotoid=fotoid))
 
 
 @app.route("/upload", methods=["GET", "POST"])
