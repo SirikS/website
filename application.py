@@ -127,6 +127,8 @@ def login():
 
         if h_login(username, password) == True:
             return redirect(url_for("home"))
+        else:
+            return apology("Wachtwoord en username komen niet overeen")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
