@@ -98,7 +98,7 @@ def profile(username=''):
     f_profiel = []
     following = get_gevolgd(naamid(username))
     for userid in following:
-        p_profiel.append(prof_info_door_id(userid))
+        f_profiel.append(prof_info_door_id(userid))
     return render_template("profile.html", userid=naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
                            aantalvolgers=aantalvolgers, bio=bio, welvolg=welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
                            p_profiel=p_profiel, f_profiel=f_profiel, eigenacc=eigenacc)
