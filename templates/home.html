@@ -52,7 +52,16 @@
     <div>
       <div style="align-self: center">{{ date }}</div>
       <div style="align-self: center">
-        <button type="submit" class="volgknop btn">Follow</button>
+        <!--<button type="submit" class="volgknop btn">Follow</button>-->
+        {% if welvolg %}
+          <form>
+            <button onclick="volgknop();" id="knop" class="volgknop btn">Ontvolg</button>
+          </form>
+        {% else %}
+          <form>
+            <button onclick="volgknop();" id="knop" class="volgknop btn">Volg</button>
+          </form>
+        {% endif %}
       </div>
     </div>
   </div>
