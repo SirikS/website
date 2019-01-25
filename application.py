@@ -106,7 +106,9 @@ def profile(username=''):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Log user in."""
+    """
+    Log user in.
+    """
 
     # forget any user_id
     session.clear()
@@ -168,6 +170,7 @@ def manage():
         # anders is er geen profielfoto
         except:
             profielfoto = "NULL"
+
         # krijg ook de andere velden
         # TODO: CHECK DAT HET NIET TE LANG IS
         name = request.form.get("profielnaam")
