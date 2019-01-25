@@ -241,10 +241,11 @@ def home():
     # also get the comments
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
+    welvolg = volgcheck(username)
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("home.html", aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
+    return render_template("home.html", welvolg=welvolg, aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
 
 
 @app.route("/pack", methods=["GET", "POST"])
@@ -274,10 +275,11 @@ def pack():
     # also get the comments
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
+    welvolg = volgcheck(username)
 
     # TODO
     # Laad share mogelijkheden
-    return render_template("pack.html", aantalcomments=aantalcomments, likes=likes, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
+    return render_template("pack.html", welvolg=welvolg, aantalcomments=aantalcomments, likes=likes, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
 @app.route("/like/<fotoid>/<direct>")
@@ -399,7 +401,9 @@ def photo(fotoid=False):
     # also get the comments
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
-    return render_template("photo.html", aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments)
+    welvolg = volgcheck(username)
+
+    return render_template("photo.html", welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments)
 
 
 @app.route("/logout", methods=["GET", "POST"])
