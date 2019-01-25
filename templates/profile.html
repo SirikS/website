@@ -11,19 +11,6 @@
 
 
 <!-- Onderstaand zorgt ervoor dat de volg/ontvolg knop werkt -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type=text/javascript>
-        $(function() {
-            // button staat hier voor de button tag en het #knop staat voor het id van de button -->
-          $('button#knop').bind('click', function() {
-            $.getJSON('/follow/{{ userid }}',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-</script>
 
 <div class="container">
     <div class="bovenste_flex">
