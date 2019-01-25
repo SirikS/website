@@ -232,3 +232,7 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+.onderste_flex > .profielen >div > div:nth-child(2) > div > a{
+    color:black;
+}
