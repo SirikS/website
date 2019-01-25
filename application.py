@@ -406,7 +406,7 @@ def photo(fotoid=False):
     welvolg = volgcheck(username)
     userid= data["userid"]
 
-    return render_template("photo.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments)
+    return render_template("photo.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
 @app.route("/logout", methods=["GET", "POST"])
