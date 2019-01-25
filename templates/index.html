@@ -57,7 +57,7 @@
                       <input type="username" name="username"id="inputUsername" class="form-control" placeholder="Username" required>
                     </div>
                     <div class="form-label-group">
-                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required>
                     </div>
                     <div class="form-label-group">
                       <input type="password" name="password"id="inputPassword" class="form-control" placeholder="Password" required>
@@ -72,7 +72,7 @@
                   <h4 class="login-heading">Already have an account? Log in!</h4>
                   <form class="form-horizontal" action="{{ url_for('login') }}" method="post">
                     <div class="form-label-group">
-                      <input type="username" name="username"id="inputUsername" class="form-control" placeholder="Username" required>
+                      <input type="username" name="username"id="inputUsername" class="form-control" placeholder="Username" required autofocus>
                     </div>
                     <div class="form-label-group">
                       <input type="password" name="password"id="inputPassword" class="form-control" placeholder="Password" required>
