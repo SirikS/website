@@ -1,10 +1,10 @@
+import os
+
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
-import os
-from urllib.parse import urlparse, parse_qs
 
 from helpers import *
 
@@ -30,21 +30,33 @@ Session(app)
 
 @app.route("/")
 def index():
+    """
+    Renders the login/register screen
+    """
     return render_template("index.html")
 
 
 @app.route("/privacy")
 def privacy():
+    """
+    Renders the privacy page
+    """
     return render_template("privacy.html")
 
 
 @app.route("/tos")
 def tos():
+    """
+    Renders the terms of service page
+    """
     return render_template("tos.html")
 
 
 @app.route("/support")
 def support():
+    """
+    Renders the support page
+    """
     return render_template("support.html")
 
 
@@ -52,6 +64,9 @@ def support():
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
 def profile(username=''):
+    """
+    Loads the profile of an account
+    """
     eigenacc = False
     # check if it is its own profile
     if username == idnaam(session["user_id"]):
@@ -77,28 +92,26 @@ def profile(username=''):
     # look if the profile is followed
     welvolg = volgcheck(username)
 
-    # Laad de data voor de tabjes
-    # lijst met dictionaries met info over de fotos
+    # load data for tabs
     p_fotos = []
     persoonlijkefotos = get_persoonfotos(naamid(username))
     for path in persoonlijkefotos:
         p_fotos.append(info_door_path(path))
-
     l_fotos = []
     likedfotos = get_likedfotos(naamid(username))
     for path in likedfotos:
         l_fotos.append(info_door_path(path))
 
-    # lijst met dictionaries met info over de profielen
+    # get the data of pack and adopted by
     p_profiel = []
     pack = get_volgend(naamid(username))
     for userid in pack:
         p_profiel.append(prof_info_door_id(userid))
-
     f_profiel = []
     following = get_gevolgd(naamid(username))
     for userid in following:
         f_profiel.append(prof_info_door_id(userid))
+
     return render_template("profile.html", userid=naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
                            aantalvolgers=aantalvolgers, bio=bio, welvolg=welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
                            p_profiel=p_profiel, f_profiel=f_profiel, eigenacc=eigenacc)
@@ -107,7 +120,8 @@ def profile(username=''):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """
-    Log user in.
+    Check if login is correct
+    Logs the user in
     """
 
     # forget any user_id
@@ -140,18 +154,23 @@ def login():
 @app.route("/manage", methods=["GET", "POST"])
 @login_required
 def manage():
+    """
+    Renders the manage page
+    Uploads profile pic
+    Adjusts the database
+    """
     if request.method == "POST":
-        # krijg de naam en beschrijving
+        # get name and bio
         name = request.form.get("profielnaam")
         beschrijving = request.form.get("profielbio")
 
-        # voorwaarden van de naam en bio
+        # ensure it is allowed
         if len(name) > 63:
             return apology("Your name is too long!")
         if len(beschrijving) > 255:
             return apology("Your bio is too long!")
 
-        # als er een profielfoto geupload wordt dan moet je deze in het systeem zetten
+        # if there is a profile pic, upload it
         try:
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/pf_upload"
@@ -164,56 +183,67 @@ def manage():
             # this is the path to the picture in the folder
             path = os.path.join(foto_upload, file.filename)
 
+            # TODO EMMA COMMENTS
             file.save(path)
             filename = request.files['uploadfile'].filename
             profielfoto = pf_upload(path, filename)
-        # anders is er geen profielfoto
+        # else there is no new profile pic
         except:
             profielfoto = "NULL"
 
-        # krijg ook de andere velden
-        # TODO: CHECK DAT HET NIET TE LANG IS
-        name = request.form.get("profielnaam")
-        beschrijving = request.form.get("profielbio")
-        # zet het in de database
+        # insert into database
         if h_profile(name, profielfoto, beschrijving):
             return redirect(url_for("profile"))
+        return apology("Something went wrong")
 
     return render_template("manage.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user."""
+    """
+    Checks the validity of a new account
+    Inserts the user into the database
+    """
 
     # forget any user_id
     session.clear()
 
     if request.method == "POST":
 
-        # temporaily save the
+        # get all the inputs
         username = request.form.get("username")
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
         email = request.form.get("email")
 
-        # ensure username was submitted
+        # ensure username everything is submitted
         if not username:
             return apology("must provide username")
-
-        # ensure both passwords were submitted
         elif not password or not confirmation:
             return apology("must provide both passwords")
+        elif not email:
+            return apology("please enter email")
 
         # ensure passwords match
         elif confirmation != password:
             return apology("must fill in same password")
 
-        elif not email:
-            return apology("please enter email")
+        # check if password is allowed
+        if len(password) < 8:
+            return apology("password must contain at least 8 characters")
+        if not any([True for letter in password if letter.isupper()]):
+            return apology("password must contain a upper-case letter")
+        if not any([True for letter in password if letter.islower()]):
+            return apology("password must contain a lower-case letter")
+        if not any([True for letter in password if letter.isdigit()]):
+            return apology("password must contain at least a number!")
 
+        # register the user in the database
         if h_register(username, pwd_context.hash(password), email):
             return redirect(url_for("manage"))
+        else:
+            return apology("Something went wrong")
 
     return render_template("index.html")
 
@@ -222,6 +252,10 @@ def register():
 @app.route("/home/<fotoid>", methods=["GET", "POST"])
 @login_required
 def home(fotoid = False):
+    """
+    Gets a random fotoid
+    Shows all relevant data
+    """
     # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
     if not fotoid:
         fotoid = random_fotoid()
@@ -250,7 +284,7 @@ def home(fotoid = False):
     welvolg = volgcheck(username)
 
     # TODO
-    # Laad share mogelijkheden
+    # SHARE
     return render_template("home.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
 
 
@@ -258,7 +292,11 @@ def home(fotoid = False):
 @app.route("/pack/<fotoid>", methods=["GET", "POST"])
 @login_required
 def pack(fotoid = False):
-    # same as home() but then for the follow page
+    """
+    Gets a fotoid from the pack
+    Shows all relevant data
+    """
+
     # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
     if not fotoid:
         fotoid = random_fotoid()
@@ -295,34 +333,59 @@ def pack(fotoid = False):
 @app.route("/like/<fotoid>/<direct>")
 @login_required
 def like(fotoid, direct='home'):
-    # geef het een like
+    """
+    Check if like doesnt already excist
+    Registers the like in the database
+    redirects to the coorect page
+    """
+
+    # check the fotoid
+    if not geldig(fotoid):
+        return apology("Fill in a valid photo-id")
+
+    # insert the like
     userid = session["user_id"]
     if not h_like(fotoid, userid, '1'):
-        return apology("You have liked/disliked this allready")
+        return apology("You have liked/disliked this already")
     return redirect(url_for(direct))
 
 
 @app.route("/dislike/<fotoid>/<direct>")
 @login_required
 def dislike(fotoid, direct='home'):
-    # geef het een dislike
+    """
+    Check if dislike doesnt already excist
+    Registers the dislike in the database
+    Redirects to the correct page
+    """
+
+    # check the fotoid
+    if not geldig(fotoid):
+        return apology("Fill in a valid photo-id")
+
+    # insert the dislike
     userid = session["user_id"]
     if not h_like(fotoid, userid, '0'):
-        return apology("You have liked/disliked this allready")
+        return apology("You have liked/disliked this already")
     return redirect(url_for(direct))
 
 
-# JOEY MOET DEZE NOG OP DE GOEDE MANIER MET JAVASCRIPT AANROEPEN
 @app.route("/comment/<fotoid>/<direct>", methods=["GET", "POST"])
 @login_required
 def comment(fotoid, direct='home'):
+    """
+    Validates the photoid
+    Registers the comment in the database
+    Redirects to the correct page
+    """
     # als het geen geldig fotoid is, dan apology
     if not geldig(fotoid):
         return apology("Fill in a valid photo-id")
-    # krijg de fotoid en comment ready
-    fotoid = int(fotoid)
+
+    # get the comment
     comment = request.form.get("uploadcomment")
-    # post de comment
+
+    # instert into database
     post_comment(fotoid, comment)
     return redirect(url_for(direct, fotoid=fotoid))
 
@@ -330,20 +393,27 @@ def comment(fotoid, direct='home'):
 @app.route("/upload", methods=["GET", "POST"])
 @login_required
 def upload():
+    """
+    Renders the upload page
+    Gets all user inputs and validates them
+    Insert into database
+    """
     if request.method == "POST":
-        # zorg dat de gebruiker een titel en een caption toevoegd
+        # get the user's input
         title = request.form.get("titel")
         caption = request.form.get("caption")
 
-        # een paar voorwaardes voor een post
-        if not title or not caption:
-            return apology("please enter a title and caption")
+        # ensure every thing is alright
+        if not title:
+            return apology("please enter a title")
+        elif not caption:
+            return apology("please enter a caption")
         if len(title) > 255:
             return apology("Your title is too long!")
         if len(caption) > 255:
             return apology("Your caption is too long!")
 
-        # als er een foto geupload is run dan alles voor een foto
+        # if a file is uploaded, upload it
         try:
             file = request.files['uploadfile']
 
@@ -356,24 +426,28 @@ def upload():
 
             # this is the path to the picture in the folder
             path = os.path.join(foto_upload, file.filename)
-
+            # TODO EMMA COMMENTS
             file.save(path)
             filename = request.files['uploadfile'].filename
 
+            # upload into the database and redirect if all is good
             fotoid = h_upload(path, title, caption, filename)
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
                 return apology("ging iets fout")
 
-        # anders moet je het gifje uploaden
         except:
+            # else a gif must be uploaded
             path = request.form.get("gifje")
 
-            # stop m in de database
+            if not path:
+                return apology("You must upload a file or seach a gif!")
+
+            # insert into database
             fotoid = h_gifje(path, title, caption)
 
-            # als het is gelukt, ga naar de individuele pagina
+            # if all is good, redirect
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
@@ -385,18 +459,19 @@ def upload():
 @app.route("/photo/", methods=["GET", "POST"])
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
 def photo(fotoid=False):
-    print(fotoid)
-    # als er geen of een ongeldig fotoid is, geef apology
+    """
+    loads a photo with all data
+    """
+    # if unvalid fotoid apologize
     if not fotoid:
         return apology("Fill in a photo-id")
-    fotoid = int(fotoid)
     if not geldig(fotoid):
         return apology("Fill in a valid photo-id")
 
-    # Verzamel alle data van de foto
+    # get all data
     data = get_foto(fotoid)
 
-    # zet de data klaar voor de template
+    # Set up data for template
     username = idnaam(data["userid"])
     fotoid = data["fotoid"]
     foto = data['path']
@@ -420,16 +495,21 @@ def photo(fotoid=False):
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
 def logout():
-    # clears sessin and goes back to index page
+    """
+    Clears the session
+    """
+
+    # clears session and goes back to index page
     session.clear()
     return redirect(url_for("index"))
 
 
-# Dit is de functie die wordt aangeroepen in de 'neppe' refresh van de javascript. Hierin moet dus de volg functie worden aangeroepen.
 @app.route('/follow/<userid>')
 def follow(userid):
-    # krijgt een gevolgd userid mee, en deze wordt in/uit de database gezet.
-    userid = int(userid)
+    """
+    Registers a follow/unfollow
+    """
+    # insert the follow/unfollow if it is not yourself
     if not h_follow(userid):
         return apology("You can not follow yourself")
     return "nothing"
@@ -438,13 +518,22 @@ def follow(userid):
 @app.route("/search", methods=["GET", "POST"])
 @login_required
 def search():
+    """
+    Gets the search
+    Get the data
+    Give to template
+    """
+    # get the search
     zoekopdracht = request.form.get("search")
 
+    # get the results
     profiel_search = h_profielsearch(zoekopdracht)
     foto_search = h_fotosearch(zoekopdracht)
 
     # remove duplicates (if any) from searchresults for username and profilename
     profiel_search = [dict(t) for t in {tuple(d.items()) for d in profiel_search}]
-    # tel het totaal aantal resultaten bij elkaar op
+
+    # count the results
     aantalres = len(profiel_search) + len(foto_search)
+
     return render_template("search.html", profiel_search=profiel_search, foto_search=foto_search, zoekopdracht=zoekopdracht, aantalres=aantalres)
