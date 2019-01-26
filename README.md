@@ -2,30 +2,28 @@
 Instapet
 Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigenaren en dierliefhebbers, zodat ze foto’s kunnen delen met gelijkgestelden. Op de deze manier wordt Facebook en Instagram niet overgenomen door dieren. Het idee is er om de like/dislike functie te gebruiken op een Instagram achtige omgeving.
 
-1. ontvangstpagina voor niet-ingelogde gebruikers (index)
-2. homepage voor ingelogde gebruikers (home)
+1.  ontvangstpagina voor niet-ingelogde gebruikers (index)
+2.  homepage voor ingelogde gebruikers (home)
     1. like/dislike
-3. profielpagina (profile)
+3.  profielpagina (profile)
     1. Eigen foto’s
     2. Gelikete foto’s
     3. Comment wall
     4. Volgers etc.
-4. search
-5. timeline (pack)
-6. persoonlijke instellingen (manage)
-7. uploadpagina (upload)
+4.  search
+5.  timeline (pack)
+6.  persoonlijke instellingen (manage)
+7.  uploadpagina (upload)
 
 Features
-1.	zoekfunctie dmv google API (optioneel)
-2.	report functie
-3.	comments (optioneel)
-4.	like/dislike
-5.	delen
-6.	volgen
-7.	foto’s/ gifjes uploaden (met beschrijving)
-8.	inloggen/uitloggen
-9.	account beheer
-10.	foto’s bijsnijden (optioneel)
+1.	comments
+2.	like/dislike
+3.	delen
+4.	volgen
+5.	foto’s/ gifjes uploaden (met beschrijving)
+6.	inloggen/uitloggen
+7.	account beheer
+8.  
 
 MVP
 1.	Inlog/registratie
