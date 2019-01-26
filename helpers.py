@@ -144,7 +144,7 @@ def h_profile(name, profielfoto, beschrijving):
             return apology("Must fill in a Name!")
         if profielfoto == ' ':
             # TODO IDK WAT MAAR KIJK EVEN
-            profielfoto = "/static_pfupload/1.jpg"
+            profielfoto = "/static_pfupload/14.jpg"
         # insert into database
         db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
                    userid=userid, name=name, profielfoto=profielfoto, beschrijving=beschrijving)
@@ -260,10 +260,7 @@ def random_fotoid():
 def get_beoordeeld(userid):
     # returns all fotoid's of pictures that have been "beoordeed" yet
     lijst = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid", userid=userid)
-    beoordeeld = []
-    for x in range(len(lijst)):
-        beoordeeld.append(lijst[x]["fotoid"])
-    return beoordeeld
+    return into_list(lijst)
 
 
 def volger_fotoid():
@@ -310,38 +307,27 @@ def get_comments(fotoid):
 def get_volgend(userid):
     # returns a list of people they follow
     volgenden = db.execute("SELECT userid FROM volgers WHERE volgerid = :volgerid", volgerid=userid)
-    volgend = []
-    for x in range(len(volgenden)):
-        volgend.append(volgenden[x]["userid"])
-    return volgend
+    return into_list(volgenden)
 
 
 def get_gevolgd(userid):
     # returns a list of people that he/she is followed by
     volgenden = db.execute("SELECT volgerid FROM volgers WHERE userid = :userid", userid=userid)
-    volgend = []
-    for x in range(len(volgenden)):
-        volgend.append(volgenden[x]["volgerid"])
-    return volgend
+    return into_list(volgenden)
 
 
 def get_persoonfotos(userid):
     # Haalt alle paden van geuploade foto's van een gebruiker
     paths = db.execute("SELECT path FROM pictures WHERE userid = :userid", userid=userid)
-    for x in range(len(paths)):
-        paths[x] = paths[x]["path"]
-    return paths
+    return into_list(paths)
 
 
 def get_likedfotos(userid):
     # Haalt de paden van alle gelikte foto's
     liked = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid AND liked = 1", userid=userid)
-    for x in range(len(liked)):
-        liked[x] = liked[x]["fotoid"]
+    liked = into_list(liked)
     fotos = db.execute("SELECT path FROM pictures WHERE fotoid IN (:liked)", liked=liked)
-    for x in range(len(fotos)):
-        fotos[x] = fotos[x]["path"]
-    return fotos
+    return into_list(fotos)
 
 
 def post_comment(fotoid, comment):
@@ -456,3 +442,27 @@ def lengte_comments(comments):
         return 'langer'
     else:
         return "nog_langer"
+
+
+def foto_data(data):
+    userid= data["userid"]
+    username = idnaam(userid)
+    fotoid = data["fotoid"]
+    foto = data['path']
+    caption = data["caption"]
+    titel = data["titel"]
+    date = data["date"]
+    likes = data["totaallikes"]
+    return username, fotoid, foto, caption, titel, date, likes, userid
+
+
+def into_list(lijst):
+    print(lijst)
+    if not lijst:
+        return False
+    for key in lijst[0]:
+        key = key
+    data = []
+    for x in range(len(lijst)):
+        data.append(lijst[x][key])
+    return data

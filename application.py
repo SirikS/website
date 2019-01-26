@@ -271,26 +271,13 @@ def home(fotoid = False):
     # get all the data of a photo
     data = get_foto(fotoid)
 
-    # get all values ready for template
-    username = idnaam(data["userid"])
-    fotoid = data["fotoid"]
-    foto = data['path']
-    caption = data["caption"]
-    titel = data["titel"]
-    date = data["date"]
-    likes = data["totaallikes"]
-    userid= data["userid"]
-
-    # get the uploader's profile pic and name
-    profielfoto, naam = pfname(data["userid"])
-
-    # also get the comments
+    # Set up all data for template
+    username, fotoid, foto, caption, titel, date, likes, userid = foto_data(data)
+    profielfoto, naam = pfname(userid)
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
     welvolg = volgcheck(username)
 
-    # TODO
-    # SHARE
     return render_template("home.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
 
 
@@ -313,26 +300,13 @@ def pack(fotoid = False):
     # get all data of a photo
     data = get_foto(fotoid)
 
-    # get all values ready for template
-    username = idnaam(data["userid"])
-    fotoid = data["fotoid"]
-    foto = data['path']
-    caption = data["caption"]
-    titel = data["titel"]
-    date = data["date"]
-    likes = data["totaallikes"]
-    userid= data["userid"]
-
-    # get the uploaders profile pic and name
-    profielfoto, naam = pfname(data["userid"])
-
-    # also get the comments
+    # Set up all data for template
+    username, fotoid, foto, caption, titel, date, likes, userid = foto_data(data)
+    profielfoto, naam = pfname(userid)
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
     welvolg = volgcheck(username)
 
-    # TODO
-    # Laad share mogelijkheden
     return render_template("pack.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, likes=likes, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
@@ -477,23 +451,12 @@ def photo(fotoid=False):
     # get all data
     data = get_foto(fotoid)
 
-    # Set up data for template
-    username = idnaam(data["userid"])
-    fotoid = data["fotoid"]
-    foto = data['path']
-    caption = data["caption"]
-    titel = data["titel"]
-    date = data["date"]
-    likes = data["totaallikes"]
-
-    # get the uploaders profile pic and name
-    profielfoto, naam = pfname(data["userid"])
-
-    # also get the comments
+    # Set up all data for template
+    username, fotoid, foto, caption, titel, date, likes, userid = foto_data(data)
+    profielfoto, naam = pfname(userid)
     comments = get_comments(fotoid)
     aantalcomments = lengte_comments(comments)
     welvolg = volgcheck(username)
-    userid= data["userid"]
 
     return render_template("photo.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
