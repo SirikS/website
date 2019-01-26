@@ -135,16 +135,20 @@ def login():
 
         # ensure username was submitted
         if not username:
-            return apology("must provide username")
+            flash('Please enter a username', 'login')
+            return render_template("index.html")
 
         # ensure password was submitted
         elif not password:
-            return apology("must provide password")
+            flash('Please enter a password', 'login')
+            return render_template("index.html")
 
         if h_login(username, password) == True:
             return redirect(url_for("home"))
         else:
-            return apology("Wachtwoord en username komen niet overeen")
+            flash('Wrong username or password', 'login')
+            return render_template("index.html")
+            # return apology("Wachtwoord en username komen niet overeen")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -219,31 +223,46 @@ def register():
 
         # ensure username everything is submitted
         if not username:
-            return apology("must provide username")
+            flash('Please enter a username', 'sign-up')
+            return render_template("index.html")
         elif not password or not confirmation:
-            return apology("must provide both passwords")
+            flash('Please enter the password twice', 'sign-up')
+            return render_template("index.html")
         elif not email:
-            return apology("please enter email")
+            flash('Please enter an email', 'sign-up')
+            return render_template("index.html")
+
+
+        # check if the username is not already taken
+        if username_taken(username) == False:
+            flash('This username is taken', 'sign-up')
+            return render_template("index.html")
 
         # ensure passwords match
         elif confirmation != password:
-            return apology("must fill in same password")
+            flash('The two passwords do not match', 'sign-up')
+            return render_template("index.html")
 
         # check if password is allowed
         if len(password) < 8:
-            return apology("password must contain at least 8 characters")
+            flash('The password must contain at least 8 characters', 'sign-up')
+            return render_template("index.html")
         if not any([True for letter in password if letter.isupper()]):
-            return apology("password must contain a upper-case letter")
+            flash('The password must contain an upper-case letter', 'sign-up')
+            return render_template("index.html")
         if not any([True for letter in password if letter.islower()]):
-            return apology("password must contain a lower-case letter")
+            flash('The password must contain a lower-case letter', 'sign-up')
+            return render_template("index.html")
         if not any([True for letter in password if letter.isdigit()]):
-            return apology("password must contain at least a number!")
+            flash('The password must contain at least one number', 'sign-up')
+            return render_template("index.html")
 
         # register the user in the database
         if h_register(username, pwd_context.hash(password), email):
             return redirect(url_for("manage"))
         else:
-            return apology("Something went wrong")
+            flash('Something went wrong', 'sign-up')
+            return render_template("index.html")
 
     return render_template("index.html")
 

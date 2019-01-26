@@ -28,10 +28,10 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
-def errormessage(message, html_page, category = ""):
-    """flashes an error message to the user. Takes the message and the html page as argument,  can take a category as optional argument"""
-    flash(message, category)
-    return render_template(html_page)
+# def errormessage(message, html_page, category):
+#     """flashes an error message to the user. Takes the message and the html page as argument,  can take a category as optional argument"""
+#     flash(message, category)
+#     return render_template("apology.html")
 
 
 def h_login(username, password):
@@ -50,7 +50,8 @@ def h_login(username, password):
 
 
 def username_taken(username):
-    if len(db.execute("SELECT * FROM accounts WHERE username = :us", us=username)) != 0:
+    if len(db.execute("SELECT username FROM accounts WHERE username = :us", us=username)) != 0:
+        print(len(db.execute("SELECT username FROM accounts WHERE username = :us", us=username)))
         return False
     return True
 
