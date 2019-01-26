@@ -135,20 +135,17 @@ def login():
 
         # ensure username was submitted
         if not username:
-            flash('Please enter a username', 'login')
-            return render_template("index.html")
+            return errormessage('Please enter a username', "index.html", 'login')
 
         # ensure password was submitted
         elif not password:
-            flash('Please enter a password', 'login')
-            return render_template("index.html")
+            return errormessage('Please enter a password', "index.html", 'login')
 
+        # either redirect to home, or the username or password is wrong
         if h_login(username, password) == True:
             return redirect(url_for("home"))
         else:
-            flash('Wrong username or password', 'login')
-            return render_template("index.html")
-            # return apology("Wachtwoord en username komen niet overeen")
+            return errormessage("Wrong username or password", "index.html", "login")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -223,46 +220,36 @@ def register():
 
         # ensure username everything is submitted
         if not username:
-            flash('Please enter a username', 'sign-up')
-            return render_template("index.html")
+            return errormessage('Please enter a username', "index.html", 'sign-up')
         elif not password or not confirmation:
-            flash('Please enter the password twice', 'sign-up')
-            return render_template("index.html")
+            return errormessage('Please enter the password twice', "index.html", 'sign-up')
         elif not email:
-            flash('Please enter an email', 'sign-up')
-            return render_template("index.html")
+            return errormessage('Please enter an email', "index.html", 'sign-up')
 
 
         # check if the username is not already taken
         if username_taken(username) == False:
-            flash('This username is taken', 'sign-up')
-            return render_template("index.html")
+            return errormessage('This username is taken', "index.html", 'sign-up')
 
         # ensure passwords match
         elif confirmation != password:
-            flash('The two passwords do not match', 'sign-up')
-            return render_template("index.html")
+            return errormessage('The two passwords do not match', "index.html", 'sign-up')
 
         # check if password is allowed
         if len(password) < 8:
-            flash('The password must contain at least 8 characters', 'sign-up')
-            return render_template("index.html")
+            return errormessage('The password must contain at least 8 characters', "index.html", 'sign-up')
         if not any([True for letter in password if letter.isupper()]):
-            flash('The password must contain an upper-case letter', 'sign-up')
-            return render_template("index.html")
+            return errormessage('The password must contain an upper-case lettter', "index.html", 'sign-up')
         if not any([True for letter in password if letter.islower()]):
-            flash('The password must contain a lower-case letter', 'sign-up')
-            return render_template("index.html")
+            return errormessage('The password must contain a lower-case letter', "index.html", 'sign-up')
         if not any([True for letter in password if letter.isdigit()]):
-            flash('The password must contain at least one number', 'sign-up')
-            return render_template("index.html")
+            return errormessage('The password must contain at least one number', "index.html", 'sign-up')
 
         # register the user in the database
         if h_register(username, pwd_context.hash(password), email):
             return redirect(url_for("manage"))
         else:
-            flash('Something went wrong', 'sign-up')
-            return render_template("index.html")
+            return errormessage('Something went wrong', "index.html", 'sign-up')
 
     return render_template("index.html")
 
