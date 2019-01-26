@@ -96,8 +96,8 @@
 
   <div class="flex-commentfield">
     <div class="commentfield">
-      <form action="/comment/{{fotoid}}/photo" method="post">
-        <textarea name="uploadcomment" placeholder="Leave a comment"></textarea>
+      <form action="/comment/{{fotoid}}/photo" method="post" autocomplete=off>
+        <textarea name="uploadcomment" placeholder="Leave a comment" autocomplete=off></textarea>
         <br>
         <input type="submit" class="btn">
       </form>

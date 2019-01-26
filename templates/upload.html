@@ -108,24 +108,24 @@ $(document).ready(function() {
 
         <div class="col-lg-6">
         <div id="query">
-            <input type="text" id="inputQuery"><input type="button" id="submitButton" value="Zoek naar GIF">
+            <input type="text" id="inputQuery" autocomplete=off><input type="button" id="submitButton" value="Zoek naar GIF">
         </div>
         <div id="image">
         </div>
-        <div class="form-group">
+        <div class="form-group" autocomplete=off>
             <input id="gif" name="gifje" type="hidden" value=""/>
         </div>
             <div class="form-group">
             <!-- Titel kunnen toevoegen -->
-            <input class="form-control" name="titel" placeholder="Title" type="text"/>
+            <input class="form-control" autocomplete=off name="titel" placeholder="Title" type="text"/>
         </div>
         <div class="form-group">
             <!-- Caption kunnen toevoegen -->
-            <textarea rows="4" class="form-control caption" name="caption" placeholder="Caption" type="text"/></textarea>
+            <textarea rows="4" class="form-control caption" autocomplete=off name="caption" placeholder="Caption" type="text"/></textarea>
         </div>
         <div class="form-group">
             <!-- Tags kunnen toevoegen -->
-            <input class="form-control" name="tags" placeholder="Tags" type="text"/>
+            <input class="form-control" autocomplete=off name="tags" placeholder="Tags" type="text"/>
         </div>
         <div class="form-group">
             <!-- Submit knop -->
