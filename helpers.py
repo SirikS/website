@@ -1,7 +1,7 @@
 import csv
 import urllib.request
 
-from flask import redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from functools import wraps
 from cs50 import SQL
@@ -28,6 +28,11 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
+def errormessage(message, html_page, category = ""):
+    """flashes an error message to the user. Takes the message and the html page as argument,  can take a category as optional argument"""
+    flash(message, category)
+    return render_template(html_page)
+
 
 def h_login(username, password):
     # query database for username
@@ -44,13 +49,19 @@ def h_login(username, password):
     return True
 
 
+def username_taken(username):
+    if len(db.execute("SELECT * FROM accounts WHERE username = :us", us=username)) != 0:
+        return False
+    return True
+
+
 def h_register(username, password, email):
     # put the user into the database
     variable = db.execute("INSERT INTO accounts (username, password, email) VALUES (:us, :ps, :em)",
                           us=username, ps=password, em=email)
-    # if it didnt work, the username is allready present
+    # if it didnt work, something went wrong
     if not variable:
-        return apology("Username already present")
+        return False
     # save the session
     session["user_id"] = variable
     return True
