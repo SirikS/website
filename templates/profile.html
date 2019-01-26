@@ -42,19 +42,19 @@
                 </form>
                 {% elif welvolg %}
                 <form>
-                    <button onclick="volgknop();" id="knop" class="btn">Ontvolg</button>
+                    <button onclick="volgknop();" id="knop" class="btn">Abandon</button>
                 </form>
                 {% else %}
                 <form>
-                    <button onclick="volgknop();" id="knop" class="btn">Volg</button>
+                    <button onclick="volgknop();" id="knop" class="btn">Adopt</button>
                 </form>
                 {% endif %}
             </div>
             <!--plek voor het aantal volgers-->
             <div>
                 <div>
-                {{ aantalvolgers }}<br>
-                FOLLOWERS
+                    ADOPTED BY: <br>
+                    {{ aantalvolgers }}
                 </div>
             </div>
         </div>
@@ -65,22 +65,22 @@
     <div class="middelste_flex">
         <!--knop voor jouw fotos-->
         <div>
-            <button class="tablinks active" onclick="fotoladen(event, 'personal')">personal pictures</button>
+            <button class="tablinks active" onclick="fotoladen(event, 'personal')">Personal pictures</button>
 
         </div>
         <!--knop voor gelikede fotos-->
         <div>
-            <button class="tablinks active" onclick="fotoladen(event, 'liked')">liked pictures</button>
+            <button class="tablinks active" onclick="fotoladen(event, 'liked')">Liked pictures</button>
 
         </div>
         <!--volgt:-->
         <div>
-            <button class="tablinks active" onclick="fotoladen(event, 'pack')">follows (pack)</button>
+            <button class="tablinks active" onclick="fotoladen(event, 'pack')">Packmembers</button>
 
         </div>
         <!--gevolgt door:-->
         <div>
-            <button class="tablinks active" onclick="fotoladen(event, 'following')">following</button>
+            <button class="tablinks active" onclick="fotoladen(event, 'following')">Adopted by</button>
 
         </div>
     </div>
