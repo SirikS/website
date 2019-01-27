@@ -385,13 +385,13 @@ def upload():
 
         # ensure every thing is alright
         if not title:
-            return apology("please enter a title")
+            return errormessage("Please enter a title", "upload.html")
         elif not caption:
-            return apology("please enter a caption")
+            return errormessage("Please enter a caption", "upload.html")
         if len(title) > 255:
-            return apology("Your title is too long!")
+            return errormessage("Your title is too long!", "upload.html")
         if len(caption) > 255:
-            return apology("Your caption is too long!")
+            return errormessage("Your caption is too long!", "upload.html")
 
         # if a file is uploaded, upload it
         try:
@@ -399,7 +399,7 @@ def upload():
 
             # if the file is not an image file, return an apology
             if is_it_image(file) == False:
-                return apology('please submit an image file')
+                return errormessage('Please submit an image file', "upload.html")
 
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/foto_upload"
@@ -415,14 +415,14 @@ def upload():
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
-                return apology("ging iets fout")
+                return errormessage("Something went wrong", "upload.html")
 
         except:
             # else a gif must be uploaded
             path = request.form.get("gifje")
 
             if not path:
-                return apology("You must upload a file or seach a gif!")
+                return errormessage("You must upload a file or seach a gif!", "upload.html")
 
             # insert into database
             fotoid = h_gifje(path, title, caption)
@@ -431,7 +431,7 @@ def upload():
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
-                return apology("ging iets fout")
+                return errormessage("Something went wrong", "upload.html")
 
     return render_template("upload.html")
 
