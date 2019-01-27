@@ -179,7 +179,7 @@ def manage():
 
             # if the file is not an image file, return an apology
             if is_it_image(file) == False:
-                return apology('please submit an image file')
+                return errormessage("Please submit and image file", "manage.html")
 
             # this is the path to the picture in the folder
             path = os.path.join(foto_upload, file.filename)
@@ -195,7 +195,7 @@ def manage():
         # insert into database
         if h_profile(name, profielfoto, beschrijving):
             return redirect(url_for("profile"))
-        return apology("Something went wrong")
+        return errormessage("Something went wrong", "manage.html")
 
     return render_template("manage.html")
 
