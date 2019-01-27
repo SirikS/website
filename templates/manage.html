@@ -17,6 +17,16 @@
             <!-- Profielnaam kunnen invoeren/aanpassen -->
             <input class="form-control" name="profielnaam" placeholder="Name example" autocomplete=off type="text"/>
         </div>
+
+        <!--Plaats voor waar de apology komt te staan-->
+                <div class="alert-message block-message error">
+                    <ul>
+                        {%- for msg in get_flashed_messages() %}
+                        <li>{{ msg }}</li>
+                        {% endfor -%}
+                    </ul>
+                </div>
+
         <div class="form-group">
             <!-- Profielbio kunnen invoeren/aanpassen -->
             <input class="form-control" name="profielbio" placeholder="Bio example" autocomplete=off type="text"/>

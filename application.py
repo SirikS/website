@@ -167,9 +167,9 @@ def manage():
 
         # ensure it is allowed
         if len(name) > 63:
-            return apology("Your name is too long!")
+            return errormessage("The name you've chosen is too long", "manage.html")
         if len(beschrijving) > 255:
-            return apology("Your bio is too long!")
+            return errormessage("This biography is too long", "manage.html")
 
         # if there is a profile pic, upload it
         try:
