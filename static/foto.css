@@ -5,6 +5,21 @@
     margin-top: 50px;
 }
 
+.location_pf{
+    display: flex;
+    flex-direction:row;
+}
+
+.location_pf > .profilename{
+    margin-left:3px;
+}
+
+.location_pf > .profilename >div{
+    font-weight: bold;
+    color:black;
+    font-size:20px;
+}
+
 /*opmaak van de profielfoto van de uploader*/
 .profilepicture{
     border-radius: 50%;
@@ -47,7 +62,7 @@
 /*opmaak van de titel*/
 .flex-container> div:nth-child(2) >p {
     padding:1%;
-    font-size:20px;
+    font-size:30px;
     position: relative;
     float: left;
     top: 50%;

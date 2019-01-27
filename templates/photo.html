@@ -12,39 +12,45 @@
 
 <div class="container">
 
+<!--This is the place for the profilepicture-->
   <div class="flex-container" >
     <div class="location_pf">
       <a href="/profile/{{ accountnaam }}">
         <img src="{{ profielfoto }}" alt="profilepicture" style="object-fit:cover;" class="profilepicture">
       </a>
+      <a href="/profile/{{ accountnaam }}" class="profilename">
+        <div>{{ naam }}</div>
+      </a>
     </div>
-    <div>
 
+<!--title with help of python   -->
+    <div>
       <p>{{ titel }}</p>
     </div>
+    <!--the date the picture was posted-->
     <div>
       <div style="align-self: center">{{ date }}</div>
       <div style="align-self: center">
-        <!--<button type="submit" class="volgknop btn">Follow</button>-->
+        <!--The follow button changes-->
         {% if welvolg %}
           <form>
-            <button onclick="volgknop();" id="knop" class="volgknop btn">Ontvolg</button>
+            <button onclick="volgknop();" id="knop" class="volgknop btn">Abandon</button>
           </form>
         {% else %}
           <form>
-            <button onclick="volgknop();" id="knop" class="volgknop btn">Volg</button>
+            <button onclick="volgknop();" id="knop" class="volgknop btn">Adopt</button>
           </form>
         {% endif %}
       </div>
     </div>
   </div>
 
-
+<!--this is where the main image will be located-->
   <div class="main-image">
     <img src="{{ foto }}" alt="photo" style="object-fit:contain;">
   </div>
 
-
+<!--The caption and the amount of likes will show here-->
    <div class="flex-container2">
     <div>
       {{ caption }}
@@ -62,7 +68,7 @@
   </div>
 
 
-
+<!--the size of the comment box depends on the amount of comments-->
   {% if aantalcomments == 'False' %}
   <div class="comments" style="height: 0px">
   {% elif aantalcomments == 'True' %}
@@ -93,7 +99,7 @@
     </div>
 
 
-
+<!--The user can enter their comment here-->
   <div class="flex-commentfield">
     <div class="commentfield">
       <form action="/comment/{{fotoid}}/photo" method="post" autocomplete=off>
