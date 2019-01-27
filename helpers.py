@@ -457,7 +457,6 @@ def foto_data(data):
 
 
 def into_list(lijst):
-    print(lijst)
     if not lijst:
         return False
     for key in lijst[0]:
