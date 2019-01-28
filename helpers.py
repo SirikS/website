@@ -252,7 +252,10 @@ def volgcheck(profielnaam):
     Returns a true or false statement depending on if the person is followed
     """
     userid = naamid(profielnaam)
-    volgerid = session["user_id"]
+    try:
+        volgerid = session["user_id"]
+    except:
+        return False
     if len(db.execute("SELECT * FROM volgers WHERE userid = :userid AND volgerid = :volgerid", userid=userid, volgerid=volgerid)) == 1:
         return True
     return False

@@ -460,6 +460,7 @@ def logout():
 
 
 @app.route('/follow/<userid>')
+@helpers.login_required
 def follow(userid):
     """
     Registers a follow/unfollow
