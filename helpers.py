@@ -248,6 +248,8 @@ def random_fotoid():
     userid = session["user_id"]
 
     beoordeeld = get_beoordeeld(userid)
+    if not beoordeeld:
+        beoordeeld = []
     # gets a list of pictures that are not their own's
     lijst = db.execute("SELECT fotoid FROM pictures WHERE userid != :userid AND fotoid NOT IN (:beoordeeld)",
                        userid=userid, beoordeeld=beoordeeld)
