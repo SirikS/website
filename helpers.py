@@ -1,25 +1,25 @@
 import csv
 import urllib.request
+import os
+import random
 
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from functools import wraps
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
-import os
-import random
-from urllib.parse import urlparse, parse_qs
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///instapet.db")
 
 
 def apology(message, code=400):
-    """Renders message as an apology to user."""
+    """
+    Renders message as an apology to user.
+    """
     def escape(s):
         """
         Escape special characters.
-
         https://github.com/jacebrowning/memegen#special-characters
         """
         for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
@@ -40,6 +40,9 @@ def errormessage(message, html_page, category=""):
 
 
 def h_login(username, password):
+    """
+    Logs the user in.
+    """
     # query database for username
     rows = db.execute("SELECT * FROM accounts WHERE username = :username", username=username)
 
@@ -55,24 +58,37 @@ def h_login(username, password):
 
 
 def username_taken(username):
+    """
+    Checks if username isnt allready taken
+    """
+    # if there is no row, it is not taken
     if len(db.execute("SELECT username FROM accounts WHERE username = :us", us=username)) != 0:
         return False
     return True
 
 
 def h_register(username, password, email):
+    """
+    Inserts the new user into database
+    Saves the session
+    """
     # put the user into the database
     variable = db.execute("INSERT INTO accounts (username, password, email) VALUES (:us, :ps, :em)",
                           us=username, ps=password, em=email)
     # if it didnt work, something went wrong
     if not variable:
         return False
+
     # save the session
     session["user_id"] = variable
     return True
 
 
 def h_upload(path, titel, caption, filename):
+    """
+    Saves picture, renames it and adjusts the database
+    Returns the fotoid
+    """
     # save the picture in the database
     opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:id, :pt, :ti, :cp)",
                          id=session['user_id'], pt=path, ti=titel, cp=caption)
@@ -86,7 +102,7 @@ def h_upload(path, titel, caption, filename):
     # split the old file name to get the type of image (jpg, jpeg, png, etc)
     split_filename = filename.split('.')
 
-   # rename the file
+    # rename the file
     new_name = str(fotoid) + "." + str(split_filename[-1])
     new_file = os.path.join("static/foto_upload", new_name)
     os.rename(old_file, new_file)
@@ -99,6 +115,10 @@ def h_upload(path, titel, caption, filename):
 
 
 def pf_upload(path, filename):
+    """
+    same as h_upload but then for profile pics
+    But returns the path instead of fotoid
+    """
     # save the picture in the database
     opslaan = db.execute("INSERT INTO profielfotos (path) VALUES (:path)", path=path)
 
@@ -123,15 +143,19 @@ def pf_upload(path, filename):
 
 
 def h_like(fotoid, userid, value):
-    # value == 1 (like)
-    # value == 0 (dislike)
-    # inserts the like (or dislike) into the database
+    """
+    Inserts the like into the database
+    value = 1 stands for a like and value = 0 stands for a dislike
+    """
+    # checks if the like doesnt already exist
     if len(db.execute("SELECT * FROM beoordeeld WHERE userid = :userid AND fotoid = :fotoid",
                       fotoid=fotoid, userid=userid)) != 0:
         return False
+    # insert the like/dislike
     db.execute("INSERT INTO beoordeeld (fotoid, userid, liked) VALUES (:fotoid, :userid, :liked)",
                fotoid=fotoid, userid=userid, liked=value)
-    # inserts the like/dislike into the total like/dislike count in foto database
+
+    # changes the like/dislike in the total like/dislike count in the pictures database
     if value == '1':
         db.execute("UPDATE pictures SET totaallikes = totaallikes + 1 WHERE fotoid= :fotoid", fotoid=fotoid)
     else:
@@ -140,19 +164,26 @@ def h_like(fotoid, userid, value):
 
 
 def h_profile(name, profielfoto, beschrijving):
+    """
+    If a profile is changed, this function changes the database
+    First checks if there is a profile yet, and if not all data must be given
+    Else it changes the changed fields
+    """
     # get the persons user id
     userid = session['user_id']
+
     # if no profile yet, make sure there is a name and profile picture
     if len(db.execute("SELECT * FROM profiel WHERE userid = :userid", userid=userid)) == 0:
         if name == ' ':
             return apology("Must fill in a Name!")
         if profielfoto == ' ':
-            # TODO IDK WAT MAAR KIJK EVEN
-            profielfoto = "/static_pfupload/14.jpg"
+            # if there is no profile pic, take our basic one
+            profielfoto = "/static_pfupload/23.png"
         # insert into database
         db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
                    userid=userid, name=name, profielfoto=profielfoto, beschrijving=beschrijving)
         return True
+
     # else if a value is not changed, get the old values
     if not name:
         name = db.execute("SELECT name FROM profiel WHERE userid = :userid", userid=userid)[0]['name']
@@ -167,29 +198,37 @@ def h_profile(name, profielfoto, beschrijving):
 
 
 def get_profiel(account):
+    """
+    Gets all data of an account
+    """
     # try to get the userid of the account else the profile does not exist
     try:
         userid = db.execute("SELECT userid FROM accounts WHERE username= :username", username=account)[0]["userid"]
     except:
         return False
-    # give the whole profile back
+    # give the whole profile data back
     lijst = db.execute("SELECT * FROM profiel WHERE userid = :userid", userid=userid)[0]
     return lijst
 
 
 def pfname(userid):
-    # gets the profile pic and name for example a comment
+    """
+    Returns the pf and name of an userid
+    """
     profielfoto = db.execute("SELECT profielfoto FROM profiel WHERE userid = :userid", userid=userid)[0]["profielfoto"]
     name = db.execute("SELECT name FROM profiel WHERE userid = :userid", userid=userid)[0]["name"]
     return profielfoto, name
 
 
 def h_follow(userid):
+    """
+    Inserts/deletes a follow dependent whether the follow already excists
+    """
     # the user is the follower
     volgerid = session["user_id"]
+    # you can not follow yourself
     if userid == volgerid:
         return False
-    # the followed is the person who's profile is in the link
 
     # Looks how many rows there are in the database
     rows = db.execute("SELECT * FROM volgers WHERE userid= :userid AND volgerid= :volgerid", userid=userid, volgerid=volgerid)
@@ -211,7 +250,9 @@ def h_follow(userid):
 
 
 def volgcheck(profielnaam):
-    # returns a true or false statement depending on if the person is followed
+    """
+    Returns a true or false statement depending on if the person is followed
+    """
     userid = naamid(profielnaam)
     volgerid = session["user_id"]
     if len(db.execute("SELECT * FROM volgers WHERE userid = :userid AND volgerid = :volgerid", userid=userid, volgerid=volgerid)) == 1:
@@ -222,8 +263,7 @@ def volgcheck(profielnaam):
 def login_required(f):
     """
     Decorate routes to require login.
-
-    http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
+    See: http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -234,17 +274,23 @@ def login_required(f):
 
 
 def naamid(username):
-    # returns the userid of a username
+    """
+    Returns the userid of a username
+    """
     return db.execute("SELECT userid FROM accounts WHERE username= :username", username=username)[0]["userid"]
 
 
 def idnaam(userid):
-    # returns the username of a userid
+    """
+    Returns the username of a userid
+    """
     return db.execute("SELECT username FROM accounts WHERE userid= :userid", userid=userid)[0]["username"]
 
 
 def random_fotoid():
-    # get a random photo
+    """
+    Gets a random fotoid that has not been seen yet
+    """
     userid = session["user_id"]
 
     beoordeeld = get_beoordeeld(userid)
@@ -264,25 +310,26 @@ def random_fotoid():
 
 
 def get_beoordeeld(userid):
-    # returns all fotoid's of pictures that have been "beoordeed" yet
+    """
+    returns all fotoid's of pictures that have been "beoordeed" yet
+    """
     lijst = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid", userid=userid)
     return into_list(lijst)
 
 
 def volger_fotoid():
-    # same as random but gets only pictures from followed accounts
+    """
+    same as random_fotoid but gets only pictures from followed accounts
+    """
+    # gets a list of
     userid = session["user_id"]
     volgend = get_volgend(userid)
-    if not volgend:
-        volgend = []
     beoordeeld = get_beoordeeld(userid)
-    if not beoordeeld:
-        beoordeeld = []
 
     # get the list of pictures to be seen
     lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend) AND fotoid NOT IN (:beoordeeld)",
                        volgend=volgend, beoordeeld=beoordeeld)
-    if lijst == []:
+    if not lijst:
         return False
     # choose a random one
     fotoid = random.choice(lijst)["fotoid"]
@@ -290,7 +337,9 @@ def volger_fotoid():
 
 
 def get_foto(fotoid):
-    # returns all variable's of a photo
+    """
+    Returns all variable's of a photo
+    """
     try:
         return db.execute("SELECT * FROM pictures WHERE fotoid = :fotoid", fotoid=fotoid)[0]
     except:
@@ -298,7 +347,10 @@ def get_foto(fotoid):
 
 
 def get_comments(fotoid):
-    # get all comments of a photo
+    """
+    Returns all comments on a photo
+    """
+    # get all the comments of a photo
     rows = db.execute("SELECT * FROM comments WHERE fotoid= :fotoid", fotoid=fotoid)
     comments = []
 
@@ -315,35 +367,55 @@ def get_comments(fotoid):
 
 
 def get_volgend(userid):
-    # returns a list of people they follow
+    """
+    Returns a list of people they follow
+    """
     volgenden = db.execute("SELECT userid FROM volgers WHERE volgerid = :volgerid", volgerid=userid)
+    if not volgenden:
+        return []
     return into_list(volgenden)
 
 
 def get_gevolgd(userid):
-    # returns a list of people that he/she is followed by
+    """
+    Returns a list of people that he/she is followed by
+    """
     volgenden = db.execute("SELECT volgerid FROM volgers WHERE userid = :userid", userid=userid)
+    if not volgenden:
+        return []
     return into_list(volgenden)
 
 
 def get_persoonfotos(userid):
-    # Haalt alle paden van geuploade foto's van een gebruiker
+    """
+    Gets all paths of an users photos
+    """
     paths = db.execute("SELECT path FROM pictures WHERE userid = :userid", userid=userid)
+    if not paths:
+        return []
     return into_list(paths)
 
 
 def get_likedfotos(userid):
+    """
+    Gets all paths of pictures a person liked
+    """
     # Haalt de paden van alle gelikte foto's
     liked = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid AND liked = 1", userid=userid)
-    liked = into_list(liked)
     if not liked:
         liked = []
+    else:
+        liked = into_list(liked)
     fotos = db.execute("SELECT path FROM pictures WHERE fotoid IN (:liked)", liked=liked)
+    if not fotos:
+        return []
     return into_list(fotos)
 
 
 def post_comment(fotoid, comment):
-    # plaatst de comment in de database
+    """
+    Inserts the comment into the database
+    """
     userid = session["user_id"]
     db.execute("INSERT INTO comments (fotoid, userid, comment) VALUES (:fotoid, :userid, :comment)",
                fotoid=fotoid, userid=userid, comment=comment)
@@ -351,7 +423,9 @@ def post_comment(fotoid, comment):
 
 
 def geldig(fotoid):
-    # kijkt of een fotoid in de database staat
+    """
+    Checks if a photo excists
+    """
     if db.execute("SELECT * FROM pictures WHERE fotoid= :fotoid", fotoid=fotoid):
         return True
     else:
@@ -359,8 +433,12 @@ def geldig(fotoid):
 
 
 def h_profielsearch(zoekopdracht):
+    """
+    Looks for all profiles containing a given name
+    Then sets up the data for the html page
+    """
     profiel_search = []
-
+    # TODO EMMA COMMENTS
     names = db.execute("SELECT * FROM profiel WHERE UPPER(name)= :name", name=zoekopdracht.upper())
     for name in names:
         profiel = {}
@@ -384,8 +462,12 @@ def h_profielsearch(zoekopdracht):
 
 
 def h_fotosearch(zoekopdracht):
+    """
+    Looks for all pictures containing a given search
+    Then sets up the data for the html page
+    """
     foto_search = []
-
+    # TODO EMMA COMMENTS
     fotos = db.execute("SELECT * FROM pictures WHERE UPPER(titel)= :ti", ti=zoekopdracht.upper())
     for foto in fotos:
         profiel = {}
@@ -399,6 +481,9 @@ def h_fotosearch(zoekopdracht):
 
 
 def h_gifje(path, title, caption):
+    """
+    Uploads a gif from the giphy API into the database
+    """
     # uploads a path to the .gif file in the database and returns the fotoid
     userid = session["user_id"]
     opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:userid, :path, :titel, :caption)",
@@ -409,9 +494,12 @@ def h_gifje(path, title, caption):
 
 
 def info_door_path(path):
-    # This function takes the path to a picture and returns the info in a dict
+    """
+    Gets all data of an picture with a specific path
+    """
     info = {}
     fotos = db.execute("SELECT * FROM pictures WHERE path= :pt", pt=path)
+    # per foto, insert the correct data into the dict
     for foto in fotos:
         info["path"] = path
         info["foto_id"] = foto["fotoid"]
@@ -421,9 +509,12 @@ def info_door_path(path):
 
 
 def prof_info_door_id(userid):
-    # This function takes the userid  and returns the info in a dict
+    """
+    Gets all data of a profile using an userid
+    """
     info = {}
     names = db.execute("SELECT * FROM profiel WHERE userid= :id", id=userid)
+    # per profile, instert the correct data into the dict
     for name in names:
         info["account"] = idnaam(name['userid'])
         info['profielnaam'] = name['name']
@@ -432,7 +523,10 @@ def prof_info_door_id(userid):
 
 
 def is_it_image(file):
-        # get the last thing after the dot (jpg, png, etc) and make it lowercase
+    """
+    Returns a boolean depending on the uploaded file
+    """
+    # get the last thing after the dot (jpg, png, etc) and make it lowercase
     type_file = str(file.filename.split('.')[-1]).lower()
 
     # list of most (if not all) types of image files
@@ -446,6 +540,9 @@ def is_it_image(file):
 
 
 def lengte_comments(comments):
+    """
+    Returns specific values dependent on the amount of comments
+    """
     if len(comments) == 1:
         return 'True'
     elif len(comments) == 0:
@@ -457,6 +554,9 @@ def lengte_comments(comments):
 
 
 def foto_data(data):
+    """
+    Sets up data for the html page
+    """
     userid = data["userid"]
     username = idnaam(userid)
     fotoid = data["fotoid"]
@@ -469,23 +569,30 @@ def foto_data(data):
 
 
 def into_list(lijst):
-    # when data gotten by database, this turns it into the correct list
+    """
+    Changes data gotten by database into a normal list
+    """
     if not lijst:
         return False
+    # get the key
     for key in lijst[0]:
         key = key
     data = []
+    # per dict, add to the list
     for x in range(len(lijst)):
         data.append(lijst[x][key])
     return data
 
 
 def info(lijst, functie):
+    """
+    Loads data correct way for the template
+    """
     # Gets all data of a path/userid in the correct way
     fotos = []
     if not lijst:
         return fotos
-    for iets in lijst:
+    for value in lijst:
         # loads the given function per user/path
-        fotos.append(functie(iets))
+        fotos.append(functie(value))
     return fotos

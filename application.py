@@ -1,12 +1,11 @@
 import os
 
-from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
-from helpers import *
+import helpers
 
 # configure application
 app = Flask(__name__)
@@ -27,6 +26,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+
 @app.route("/")
 @app.route("/<foutje>")
 def index(foutje=False):
@@ -34,7 +34,7 @@ def index(foutje=False):
     Renders the login/register screen
     """
     if foutje:
-        return apology('This page does not exist!')
+        return helpers.apology('This page does not exist!')
     return render_template("index.html")
 
 
@@ -64,23 +64,23 @@ def support():
 
 @app.route("/profile/", methods=["GET", "POST"])
 @app.route("/profile/<username>", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def profile(username=''):
     """
     Loads the profile of an account
     """
     eigenacc = False
     # check if it is its own profile
-    if username == idnaam(session["user_id"]):
+    if username == helpers.idnaam(session["user_id"]):
         return redirect(url_for("profile"))
 
     # if no profile show his/her own
     if username == '':
-        username = idnaam(session["user_id"])
+        username = helpers.idnaam(session["user_id"])
         eigenacc = True
 
     # get all profile attributes
-    lijst = get_profiel(username)
+    lijst = helpers.get_profiel(username)
     # if account is unvalid, go to their own page
     if not lijst:
         return redirect(url_for("profile"))
@@ -92,15 +92,15 @@ def profile(username=''):
     aantalvolgers = lijst["volgers"]
 
     # look if the profile is followed
-    welvolg = volgcheck(username)
+    welvolg = helpers.volgcheck(username)
 
     # load the correct data for tabs
-    p_fotos = info(get_persoonfotos(naamid(username)), info_door_path)
-    l_fotos = info(get_likedfotos(naamid(username)), info_door_path)
-    p_profiel = info(get_volgend(naamid(username)), prof_info_door_id)
-    f_profiel = info(get_gevolgd(naamid(username)), prof_info_door_id)
+    p_fotos = helpers.info(helpers.get_persoonfotos(helpers.naamid(username)), helpers.info_door_path)
+    l_fotos = helpers.info(helpers.get_likedfotos(helpers.naamid(username)), helpers.info_door_path)
+    p_profiel = helpers.info(helpers.get_volgend(helpers.naamid(username)), helpers.prof_info_door_id)
+    f_profiel = helpers.info(helpers.get_gevolgd(helpers.naamid(username)), helpers.prof_info_door_id)
 
-    return render_template("profile.html", userid=naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
+    return render_template("profile.html", userid=helpers.naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
                            aantalvolgers=aantalvolgers, bio=bio, welvolg=welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
                            p_profiel=p_profiel, f_profiel=f_profiel, eigenacc=eigenacc)
 
@@ -123,17 +123,17 @@ def login():
 
         # ensure username was submitted
         if not username:
-            return errormessage('Please enter a username', "index.html", 'login')
+            return helpers.errormessage('Please enter a username', "index.html", 'login')
 
         # ensure password was submitted
         elif not password:
-            return errormessage('Please enter a password', "index.html", 'login')
+            return helpers.errormessage('Please enter a password', "index.html", 'login')
 
         # either redirect to home, or the username or password is wrong
-        if h_login(username, password) == True:
+        if helpers.h_login(username, password) == True:
             return redirect(url_for("home"))
         else:
-            return errormessage("Wrong username or password", "index.html", "login")
+            return helpers.errormessage("Wrong username or password", "index.html", "login")
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -141,7 +141,7 @@ def login():
 
 
 @app.route("/manage", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def manage():
     """
     Renders the manage page
@@ -155,9 +155,9 @@ def manage():
 
         # ensure it is allowed
         if len(name) > 63:
-            return errormessage("The name you've chosen is too long", "manage.html")
+            return helpers.errormessage("The name you've chosen is too long", "manage.html")
         if len(beschrijving) > 255:
-            return errormessage("This biography is too long", "manage.html")
+            return helpers.errormessage("This biography is too long", "manage.html")
 
         # if there is a profile pic, upload it
         try:
@@ -166,8 +166,8 @@ def manage():
             file = request.files['uploadfile']
 
             # if the file is not an image file, return an apology
-            if is_it_image(file) == False:
-                return errormessage("Please submit and image file", "manage.html")
+            if helpers.is_it_image(file) == False:
+                return helpers.errormessage("Please submit and image file", "manage.html")
 
             # this is the path to the picture in the folder
             path = os.path.join(foto_upload, file.filename)
@@ -175,15 +175,15 @@ def manage():
             # TODO EMMA COMMENTS
             file.save(path)
             filename = request.files['uploadfile'].filename
-            profielfoto = pf_upload(path, filename)
+            profielfoto = helpers.pf_upload(path, filename)
         # else there is no new profile pic
         except:
             profielfoto = "NULL"
 
         # insert into database
-        if h_profile(name, profielfoto, beschrijving):
+        if helpers.h_profile(name, profielfoto, beschrijving):
             return redirect(url_for("profile"))
-        return errormessage("Something went wrong", "manage.html")
+        return helpers.errormessage("Something went wrong", "manage.html")
 
     return render_template("manage.html")
 
@@ -208,42 +208,42 @@ def register():
 
         # ensure username everything is submitted
         if not username:
-            return errormessage('Please enter a username', "index.html", 'sign-up')
+            return helpers.errormessage('Please enter a username', "index.html", 'sign-up')
         elif not password or not confirmation:
-            return errormessage('Please enter the password twice', "index.html", 'sign-up')
+            return helpers.errormessage('Please enter the password twice', "index.html", 'sign-up')
         elif not email:
-            return errormessage('Please enter an email', "index.html", 'sign-up')
+            return helpers.errormessage('Please enter an email', "index.html", 'sign-up')
 
         # check if the username is not already taken
-        if username_taken(username) == False:
-            return errormessage('This username is taken', "index.html", 'sign-up')
+        if helpers.username_taken(username) == False:
+            return helpers.errormessage('This username is taken', "index.html", 'sign-up')
 
         # ensure passwords match
         elif confirmation != password:
-            return errormessage('The two passwords do not match', "index.html", 'sign-up')
+            return helpers.errormessage('The two passwords do not match', "index.html", 'sign-up')
 
         # check if password is allowed
         if len(password) < 8:
-            return errormessage('The password must contain at least 8 characters', "index.html", 'sign-up')
+            return helpers.errormessage('The password must contain at least 8 characters', "index.html", 'sign-up')
         if not any([True for letter in password if letter.isupper()]):
-            return errormessage('The password must contain an upper-case lettter', "index.html", 'sign-up')
+            return helpers.errormessage('The password must contain an upper-case lettter', "index.html", 'sign-up')
         if not any([True for letter in password if letter.islower()]):
-            return errormessage('The password must contain a lower-case letter', "index.html", 'sign-up')
+            return helpers.errormessage('The password must contain a lower-case letter', "index.html", 'sign-up')
         if not any([True for letter in password if letter.isdigit()]):
-            return errormessage('The password must contain at least one number', "index.html", 'sign-up')
+            return helpers.errormessage('The password must contain at least one number', "index.html", 'sign-up')
 
         # register the user in the database
-        if h_register(username, pwd_context.hash(password), email):
+        if helpers.h_register(username, pwd_context.hash(password), email):
             return redirect(url_for("manage"))
         else:
-            return errormessage('Something went wrong', "index.html", 'sign-up')
+            return helpers.errormessage('Something went wrong', "index.html", 'sign-up')
 
     return render_template("index.html")
 
 
 @app.route("/home/", methods=["GET", "POST"])
 @app.route("/home/<fotoid>", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def home(fotoid=False):
     """
     Gets a random fotoid
@@ -251,26 +251,26 @@ def home(fotoid=False):
     """
     # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
     if not fotoid:
-        fotoid = random_fotoid()
+        fotoid = helpers.random_fotoid()
     if not fotoid:
-        return apology("geen foto's meer")
+        return helpers.apology("geen foto's meer")
 
     # get all the data of a photo
-    data = get_foto(fotoid)
+    data = helpers.get_foto(fotoid)
 
     # Set up all data for template
-    username, fotoid, foto, caption, titel, date, likes, userid = foto_data(data)
-    profielfoto, naam = pfname(userid)
-    comments = get_comments(fotoid)
-    aantalcomments = lengte_comments(comments)
-    welvolg = volgcheck(username)
+    username, fotoid, foto, caption, titel, date, likes, userid = helpers.foto_data(data)
+    profielfoto, naam = helpers.pfname(userid)
+    comments = helpers.get_comments(fotoid)
+    aantalcomments = helpers.lengte_comments(comments)
+    welvolg = helpers.volgcheck(username)
 
     return render_template("home.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username, likes=likes)
 
 
 @app.route("/pack", methods=["GET", "POST"])
 @app.route("/pack/<fotoid>", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def pack(fotoid=False):
     """
     Gets a fotoid from the pack
@@ -279,25 +279,25 @@ def pack(fotoid=False):
 
     # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
     if not fotoid:
-        fotoid = volger_fotoid()
+        fotoid = helpers.volger_fotoid()
     if not fotoid:
-        return apology("geen foto's meer")
+        return helpers.apology("geen foto's meer")
 
     # get all data of a photo
-    data = get_foto(fotoid)
+    data = helpers.get_foto(fotoid)
 
     # Set up all data for template
-    username, fotoid, foto, caption, titel, date, likes, userid = foto_data(data)
-    profielfoto, naam = pfname(userid)
-    comments = get_comments(fotoid)
-    aantalcomments = lengte_comments(comments)
-    welvolg = volgcheck(username)
+    username, fotoid, foto, caption, titel, date, likes, userid = helpers.foto_data(data)
+    profielfoto, naam = helpers.pfname(userid)
+    comments = helpers.get_comments(fotoid)
+    aantalcomments = helpers.lengte_comments(comments)
+    welvolg = helpers.volgcheck(username)
 
     return render_template("pack.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, likes=likes, foto=foto, caption=caption, fotoid=fotoid, titel=titel, date=date, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
 @app.route("/like/<fotoid>/<direct>")
-@login_required
+@helpers.login_required
 def like(fotoid, direct='home'):
     """
     Check if like doesnt already exist
@@ -306,18 +306,18 @@ def like(fotoid, direct='home'):
     """
 
     # check the fotoid
-    if not geldig(fotoid):
-        return apology("Fill in a valid photo-id")
+    if not helpers.geldig(fotoid):
+        return helpers.apology("Fill in a valid photo-id")
 
     # insert the like
     userid = session["user_id"]
-    if not h_like(fotoid, userid, '1'):
-        return apology("You have liked/disliked this already")
+    if not helpers.h_like(fotoid, userid, '1'):
+        return helpers.apology("You have liked/disliked this already")
     return redirect(url_for(direct))
 
 
 @app.route("/dislike/<fotoid>/<direct>")
-@login_required
+@helpers.login_required
 def dislike(fotoid, direct='home'):
     """
     Check if dislike doesnt already exist
@@ -326,18 +326,18 @@ def dislike(fotoid, direct='home'):
     """
 
     # check the fotoid
-    if not geldig(fotoid):
-        return apology("Fill in a valid photo-id")
+    if not helpers.geldig(fotoid):
+        return helpers.apology("Fill in a valid photo-id")
 
     # insert the dislike
     userid = session["user_id"]
-    if not h_like(fotoid, userid, '0'):
-        return apology("You have liked/disliked this already")
+    if not helpers.h_like(fotoid, userid, '0'):
+        return helpers.apology("You have liked/disliked this already")
     return redirect(url_for(direct))
 
 
 @app.route("/comment/<fotoid>/<direct>", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def comment(fotoid, direct='home'):
     """
     Validates the photoid
@@ -345,19 +345,19 @@ def comment(fotoid, direct='home'):
     Redirects to the correct page
     """
     # als het geen geldig fotoid is, dan apology
-    if not geldig(fotoid):
-        return apology("Fill in a valid photo-id")
+    if not helpers.geldig(fotoid):
+        return helpers.apology("Fill in a valid photo-id")
 
     # get the comment
     comment = request.form.get("uploadcomment")
 
     # instert into database
-    post_comment(fotoid, comment)
+    helpers.post_comment(fotoid, comment)
     return redirect(url_for(direct, fotoid=fotoid))
 
 
 @app.route("/upload", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def upload():
     """
     Renders the upload page
@@ -371,21 +371,21 @@ def upload():
 
         # ensure every thing is alright
         if not title:
-            return errormessage("Please enter a title", "upload.html")
+            return helpers.errormessage("Please enter a title", "upload.html")
         elif not caption:
-            return errormessage("Please enter a caption", "upload.html")
+            return helpers.errormessage("Please enter a caption", "upload.html")
         if len(title) > 255:
-            return errormessage("Your title is too long!", "upload.html")
+            return helpers.errormessage("Your title is too long!", "upload.html")
         if len(caption) > 255:
-            return errormessage("Your caption is too long!", "upload.html")
+            return helpers.errormessage("Your caption is too long!", "upload.html")
 
         # if a file is uploaded, upload it
         try:
             file = request.files['uploadfile']
 
             # if the file is not an image file, return an apology
-            if is_it_image(file) == False:
-                return errormessage('Please submit an image file', "upload.html")
+            if helpers.is_it_image(file) == False:
+                return helpers.errormessage('Please submit an image file', "upload.html")
 
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/foto_upload"
@@ -397,27 +397,27 @@ def upload():
             filename = request.files['uploadfile'].filename
 
             # upload into the database and redirect if all is good
-            fotoid = h_upload(path, title, caption, filename)
+            fotoid = helpers.h_upload(path, title, caption, filename)
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
-                return errormessage("Something went wrong", "upload.html")
+                return helpers.errormessage("Something went wrong", "upload.html")
 
         except:
             # else a gif must be uploaded
             path = request.form.get("gifje")
 
             if not path:
-                return errormessage("You must upload a file or seach a gif!", "upload.html")
+                return helpers.errormessage("You must upload a file or seach a gif!", "upload.html")
 
             # insert into database
-            fotoid = h_gifje(path, title, caption)
+            fotoid = helpers.h_gifje(path, title, caption)
 
             # if all is good, redirect
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
-                return errormessage("Something went wrong", "upload.html")
+                return helpers.errormessage("Something went wrong", "upload.html")
 
     return render_template("upload.html")
 
@@ -430,25 +430,25 @@ def photo(fotoid=False):
     """
     # if unvalid fotoid apologize
     if not fotoid:
-        return apology("Fill in a photo-id")
-    if not geldig(fotoid):
-        return apology("Fill in a valid photo-id")
+        return helpers.apology("Fill in a photo-id")
+    if not helpers.geldig(fotoid):
+        return helpers.apology("Fill in a valid photo-id")
 
     # get all data
-    data = get_foto(fotoid)
+    data = helpers.get_foto(fotoid)
 
     # Set up all data for template
-    username, fotoid, foto, caption, titel, date, likes, userid = foto_data(data)
-    profielfoto, naam = pfname(userid)
-    comments = get_comments(fotoid)
-    aantalcomments = lengte_comments(comments)
-    welvolg = volgcheck(username)
+    username, fotoid, foto, caption, titel, date, likes, userid = helpers.foto_data(data)
+    profielfoto, naam = helpers.pfname(userid)
+    comments = helpers.get_comments(fotoid)
+    aantalcomments = helpers.lengte_comments(comments)
+    welvolg = helpers.volgcheck(username)
 
     return render_template("photo.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
 @app.route("/logout", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def logout():
     """
     Clears the session
@@ -465,13 +465,13 @@ def follow(userid):
     Registers a follow/unfollow
     """
     # insert the follow/unfollow if it is not yourself
-    if not h_follow(userid):
-        return apology("You can not follow yourself")
+    if not helpers.h_follow(userid):
+        return helpers.apology("You can not follow yourself")
     return "nothing"
 
 
 @app.route("/search", methods=["GET", "POST"])
-@login_required
+@helpers.login_required
 def search():
     """
     Gets the search
@@ -482,8 +482,8 @@ def search():
     zoekopdracht = request.form.get("search")
 
     # get the results
-    profiel_search = h_profielsearch(zoekopdracht)
-    foto_search = h_fotosearch(zoekopdracht)
+    profiel_search = helpers.h_profielsearch(zoekopdracht)
+    foto_search = helpers.h_fotosearch(zoekopdracht)
 
     # remove duplicates (if any) from searchresults for username and profilename
     profiel_search = [dict(t) for t in {tuple(d.items()) for d in profiel_search}]
