@@ -277,7 +277,7 @@ def volger_fotoid():
     lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend) AND fotoid NOT IN (:beoordeeld)",
                        volgend=volgend, beoordeeld=beoordeeld)
     if lijst == []:
-        return False
+        return []
     # choose a random one
     fotoid = random.choice(lijst)["fotoid"]
     return fotoid
