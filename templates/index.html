@@ -14,7 +14,8 @@
     <div class="instapet-titel">
       <p>Instapet</p>
     </div>
-    <div class="container-fluid">
+    <div class="container">
+      <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <div class="bs-example">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -27,13 +28,13 @@
               <!-- Wrapper for carousel items -->
               <div class="carousel-inner">
                 <div class="item active">
-                  <img src="/static/preview_foto/preview_temp_1.jpg" alt="First Slide">
+                  <img src="/static/preview_foto/preview_1.png" alt="First Slide">
                 </div>
                 <div class="item">
-                  <img src="/static/preview_foto/preview_temp_2.jpg" alt="Second Slide">
+                  <img src="/static/preview_foto/preview_2.png" alt="Second Slide">
                 </div>
                 <div class="item">
-                  <img src="/static/preview_foto/preview_temp_2.jpg" alt="Third Slide">
+                  <img src="/static/preview_foto/preview_3.png" alt="Third Slide">
                 </div>
               </div>
               <!-- Carousel controls -->
@@ -49,7 +50,7 @@
         </div>
         <div class="col-md-8 col-lg-6">
             <div class="col-sm-4">
-            <div class="container">
+            <div class="container-fluid justify-content-center">
                   <h3 class="register-heading">Sign up now!</h3>
                   <!--This is where the error message will show up in case username taken, invalid email or password-->
                   {% with errors = get_flashed_messages(category_filter=["sign-up"]) %}
@@ -93,7 +94,7 @@
                     {% endif %}
                   {% endwith %}
 
-                  <h4 class="login-heading">Already have an account? Log in!</h4>
+                  <h6 class="login-heading">Already have an account? Log in!</h6>
                   <form class="form-horizontal" action="{{ url_for('login') }}" method="post" autocomplete=off>
                     <div class="form-label-group">
                       <input type="username" name="username"id="inputUsername" class="form-control" placeholder="Username" required autofocus>
@@ -107,14 +108,12 @@
               </div>
             </div>
           </div>
+        </div>
 
-
-<nav class="navbar navbar-default navbar-fixed-bottom justify-content-center">
-    <ul class="nav navbar-nav justify-content-center">
-      <li><a href="{{ url_for('privacy') }}">Privacy policy</a></li>
-      <li><a href="{{ url_for('tos') }}">Terms of service</a></li>
-      <li><a href="{{ url_for('support') }}">Support</a></li>
-    </ul>
+<div class="navbar">
+      <a href="{{ url_for('privacy') }}">Privacy policy</a>
+      <a href="{{ url_for('tos') }}">Terms of service</a>
+      <a href="{{ url_for('support') }}">Support</a>
 </nav>
 
 </body>

@@ -19,11 +19,15 @@
 
 .container
 {
+    margin-top: 40px;
+}
+
+.container-fluid
+{
     margin: 30px;
     padding: 20px;
     background-color: #eff1f4;
-    width: 370px !important;
-
+    width: 300px;
 
 }
 
@@ -39,17 +43,40 @@
 
 .carousel{
     background: #c4cad3;
-    margin-top: 20px;
 }
 .carousel .item{
     min-height: 280px;
 }
-.carousel .item img{
-    margin: 0 auto;
-}
+
 .bs-example{
-	margin: 20px;
-	margin-left: 140px;
-	width: 70%;
-    Height: 70%;
+    margin-top:40px;
+	width: 580px;
+    Height: 580px;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: static;
+  bottom: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+@media screen and (max-width: 760px)
+{
+    .bs-example
+    {
+        display:none;
+
+    }
 }
