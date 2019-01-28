@@ -132,7 +132,7 @@
 .onderste_flex >.fotos > div{
     display:flex;
     flex-direction:column;
-    width:24vw;
+    width:17vw;
     margin-right:2%;
     margin-bottom:2%;
 }
@@ -157,7 +157,7 @@
 
 /*opmaak voor de foto*/
 .mainpicture{
-    width:24vw;
+    width:17vw;
     height:17vw;
 }
 
