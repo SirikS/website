@@ -1,5 +1,5 @@
 
-/*de middelste container met de foto*/
+/*The middle container with the picture*/
 .container{
     width:50%;
     margin-top: 50px;
@@ -20,7 +20,7 @@
     font-size:20px;
 }
 
-/*opmaak van de profielfoto van de uploader*/
+/*layout of the profilepicture of the uploader*/
 .profilepicture{
     border-radius: 50%;
     width:95px;
@@ -28,7 +28,7 @@
     padding:5px;
 }
 
-/*opmaak van het vak waarin de pf, titel, datestamp en volgknop zitten*/
+/*layout of the box containing the pf, datestamp and follow button*/
 .flex-container{
     background-color: #f1f1f1;
     display: flex;
@@ -43,14 +43,14 @@
     font-size: 30px;
 }
 
-/*opmaak van het vak waarin de profielfoto staat*/
+/*Layout of the container containing the profile picture*/
 .flex-container> div:nth-child(1) {
     line-height: 75px;
     margin-right: 20px;
 
 }
 
-/*opmaak van het vak voor de titel*/
+/*Layout of the container for the title*/
 .flex-container> div:nth-child(2) {
     flex: 1 1 100%;
     line-height: 100%;
@@ -59,7 +59,7 @@
     vertical-align: middle;
 }
 
-/*opmaak van de titel*/
+/*Design of the title*/
 .flex-container> div:nth-child(2) >p {
     padding:1%;
     font-size:30px;
@@ -72,20 +72,20 @@
     font-weight: bold
 }
 
-/*opmaak van het vak voor de datestamp en volgknop*/
+/*Layout of the container with the datestamp and follow button*/
 .flex-container> div:nth-child(3) {
     margin-right: 20px;
     flex: 1 1 30%;
     flex-direction: column;
 }
 
-/*opmaak van het vak voor de datestamp*/
+/*Layout for the container with the datestamp*/
 .flex-container> div:nth-child(3) >div:nth-child(1) {
     font-size: 12px;
     margin-top: 20%;
 }
 
-/*opmaak van de volgknop*/
+/*Layout follow button*/
 .flex-container> div:nth-child(3) >div:nth-child(2) >.volgknop{
     font-size:18px;
     text-align: center;
@@ -95,7 +95,7 @@
     background-color:lightblue;
 }
 
-/*opmaak van de container met de caption en aantal likes*/
+/*Layout caption and amount of likes*/
 .flex-container2{
     background-color: #f1f1f1;
     display: flex;
@@ -112,7 +112,7 @@
 
 }
 
-/*opmaak van de caption*/
+/*layout caption*/
 .flex-container2 > div:nth-child(1){
     flex: 1 1 100%;
     font-size: 100%;
@@ -124,7 +124,7 @@
 
 }
 
-/*opmaak van het vak voor het aantal likes en het woord "likes"*/
+/*layout for the amount of likes and the word "likes"*/
 .flex-container2 > div:nth-child(2){
     max-height:80px;
     width:140px;
@@ -135,12 +135,12 @@
 
 }
 
-/*opmaak van het vak voor het aantal likes*/
+/*Layout for the amount of likes*/
 .flex-container2 > div:nth-child(2) >div:nth-child(1){;
     height:60%;
 }
 
-/*opmaak van de weergave van het aantal likes*/
+/*layout for the amount of likes*/
 .flex-container2 > div:nth-child(2) >div:nth-child(1) >div:nth-child(1){
     font-size: 30px;
     position: relative;
@@ -151,7 +151,7 @@
     font-weight: bold
 }
 
-/*opmaak van het vak met het woord "likes"*/
+/*layout for the word 'likes'*/
 .flex-container2 > div:nth-child(2) >div:nth-child(2){
     height:40%;
     flex: 1 1 100%;
@@ -163,7 +163,7 @@
 
 }
 
-/*opmaak van de middelste foto*/
+/*layout main picture*/
 .main-image{
     width:100%;
 }
@@ -174,7 +174,7 @@
 }
 
 
-/*opmaak van het commentveld*/
+/*layout for the comment field*/
 .comments {
     width: 100%;
     overflow: auto;
@@ -184,7 +184,7 @@
     margin: 0;
 }
 
-/*opmaak voor één complete comment*/
+/*layout for one complete comment*/
 .flex-comment{
     background-color: #f1f1f1;
     display: flex;
@@ -200,7 +200,7 @@
     font-size: 14px;
 }
 
-/*opmaak voor de profielfoto van degene die de comment heeft achtergelaten*/
+/*layout for profile picture by the commenter*/
 .comment_pf{
     border-radius: 50%;
     width:80px;
@@ -209,19 +209,19 @@
 }
 
 
-/*opmaak voor de gebruikersnaam*/
+/*layout username*/
 .flex-comment > div:nth-child(2) > div:nth-child(1){
      font-weight: bold;
 }
 
-/*opmaak voor de comment*/
+/*layout for the comment*/
 .flex-comment > div:nth-child(2) > div:nth-child(2){
     padding-right:10px;
 
 
 }
 
-/*opmaak van het vak waarin je een comment kan typen*/
+/*layout for commentfield */
 .flex-commentfield{
     background-color: #f1f1f1;
     display: flex;
@@ -237,7 +237,7 @@
 
 }
 
-/*opmaak van het vak waarin getypt wordt*/
+/*layout for the space you can type the comment in */
 .flex-commentfield >div >form >textarea{
     border: 2px;
     border-radius: 4px;
@@ -245,7 +245,7 @@
     height: 80px;
 }
 
-/*opmaak van de submit knop*/
+/*layout submit button*/
 .flex-commentfield >div >form >button{
     background-color:lightblue;
 }
