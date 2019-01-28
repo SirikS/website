@@ -1,5 +1,3 @@
-import csv
-import urllib.request
 import os
 import random
 
