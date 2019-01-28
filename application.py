@@ -34,7 +34,7 @@ def index(foutje=False):
     Renders the login/register screen
     """
     if foutje:
-        return apology('This page does not excist!')
+        return apology('This page does not exist!')
     return render_template("index.html")
 
 
@@ -300,7 +300,7 @@ def pack(fotoid=False):
 @login_required
 def like(fotoid, direct='home'):
     """
-    Check if like doesnt already excist
+    Check if like doesnt already exist
     Registers the like in the database
     redirects to the coorect page
     """
@@ -320,7 +320,7 @@ def like(fotoid, direct='home'):
 @login_required
 def dislike(fotoid, direct='home'):
     """
-    Check if dislike doesnt already excist
+    Check if dislike doesnt already exist
     Registers the dislike in the database
     Redirects to the correct page
     """
