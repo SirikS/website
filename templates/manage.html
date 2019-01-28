@@ -5,36 +5,77 @@
 {% endblock %}
 
 {% block main %}
+<link rel="stylesheet" href="{{ url_for('static', filename='manage.css') }}" type="text/css" media="screen"/>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.img-preview').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#logo-id").change(function() {
+        readURL(this);
+    });
+});
+</script>
+
 <form action="{{ url_for('manage') }}" method="post" enctype="multipart/form-data"> <!--Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
     <!-- fieldset is een class die de opmaak van het algehele formulier doet -->
     <fieldset class="fieldset">
-        <!-- form-group is een class die de opmaak van de velden doet -->
-        <div class="form-group">
-            <!-- Profielfoto kunnen uploaden/aanpassen -->
-            <input class="form-control" name="uploadfile" placeholder="Upload profile photo" type="file" accept="image/*"/>
-        </div>
-        <div class="form-group">
-            <!-- Profielnaam kunnen invoeren/aanpassen -->
-            <input class="form-control" name="profielnaam" placeholder="Name example" autocomplete=off type="text"/>
-        </div>
-
-        <!--Plaats voor waar de apology komt te staan-->
-                <div class="alert-message block-message error">
-                    <ul>
-                        {%- for msg in get_flashed_messages() %}
-                        <li>{{ msg }}</li>
-                        {% endfor -%}
-                    </ul>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <!-- form-group is een class die de opmaak van de velden doet -->
+                    <div class="form-group">
+                        <!-- Profielfoto kunnen uploaden/aanpassen -->
+                        <div class="main-img-preview">
+                            <img class="thumbnail img-preview" src="static/preview_foto/upload-image.png">
+                        </div>
+                        <div class="container-overlay">
+                        <div class="overlay">
+                            <div class="text">Click to choose a profile picture</div>
+                        </div>
+                            <label class="btn btn-default btn-file">
+                                <input id="logo-id" class="form-control" name="uploadfile" placeholder="Upload profile photo" type="file" accept="image/*"/>
+                            </label>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <!-- Profielnaam kunnen invoeren/aanpassen -->
+                        <input class="form-control" name="profielnaam" placeholder="Name example" autocomplete=off type="text"/>
+                    </div>
 
-        <div class="form-group">
-            <!-- Profielbio kunnen invoeren/aanpassen -->
-            <input class="form-control" name="profielbio" placeholder="Bio example" autocomplete=off type="text"/>
-        </div>
-        <div class="form-group">
-            <!-- Submit knop -->
-            <button class="btn btn-default" type="submit">Save changes</button>
+                    <!--Plaats voor waar de apology komt te staan-->
+                            <div class="alert-message block-message error">
+                                <ul>
+                                    {%- for msg in get_flashed_messages() %}
+                                    <li>{{ msg }}</li>
+                                    {% endfor -%}
+                                </ul>
+                            </div>
+
+                    <div class="form-group">
+                        <!-- Profielbio kunnen invoeren/aanpassen -->
+                        <textarea rows="6" autocomplete=off class="form-control" name="profielbio" placeholder="Bio example" autocomplete=off type="text"/></textarea>
+                    </div>
+                    <div class="form-group">
+                        <!-- Submit knop -->
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Save changes</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </fieldset>
 </form>
+
 {% endblock %}

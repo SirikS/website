@@ -1,18 +1,13 @@
-.fileUpload {
-    overflow: hidden;
-}
 .thumbnail, img-preview
 {
     width:265px;
     height:265px;
 }
 
-#image
+.container
 {
-    width:265px;
-    height:265px;
+    margin-top:80px;
 }
-
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -27,23 +22,6 @@
     background: white;
     cursor: inherit;
     display: block;
-}
-
-
-.upload-form
-{
-    margin-top:100px;
-    margin-left:10%;
-    margin-right:10%;
-    justify-content:center;
-}
-
-
-.captions
-{
-    height:100px;
-    text-align: justify;
-    resize:top;
 }
 
 .overlay {
