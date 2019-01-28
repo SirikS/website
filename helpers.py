@@ -279,7 +279,7 @@ def volger_fotoid():
     lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend) AND fotoid NOT IN (:beoordeeld)",
                        volgend=volgend, beoordeeld=beoordeeld)
     if lijst == []:
-        return []
+        return False
     # choose a random one
     fotoid = random.choice(lijst)["fotoid"]
     return fotoid
@@ -332,6 +332,8 @@ def get_likedfotos(userid):
     # Haalt de paden van alle gelikte foto's
     liked = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid AND liked = 1", userid=userid)
     liked = into_list(liked)
+    if not liked:
+        liked = []
     fotos = db.execute("SELECT path FROM pictures WHERE fotoid IN (:liked)", liked=liked)
     return into_list(fotos)
 
