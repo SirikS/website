@@ -17,7 +17,7 @@
     float:left;
     width:18vw;
     border-radius:50%;
-    border: 3px solid #000;
+    border: 3px solid green;
 }
 
 
@@ -88,29 +88,47 @@
 
 /*het vak met alle knoppen in het midden*/
 .middelste_flex{
+    border-top: 2px solid lightgreen;
     height: 7vw;
     display:flex;
     flex-direction: row;
     justify-content:center;
     align-content: space-between;
-    background-color:lightgray;
-    border-top:3px solid #000;
-    border-bottom:3px solid#000;
 }
 
 /*alle vakken hebben hetzelfde formaat*/
-.middelste_flex >div{
-    width:25%;
-    margin:1vw;
-}
+/*.middelste_flex > div {*/
+/*    border-top: 3px solid lightgreen;*/
+/*}*/
 
 /*alle knoppen hebben dezelfde opmaak*/
-.middelste_flex>div> button{
-    width:100%;
-    height:5vw;
-    font-size:1.5vw;
+.middelste_flex > div > button {
+    background-color: white;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    color: grey;
+    padding: 15px 32px;
+    margin-top: -2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
 }
 
+.middelste_flex > div > button:focus {
+    outline: none;
+}
+
+.middelste_flex > div > button.tablinks {
+    border-top: 2px solid lightgreen;
+}
+
+.middelste_flex > div > button.tablinks.active {
+    border-top: 2px solid green;
+}
 
 
 .onderste_flex{
