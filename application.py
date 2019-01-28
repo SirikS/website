@@ -27,12 +27,14 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-
 @app.route("/")
-def index():
+@app.route("/<foutje>")
+def index(foutje=False):
     """
     Renders the login/register screen
     """
+    if foutje:
+        return apology('This page does not excist!')
     return render_template("index.html")
 
 
@@ -105,12 +107,14 @@ def profile(username=''):
     # get the data of pack and adopted by
     p_profiel = []
     pack = get_volgend(naamid(username))
-    for userid in pack:
-        p_profiel.append(prof_info_door_id(userid))
+    if pack:
+        for userid in pack:
+            p_profiel.append(prof_info_door_id(userid))
     f_profiel = []
     following = get_gevolgd(naamid(username))
-    for userid in following:
-        f_profiel.append(prof_info_door_id(userid))
+    if following:
+        for userid in following:
+            f_profiel.append(prof_info_door_id(userid))
 
     return render_template("profile.html", userid=naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
                            aantalvolgers=aantalvolgers, bio=bio, welvolg=welvolg, p_fotos=p_fotos, l_fotos=l_fotos,
@@ -226,7 +230,6 @@ def register():
         elif not email:
             return errormessage('Please enter an email', "index.html", 'sign-up')
 
-
         # check if the username is not already taken
         if username_taken(username) == False:
             return errormessage('This username is taken', "index.html", 'sign-up')
@@ -257,7 +260,7 @@ def register():
 @app.route("/home/", methods=["GET", "POST"])
 @app.route("/home/<fotoid>", methods=["GET", "POST"])
 @login_required
-def home(fotoid = False):
+def home(fotoid=False):
     """
     Gets a random fotoid
     Shows all relevant data
@@ -284,7 +287,7 @@ def home(fotoid = False):
 @app.route("/pack", methods=["GET", "POST"])
 @app.route("/pack/<fotoid>", methods=["GET", "POST"])
 @login_required
-def pack(fotoid = False):
+def pack(fotoid=False):
     """
     Gets a fotoid from the pack
     Shows all relevant data
@@ -295,7 +298,6 @@ def pack(fotoid = False):
         fotoid = random_fotoid()
     if not fotoid:
         return apology("geen foto's meer")
-
 
     # get all data of a photo
     data = get_foto(fotoid)

@@ -28,8 +28,13 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
-def errormessage(message, html_page, category = ""):
-    """flashes an error message to the user. Takes the message and the html page as argument,  can take a category as optional argument"""
+
+def errormessage(message, html_page, category=""):
+    """
+    Flashes an error message to the user.
+    Takes the message and the html page as argument.
+    Can take a category as optional argument.
+    """
     flash(message, category)
     return render_template(html_page)
 
@@ -445,7 +450,7 @@ def lengte_comments(comments):
 
 
 def foto_data(data):
-    userid= data["userid"]
+    userid = data["userid"]
     username = idnaam(userid)
     fotoid = data["fotoid"]
     foto = data['path']
