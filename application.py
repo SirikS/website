@@ -371,13 +371,13 @@ def upload():
 
         # ensure every thing is alright
         if not title:
-            return helpers.errormessage("Please enter a title", "upload.html")
+            return helpers.errormessage("Please enter a title", "upload.html", "title")
         elif not caption:
-            return helpers.errormessage("Please enter a caption", "upload.html")
+            return helpers.errormessage("Please enter a caption", "upload.html", "title")
         if len(title) > 255:
-            return helpers.errormessage("Your title is too long!", "upload.html")
+            return helpers.errormessage("Your title is too long!", "upload.html", "title")
         if len(caption) > 255:
-            return helpers.errormessage("Your caption is too long!", "upload.html")
+            return helpers.errormessage("Your caption is too long!", "upload.html", "title")
 
         # if a file is uploaded, upload it
         try:
@@ -385,7 +385,7 @@ def upload():
 
             # if the file is not an image file, return an apology
             if helpers.is_it_image(file) == False:
-                return helpers.errormessage('Please submit an image file', "upload.html")
+                return helpers.errormessage('Please submit an image file', "upload.html","picture")
 
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/foto_upload"
@@ -401,14 +401,14 @@ def upload():
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
-                return helpers.errormessage("Something went wrong", "upload.html")
+                return helpers.errormessage("Something went wrong", "upload.html", "picture")
 
         except:
             # else a gif must be uploaded
             path = request.form.get("gifje")
 
             if not path:
-                return helpers.errormessage("You must upload a file or seach a gif!", "upload.html")
+                return helpers.errormessage("You must upload a file or seach a gif!", "upload.html", 'picture')
 
             # insert into database
             fotoid = helpers.h_gifje(path, title, caption)
@@ -417,7 +417,7 @@ def upload():
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
-                return helpers.errormessage("Something went wrong", "upload.html")
+                return helpers.errormessage("Something went wrong", "upload.html", 'picture')
 
     return render_template("upload.html")
 

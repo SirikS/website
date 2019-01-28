@@ -87,10 +87,10 @@ $(document).ready(function() {
 })
 </script>
 
-<form class="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data"> <!-- Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
-    <!-- fieldset is een class die de opmaak van het algehele formulier doet -->
+<form class="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <!-- fieldset is a class that does the layout of the entire field-->
     <fieldset class="fieldset">
-        <!-- form-group is een class die de opmaak van de velden doet -->
+        <!-- form-group is a class that does the layout of the fields -->
         <div class="container-fluid">
         	<div class="row justify-content-center">
         		<div class="col-lg-5">
@@ -104,10 +104,23 @@ $(document).ready(function() {
                         </div>
                         <div class="btn btn-default btn-file">
                             <input id="logo-id" name="uploadfile" type="file" accept="image/*"/>
-                          </div>
                         </div>
-                      </div>
+                        </div>
+
+                            <!--Place for the apology about the picture-->
+                            {% with errors = get_flashed_messages(category_filter=["picture"]) %}
+                            {% if errors %}
+                            <div class="alert-message block-message error">
+                                <ul>
+                                    {%- for msg in get_flashed_messages() %}
+                                    <li>{{ msg }}</li>
+                                    {% endfor -%}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {% endwith %}
                     </div>
+                </div>
 
         <div class="col-lg-6">
         <div id="query">
@@ -117,27 +130,33 @@ $(document).ready(function() {
         <div class="form-group" autocomplete=off>
             <input id="gif" name="gifje" type="hidden" value=""/>
 
-        <!--Plaats voor waar de apology komt te staan-->
-        <div class="alert-message block-message error">
-            <ul>
-                {%- for msg in get_flashed_messages() %}
-                <li>{{ msg }}</li>
-                {% endfor -%}
-            </ul>
-        </div>
-
-
         </div>
             <div class="form-group">
             <!-- Titel kunnen toevoegen -->
             <input class="form-control" autocomplete=off name="titel" placeholder="Title" type="text"/>
         </div>
+
+            <!--Place for the apology about the discription or title-->
+            {% with errors = get_flashed_messages(category_filter=["title"]) %}
+            {% if errors %}
+            <div class="alert-message block-message error">
+                <ul>
+                    {%- for msg in get_flashed_messages() %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+
+
         <div class="form-group">
-            <!-- Caption kunnen toevoegen -->
+            <!-- Add a caption -->
             <textarea rows="4" class="form-control caption" autocomplete=off name="caption" placeholder="Caption" type="text"/></textarea>
         </div>
         <div class="form-group">
-            <!-- Submit knop -->
+            <!-- Submit button -->
             <button class="btn-primary btn-lg btn-block login-button" type="submit">Post</button>
         </div>
     </div>
