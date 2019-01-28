@@ -98,9 +98,9 @@ function openNav() {
         <a class="instapet-titel" href="{{ url_for('home') }}">Instapet</a>
 
         <div class="search-container">
-            <form action="/search" method="post"autocomplete=off>
-                 <input type="text" placeholder="Search.." name="search">
-              <button type="submit">🔍</button>
+            <form class="search-bar" action="/search" method="post" autocomplete=off>
+                 <input type="text" id="search-veld" placeholder="Search.." name="search">
+              <button type="submit"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></button>
             </form>
         </div>
     </div>
