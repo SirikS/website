@@ -1,37 +1,80 @@
-/* The side navigation menu */
-.sidenav {
-  height: 100%; /* 100% Full-height */
-  position: fixed; /* Stay in place */
-  width:0px;
-  z-index: 1; /* Stay on top */
-  margin-top: 56px; /* Stay at the top */
-  margin-left: 0;
-  background-color: #2a2b2d; /*gray*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+/* The side navigation menu for every view bigger than mobile view*/
+@media screen and (min-width: 768px) {
+  .sidenav-mobile {
+    visibility: hidden;
+  }
+  .sidenav {
+    height: 100%; /* 100% Full-height */
+    position: fixed; /* Stay in place */
+    width:0px;
+    z-index: 1; /* Stay on top */
+    top: 0;
+    margin-top: 56px; /* Stay at the top */
+    margin-left: 0;
+    background-color: #2a2b2d; /*gray*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #bdbfc1; /*tekskleur is standaard donkergrijs*/
+    display: block;
+    transition: 0.3s;
+  }
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+}
+
+/* The side navigation menu for mobile view*/
+@media screen and (max-width: 767px) {
+  /* Hide menu for bigger views */
+  .topnav > div > button {
+    visibility: hidden;
+  }
+  /* Hide menu for bigger views (Makes it close faster, still needs to be fixed properly!) */
+  .sidenav-mobile .closebtn {
+    visibility: hidden;
+  }
+  #mySidenav {
+    visibility: hidden;
+  }
+  .sidenav-mobile {
+    position: fixed;
+    bottom: 0;
+    background-color: #2a2b2d;
+    overflow: hidden;
+    display: table;
+    width: 100%;
+  }
+  /* More room for menu buttons */
+  .sidenav-mobile a {
+    color: #bdbfc1;
+  }
+  /* Every item has a border on the right */
+  .sidenav-mobile li {
+    padding: 15px;
+    display: table-cell;
+    border-right: 2px solid #000000;
+    text-align: center;
+  }
+  /* No border on last menu item */
+  .sidenav-mobile li:last-child {
+    border-right: none;
+  }
 }
 
 body{
   padding-top:60px;
-}
-/* The navigation menu links */
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #bdbfc1; /*tekskleur is standaard donkergrijs*/
-  display: block;
-  transition: 0.3s;
-}
-
-/* Position and style the close button (top right corner) */
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
 }
 
 
@@ -130,12 +173,13 @@ li{
   .topnav input[type=text] {
     border: 1px solid #ccc;
   }
+}
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+/*@media screen and (max-height: 450px) {*/
+/*  .sidenav {padding-top: 15px;}*/
+/*  .sidenav a {font-size: 18px;}*/
+/*}*/
 
 /*kleur knop index: background-color: #337ab7;*/
 /*        border-color: #2e6da4;*/
