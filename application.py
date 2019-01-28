@@ -94,27 +94,11 @@ def profile(username=''):
     # look if the profile is followed
     welvolg = volgcheck(username)
 
-    # load data for tabs
-    p_fotos = []
-    persoonlijkefotos = get_persoonfotos(naamid(username))
-    for path in persoonlijkefotos:
-        p_fotos.append(info_door_path(path))
-    l_fotos = []
-    likedfotos = get_likedfotos(naamid(username))
-    for path in likedfotos:
-        l_fotos.append(info_door_path(path))
-
-    # get the data of pack and adopted by
-    p_profiel = []
-    pack = get_volgend(naamid(username))
-    if pack:
-        for userid in pack:
-            p_profiel.append(prof_info_door_id(userid))
-    f_profiel = []
-    following = get_gevolgd(naamid(username))
-    if following:
-        for userid in following:
-            f_profiel.append(prof_info_door_id(userid))
+    # load the correct data for tabs
+    p_fotos = info(get_persoonfotos(naamid(username)), info_door_path)
+    l_fotos = info(get_likedfotos(naamid(username)), info_door_path)
+    p_profiel = info(get_volgend(naamid(username)), prof_info_door_id)
+    f_profiel = info(get_gevolgd(naamid(username)), prof_info_door_id)
 
     return render_template("profile.html", userid=naamid(username), profielfoto=profielfoto, profielnaam=profielnaam,
                            aantalvolgers=aantalvolgers, bio=bio, welvolg=welvolg, p_fotos=p_fotos, l_fotos=l_fotos,

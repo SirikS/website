@@ -56,7 +56,6 @@ def h_login(username, password):
 
 def username_taken(username):
     if len(db.execute("SELECT username FROM accounts WHERE username = :us", us=username)) != 0:
-        print(len(db.execute("SELECT username FROM accounts WHERE username = :us", us=username)))
         return False
     return True
 
@@ -462,6 +461,7 @@ def foto_data(data):
 
 
 def into_list(lijst):
+    # when data gotten by database, this turns it into the correct list
     if not lijst:
         return False
     for key in lijst[0]:
@@ -470,3 +470,14 @@ def into_list(lijst):
     for x in range(len(lijst)):
         data.append(lijst[x][key])
     return data
+
+
+def info(lijst, functie):
+    # Gets all data of a path/userid in the correct way
+    fotos = []
+    if not lijst:
+        return fotos
+    for iets in lijst:
+        # loads the given function per user/path
+        fotos.append(functie(iets))
+    return fotos
