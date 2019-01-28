@@ -279,7 +279,7 @@ def pack(fotoid=False):
 
     # get a valid fotoid (not theirs or one they have "beoordeeld" yet)
     if not fotoid:
-        fotoid = random_fotoid()
+        fotoid = volger_fotoid()
     if not fotoid:
         return apology("geen foto's meer")
 

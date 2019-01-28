@@ -273,7 +273,11 @@ def volger_fotoid():
     # same as random but gets only pictures from followed accounts
     userid = session["user_id"]
     volgend = get_volgend(userid)
+    if not volgend:
+        volgend = []
     beoordeeld = get_beoordeeld(userid)
+    if not beoordeeld:
+        beoordeeld = []
 
     # get the list of pictures to be seen
     lijst = db.execute("SELECT fotoid FROM pictures WHERE userid IN (:volgend) AND fotoid NOT IN (:beoordeeld)",
