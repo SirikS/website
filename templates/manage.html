@@ -27,15 +27,15 @@
 });
 </script>
 
-<form action="{{ url_for('manage') }}" method="post" enctype="multipart/form-data"> <!--Even uitzoeken naar welke functie deze moet leiden, misschien moeten het achter de schermen wel 2 formulieren worden. -->
-    <!-- fieldset is een class die de opmaak van het algehele formulier doet -->
+<form action="{{ url_for('manage') }}" method="post" enctype="multipart/form-data">
+    <!-- fieldset is the class that does the layout of the entire form-->
     <fieldset class="fieldset">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-4">
-                    <!-- form-group is een class die de opmaak van de velden doet -->
+                    <!-- form-group is the class that does the layout of the fields -->
                     <div class="form-group">
-                        <!-- Profielfoto kunnen uploaden/aanpassen -->
+                        <!-- Upload or change the profilepicture -->
                         <div class="main-img-preview">
                             <img class="thumbnail img-preview" src="static/preview_foto/upload-image.png">
                         </div>
@@ -47,29 +47,47 @@
                                 <input id="logo-id" class="form-control" name="uploadfile" placeholder="Upload profile photo" type="file" accept="image/*"/>
                             </label>
                         </div>
+
+                        <!--Place for the apology about the picture-->
+                        {% with errors = get_flashed_messages(category_filter=["picture"]) %}
+                        {% if errors %}
+                        <div class="alert-message block-message error">
+                            <ul>
+                                {%- for msg in get_flashed_messages() %}
+                                <li>{{ msg }}</li>
+                                {% endfor -%}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="form-group">
-                        <!-- Profielnaam kunnen invoeren/aanpassen -->
+                        <!-- Change or enter the profilename -->
                         <input class="form-control" name="profielnaam" placeholder="Name example" autocomplete=off type="text"/>
                     </div>
 
-                    <!--Plaats voor waar de apology komt te staan-->
-                            <div class="alert-message block-message error">
-                                <ul>
-                                    {%- for msg in get_flashed_messages() %}
-                                    <li>{{ msg }}</li>
-                                    {% endfor -%}
-                                </ul>
-                            </div>
+                    <!--Place for the apology about the profilename or bio-->
+                        {% with errors = get_flashed_messages(category_filter=["bio"]) %}
+                        {% if errors %}
+                        <div class="alert-message block-message error">
+                            <ul>
+                                {%- for msg in get_flashed_messages() %}
+                                <li>{{ msg }}</li>
+                                {% endfor -%}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
 
                     <div class="form-group">
-                        <!-- Profielbio kunnen invoeren/aanpassen -->
+                        <!-- Change description -->
                         <textarea rows="6" autocomplete=off class="form-control" name="profielbio" placeholder="Bio example" autocomplete=off type="text"/></textarea>
                     </div>
                     <div class="form-group">
-                        <!-- Submit knop -->
+                        <!-- Submit button -->
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Save changes</button>
                     </div>
                 </div>

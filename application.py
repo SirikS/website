@@ -155,9 +155,9 @@ def manage():
 
         # ensure it is allowed
         if len(name) > 63:
-            return helpers.errormessage("The name you've chosen is too long", "manage.html")
+            return helpers.errormessage("The name you've chosen is too long", "manage.html", "bio")
         if len(beschrijving) > 255:
-            return helpers.errormessage("This biography is too long", "manage.html")
+            return helpers.errormessage("This biography is too long", "manage.html", "bio")
 
         # if there is a profile pic, upload it
         try:
@@ -167,7 +167,7 @@ def manage():
 
             # if the file is not an image file, return an apology
             if helpers.is_it_image(file) == False:
-                return helpers.errormessage("Please submit and image file", "manage.html")
+                return helpers.errormessage("Please submit and image file", "manage.html", "picture")
 
             # this is the path to the picture in the folder
             path = os.path.join(foto_upload, file.filename)
