@@ -172,7 +172,7 @@ def manage():
             # this is the path to the picture in the folder
             path = os.path.join(foto_upload, file.filename)
 
-            # TODO EMMA COMMENTS
+            # the file is saved and the name of the file is saved as filename
             file.save(path)
             filename = request.files['uploadfile'].filename
             profielfoto = helpers.pf_upload(path, filename)
@@ -392,7 +392,7 @@ def upload():
 
             # this is the path to the picture in the folder
             path = os.path.join(foto_upload, file.filename)
-            # TODO EMMA COMMENTS
+            # the path of the picture is saved and the name saved into variable filename
             file.save(path)
             filename = request.files['uploadfile'].filename
 
