@@ -55,9 +55,10 @@
 }
 
 .navbar {
+  position: fixed;
   overflow: hidden;
   background-color: #333;
-  position: static;
+  /*position: static;*/
   bottom: 0;
   width: 100%;
 }
