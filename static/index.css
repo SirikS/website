@@ -1,3 +1,7 @@
+body{
+    margin-bottom: 50px;
+}
+
 .instapet-titel
 {
     font-family: Lucida Handwriting;
@@ -55,12 +59,13 @@
 }
 
 .navbar {
-  position: fixed;
-  overflow: hidden;
-  background-color: #333;
-  /*position: static;*/
-  bottom: 0;
-  width: 100%;
+    position: fixed;
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom:0;
+    bottom: 0;
+    width: 100%;
+    z-index:2000;
 }
 
 .navbar a {
