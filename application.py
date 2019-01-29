@@ -178,12 +178,12 @@ def manage():
             profielfoto = helpers.pf_upload(path, filename)
         # else there is no new profile pic
         except:
-            profielfoto = "NULL"
+            profielfoto = False
 
         # insert into database
         if helpers.h_profile(name, profielfoto, beschrijving):
             return redirect(url_for("profile"))
-        return helpers.errormessage("Something went wrong", "manage.html")
+        return helpers.errormessage("Must fill in a name", "manage.html")
 
     return render_template("manage.html")
 

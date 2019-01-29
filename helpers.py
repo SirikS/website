@@ -172,11 +172,11 @@ def h_profile(name, profielfoto, beschrijving):
 
     # if no profile yet, make sure there is a name and profile picture
     if len(db.execute("SELECT * FROM profiel WHERE userid = :userid", userid=userid)) == 0:
-        if name == ' ':
-            return apology("Must fill in a Name!")
-        if profielfoto == ' ':
+        if not name:
+            return False
+        if not profielfoto:
             # if there is no profile pic, take our basic one
-            profielfoto = "/static_pfupload/23.png"
+            profielfoto = "/static/pf_upload/23.png"
         # insert into database
         db.execute("INSERT INTO profiel (userid, name, profielfoto, beschrijving) VALUES (:userid, :name, :profielfoto, :beschrijving)",
                    userid=userid, name=name, profielfoto=profielfoto, beschrijving=beschrijving)
