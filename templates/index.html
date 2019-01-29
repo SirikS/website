@@ -12,13 +12,16 @@
       <title>Instapet</title>
   </head>
   <body>
+    <!--title shown on tab-->
     <div class="instapet-titel">
       <p>Instapet</p>
     </div>
+    <!--main container-->
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <div class="bs-example">
+            <!--carousel picture slide show-->
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
               <!-- Carousel indicators -->
               <ol class="carousel-indicators">
@@ -51,6 +54,7 @@
         </div>
         <div class="col-md-8 col-lg-6">
             <div class="col-sm-4">
+              <!--container for signing up and logging in-->
             <div class="container-fluid justify-content-center">
                   <h3 class="register-heading">Sign up now!</h3>
                   <!--This is where the error message will show up in case username taken, invalid email or password-->
@@ -65,16 +69,21 @@
                       </div>
                     {% endif %}
                   {% endwith %}
+
+                  <!--form for username-->
                   <form class="form-horizontal" action="{{ url_for('register') }}" method="post" autocomplete=off>
                     <div class="form-label-group">
                       <input type="username" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
                     </div>
+                    <!--form for email-->
                     <div class="form-label-group">
                       <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required>
                     </div>
+                    <!--form for password-->
                     <div class="form-label-group">
                       <input type="password" name="password"id="inputPassword" class="form-control" placeholder="Password" required>
                     </div>
+                    <!--for for confirmation password-->
                     <div class="form-label-group">
                       <input type="password" name="confirmation" id="inputPassword" class="form-control" placeholder="Repeat password" required>
                     </div>
@@ -95,14 +104,18 @@
                     {% endif %}
                   {% endwith %}
 
+                  <!--field for logging in-->
                   <h6 class="login-heading">Already have an account? Log in!</h6>
                   <form class="form-horizontal" action="{{ url_for('login') }}" method="post" autocomplete=off>
+                    <!--field for username-->
                     <div class="form-label-group">
                       <input type="username" name="username"id="inputUsername" class="form-control" placeholder="Username" required autofocus>
                     </div>
+                    <!--field for password-->
                     <div class="form-label-group">
                       <input type="password" name="password"id="inputPassword" class="form-control" placeholder="Password" required>
                     </div>
+                    <!--login button-->
                     <button class="btn btn-primary btn-lg btn-block login-button" type="submit">Log in</button>
                   </form>
                 </div>
@@ -111,6 +124,7 @@
           </div>
         </div>
 
+<!--navbar at the bottom-->
 <div class="navbar">
       <a href="{{ url_for('privacy') }}">Privacy policy</a>
       <a href="{{ url_for('tos') }}">Terms of service</a>
