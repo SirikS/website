@@ -157,7 +157,6 @@
 }
 
 .onderste_flex  >.fotos > div > div:nth-child(1) >div{
-    font-size: 2vw;
     font-weight: bold;
     position: relative;
     float: left;
@@ -192,17 +191,14 @@
 
 /* het veld waarin de gebruikers staan*/
 .onderste_flex > .profielen{
-    display:flex;
-    flex-wrap: wrap;
-    margin-left:4%;
-    margin-top:1%;
-    margin-right:4%;
-
+    display: grid;
+    grid-template-columns: 31.33% 31.33% 31.33%;
+    grid-gap: 3%;
 }
 
 
 /* hokje voor één gebruiker*/
-.onderste_flex > .profielen >div{
+.onderste_flex > .profielen > div{
     display:flex;
     flex-direction:row;
     margin-right:10px;
