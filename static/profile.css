@@ -151,12 +151,12 @@
 
 
 /*opmaak voor de titel*/
-.onderste_flex  >.fotos > div > div:nth-child(1){
+.onderste_flex  >.fotos > div > div:nth-child(1) {
     background-color:lightgray;
     height:3vw;
 }
 
-.onderste_flex  >.fotos > div > div:nth-child(1) >div{
+.onderste_flex  >.fotos > div > div:nth-child(1) > div {
     font-weight: bold;
     position: relative;
     float: left;
@@ -243,4 +243,45 @@
 
 .onderste_flex > .profielen >div > div:nth-child(2) > div > a{
     color:black;
+}
+
+/* mobile view styling */
+@media screen and (max-width: 767px) {
+
+    .bovenste_flex >div:nth-child(2) >div:nth-child(1) {
+        font-size: 18px;
+    }
+
+    .bovenste_flex >div:nth-child(2) >div:nth-child(2) {
+        margin-top: 15px;
+        height: 50px;
+        font-size: 10px;
+    }
+
+    .middelste_flex > div > button {
+        padding: 0px;
+        margin-right: 15px;
+    }
+
+    .middelste_flex > div > button#adoptedbutton {
+        margin-right: 0px;
+    }
+
+    .onderste_flex {
+        padding: 0px;
+        margin-top: 20px;
+    }
+
+    .onderste_flex  >.fotos > div > div:nth-child(1) {
+        display: none;
+    }
+
+    .onderste_flex  >.fotos > div > div:nth-child(3) {
+        display: none;
+    }
+
+    .mainpicture {
+        width: 100%;
+        height: 25vw;
+    }
 }
