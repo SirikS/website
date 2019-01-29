@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='foto.css') }}" type="text/css" media="screen"/>
 
 <div class="container_right">
-
+<!--container for like button-->
   <div class="right_flex">
     <div class="like-veld">
         <a href="/like/{{ fotoid }}/pack">
@@ -20,11 +20,10 @@
         </a>
     </div>
   </div>
-
 </div>
 
+<!--container for dislike button-->
 <div class="container_left">
-
   <div class="left_flex">
     <div class="dislike-veld">
         <a href="/dislike/{{ fotoid }}/pack">
@@ -36,26 +35,28 @@
 </div>
 
 
-
+<!--main middle container with picture-->
 <div class="container">
-
   <div class="flex-container" >
     <div class="location_pf">
+      <!--location profile picture-->
       <a href="/profile/{{ accountnaam }}">
         <img src="{{ profielfoto }}" alt="profilepicture" style="object-fit:cover;" class="profilepicture">
       </a>
+      <!--location profile name-->
       <a href="/profile/{{ accountnaam }}" class="profilename">
         <div>{{ naam }}</div>
       </a>
     </div>
     <div>
-
+      <!--title of the post-->
       <p>{{ titel }}</p>
     </div>
     <div>
+      <!--date of the post-->
       <div style="align-self: center">{{ date }}</div>
+      <!--follow/unfollow changes if user follows or not-->
       <div style="align-self: center">
-        <!--<button type="submit" class="volgknop btn">Follow</button>-->
         {% if welvolg %}
           <form>
             <button onclick="volgknop();" id="knop" class="volgknop btn">Abandon</button>
@@ -69,12 +70,12 @@
     </div>
   </div>
 
-
+  <!--main image -->
   <div class="main-image">
     <img src="{{ foto }}" alt="Photo" style="object-fit:contains;">
   </div>
 
-
+  <!--container with caption and likes-->
    <div class="flex-container2">
     <div>
       {{ caption }}
@@ -92,7 +93,7 @@
   </div>
 
 
-
+  <!--the size of the commentsbox depends on the amount of comments-->
   {% if aantalcomments == 'False' %}
   <div class="comments" style="height: 0px">
   {% elif aantalcomments == 'True' %}
@@ -102,18 +103,22 @@
   {% elif aantalcomments == 'nog_langer' %}
   <div class="comments" style="height: 250px">
   {% endif %}
+    <!--load all comments for this picture-->
     {% for comment in comments %}
     <div class="flex-comment">
       <div>
+        <!--show profile picture-->
         <a href="/profile/{{ comment.commentaccount }}">
           <img src="{{ comment.profielfotocomment }}" alt="profilepicture" style="object-fit:cover;" class="comment_pf">
         </a>
       </div>
 
       <div>
+        <!--show name of commenter-->
         <div>
             {{ comment.profielnaamcomment }}
         </div>
+        <!--show comment-->
         <div>
            {{ comment.berichtcomment }}
         </div>
@@ -123,12 +128,13 @@
     </div>
 
 
-
+  <!--box to leave a comment-->
   <div class="flex-commentfield">
     <div class="commentfield">
       <form action="/comment/{{fotoid}}/pack" method="post" autocomplete=off>
         <textarea name="uploadcomment" placeholder="Leave a comment"></textarea>
         <br>
+        <!--submit button-->
         <input type="submit" class="btn">
       </form>
     </div>

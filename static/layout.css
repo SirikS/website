@@ -46,11 +46,11 @@
 
 /* The side navigation menu for mobile view*/
 @media screen and (max-width: 767px) {
-
+  /*Removes top padding that moves down content from top nav in desktop view*/
     body {
   padding-top: 0px;
   }
-
+  /* Makes the search bar stick to top */
   .fixed-top {
     position: relative;
   }
