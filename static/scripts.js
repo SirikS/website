@@ -1,4 +1,3 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>;
 
 // open de navbar automatisch, zorgt dat je niet de eerste keer 2x moet klikken om hem dicht te doen
 function openpage()
