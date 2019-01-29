@@ -9,6 +9,23 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 <script>
+    $(document).ready(function() {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.img-preview').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#logo-id").change(function() {
+        readURL(this);
+    });
+});
+</script>
+
+<script>
 var apikey = 'CKjyWZfmOSGZIuHTwxgR5YB91CBmT7pj';
 $(document).ready(function() {
   /*
@@ -32,12 +49,11 @@ $(document).ready(function() {
       xmlHttp.open("GET", theUrl, true); // true for asynchronous
       xmlHttp.send(null);
   }
-
   /*
   * The following functions are what do the work for retrieving and displaying gifs
   * that we search for.
   */
- function getGif(query) {
+  function getGif(query) {
     console.log(query);
     query = query.replace(' ', '+');
     var params = { 'api_key': apikey, 'q': query};
@@ -50,8 +66,7 @@ $(document).ready(function() {
       console.log(gifs.data);
     });
   }
-
-function uploadGif(query) {
+  function uploadGif(query) {
     console.log(query);
     query = query.replace(' ', '+');
     var params = { 'api_key': apikey, 'q': query};
@@ -67,23 +82,7 @@ function uploadGif(query) {
     getGif(query);
     uploadGif(query);
   });
-});
-
-
-$(document).ready(function() {
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('.img-preview').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#logo-id").change(function() {
-        readURL(this);
-    });
-});
+})
 </script>
 <form class="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
     <!-- fieldset is a class that does the layout of the entire field-->
