@@ -13,18 +13,21 @@
 
 <div class="container_right">
 
+
+<!--the container on the right for the like button-->
   <div class="right_flex">
+    <!--the box that the like button is in-->
     <div class="like-veld">
         <a href="/like/{{ fotoid }}/home">
           <img src="../static/like_knop.png" alt="like button" style="object-fit:cover" class="likebutton">
         </a>
     </div>
   </div>
-
 </div>
 
+<!--the container on the left contains the dislike button-->
 <div class="container_left">
-
+  <!--the box that the dislike button is in-->
   <div class="left_flex">
     <div class="dislike-veld">
         <a href="/dislike/{{ fotoid }}/home">
@@ -36,10 +39,11 @@
 </div>
 
 
-
+<!--the middel container contains the picture-->
 <div class="container">
-
+<!--the upper container has the profilepicture, title and the name-->
   <div class="flex-container" >
+    <!--the profilepicture and the name are next to eachother-->
     <div class="location_pf">
       <a href="/profile/{{ accountnaam }}">
         <img src="{{ profielfoto }}" alt="profilepicture" style="object-fit:cover;" class="profilepicture">
@@ -48,14 +52,15 @@
         <div>{{ naam }}</div>
       </a>
     </div>
+    <!--the title -->
     <div>
-
       <p>{{ titel }}</p>
     </div>
+    <!--Container for date and follow/unfollow button-->
     <div>
       <div style="align-self: center">{{ date }}</div>
       <div style="align-self: center">
-        <!--<button type="submit" class="volgknop btn">Follow</button>-->
+        <!--change button according to follow or not-->
         {% if welvolg %}
           <form>
             <button onclick="volgknop();" id="knop" class="volgknop btn">Abandon</button>
@@ -69,12 +74,12 @@
     </div>
   </div>
 
-
+<!--container for the main image-->
   <div class="main-image">
     <img src="{{ foto }}" alt="Photo" style="object-fit:contain;">
   </div>
 
-
+  <!--Container for the caption and amount of likes-->
    <div class="flex-container2">
     <div>
       {{ caption }}
@@ -91,7 +96,7 @@
     </div>
   </div>
 
-
+  <!--the height of the commentbox depends on the amount of comments-->
   {% if aantalcomments == 'False' %}
   <div class="comments" style="height: 0px">
   {% elif aantalcomments == 'True' %}
@@ -101,18 +106,22 @@
   {% elif aantalcomments == 'nog_langer' %}
   <div class="comments" style="height: 250px">
   {% endif %}
+
+  <!--load all the comments on this picture-->
     {% for comment in comments %}
     <div class="flex-comment">
       <div>
+        <!--show the profile picture of commenter-->
         <a href="/profile/{{ comment.commentaccount }}">
           <img src="{{ comment.profielfotocomment }}" alt="profilepicture" style="object-fit:cover;" class="comment_pf">
         </a>
       </div>
-
       <div>
+        <!--show the name of commenter-->
         <div>
             {{ comment.profielnaamcomment }}
         </div>
+        <!--show the comment-->
         <div>
            {{ comment.berichtcomment }}
         </div>
@@ -122,7 +131,7 @@
     </div>
 
 
-
+ <!--the field where a user can enter a comment-->
   <div class="flex-commentfield">
     <div class="commentfield">
       <form action="/comment/{{fotoid}}/home" method="post">
