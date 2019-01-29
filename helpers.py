@@ -185,7 +185,7 @@ def h_profile(name, profielfoto, beschrijving):
     # else if a value is not changed, get the old values
     if not name:
         name = db.execute("SELECT name FROM profiel WHERE userid = :userid", userid=userid)[0]['name']
-    if profielfoto == 'NULL':
+    if not profielfoto:
         profielfoto = db.execute("SELECT profielfoto FROM profiel WHERE userid = :userid", userid=userid)[0]['profielfoto']
     if not beschrijving:
         beschrijving = db.execute("SELECT beschrijving FROM profiel WHERE userid = :userid", userid=userid)[0]['beschrijving']
@@ -592,3 +592,12 @@ def info(lijst, functie):
         # loads the given function per user/path
         fotos.append(functie(value))
     return fotos
+
+
+def namebio():
+    """
+    Returns the name and bio of a user
+    """
+    userid = session["user_id"]
+    lijst = db.execute("SELECT * FROM profiel WHERE userid = :userid", userid=userid)[0]
+    return lijst["name"], lijst["beschrijving"]
