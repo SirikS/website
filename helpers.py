@@ -506,7 +506,6 @@ def prof_info_door_id(userid):
     """
     Gets all data of a profile using an userid
     """
-    print(userid)
     info = {}
     names = db.execute("SELECT * FROM profiel WHERE userid= :id", id=userid)
     # per profile, instert the correct data into the dict
@@ -588,7 +587,6 @@ def info(lijst, functie):
     if not lijst:
         return fotos
     for value in lijst:
-        print(value, "value")
         # loads the given function per user/path
         fotos.append(functie(value))
     return fotos
