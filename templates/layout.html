@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+    <head>
 
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
         <meta charset="utf-8"/>
@@ -13,81 +13,14 @@
         <link rel="stylesheet" href='https://use.fontawesome.com/releases/v5.6.3/css/all.css'>
 
         <link href="{{ url_for('static', filename='layout.css') }}" rel="stylesheet" type="text/css" media="screen"//>
-
-        <script>
-            function fotoladen(evt, soortfoto) {
-                // Declare all variables
-                var i, tabcontent, tablinks;
-                // Get all elements with class="tabcontent" and hide them
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
-                // Get all elements with class="tablinks" and remove the class "active"
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-                // Show the current tab, and add an "active" class to the button that opened the tab
-                document.getElementById(soortfoto).style.display = "flex";
-                evt.currentTarget.className += " active";
-            }
-            function volgknop() {
-                var x = document.getElementById("knop");
-                if (x.innerHTML === "Ontvolg") {
-                    x.innerHTML = "Volg";
-                }
-                else {
-                    x.innerHTML = "Ontvolg";
-                }
-            }
-        </script>
-
-
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts.js') }}"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type=text/javascript>
-                $(function() {
-                    // button staat hier voor de button tag en het #knop staat voor het id van de button -->
-                  $('button#knop').bind('click', function() {
-                    $.getJSON('/follow/{{ userid }}',
-                        function(data) {
-                      //do nothing
-                    });
-                    return false;
-                  });
-                });
-        </script>
-
-
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
         <title>Instapet | {% block title %}{% endblock %}</title>
 
     </head>
 
-<script>
-
-// open de navbar automatisch, zorgt dat je niet de eerste keer 2x moet klikken om hem dicht te doen
-function openpage()
-{
-    document.getElementById("mySidenav").style.width = "0";
-}
-
-//  functie op de navbar open en dicht te doen
-function openNav() {
-    // kijk hoe breed de navbar is
-    var e = document.getElementById("mySidenav");
-    // als de navbar 250px is, sluit hem dan
-    if (e.style.width == '250px')
-    {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-    // anders, open de navbar
-    else
-    {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-}
-
-</script>
 <body onload="openpage()">
 <!-- Use any element to open the sidenav -->
 <!--<button onclick="openNav()" class="openbtn btn" >open</button>-->
