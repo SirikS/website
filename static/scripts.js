@@ -1,3 +1,7 @@
+var script = document.createElement('script');
+
+script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+document.getElementsByTagName('head')[0].appendChild(script);
 
 // open de navbar automatisch, zorgt dat je niet de eerste keer 2x moet klikken om hem dicht te doen
 function openpage()
@@ -20,17 +24,6 @@ function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
     }
 }
-
-$(function() {
-// button staat hier voor de button tag en het #knop staat voor het id van de button -->
-    $('button#knop').bind('click', function() {
-    $.getJSON('/follow/{{ userid }}',
-    function(data) {
-        //do nothing
-            });
-        return false;
-    });
-});
 
 function fotoladen(evt, soortfoto) {
     // Declare all variables
