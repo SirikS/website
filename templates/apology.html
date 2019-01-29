@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block main %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='apology.css') }}" type="text/css" media="screen"/>
+
     <div class="apology">
         <img alt="Sorry!" src="http://memegen.link/custom/{{ bottom | urlencode }}.jpg?alt=http://trevinwax.com/wp-content/uploads/2011/07/cat2009.jpg"/>
     </div>
