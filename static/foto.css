@@ -86,14 +86,21 @@
 }
 
 /*Layout follow button*/
-.flex-container> div:nth-child(3) >div:nth-child(2) >.volgknop{
+.flex-container> div:nth-child(3) >div:nth-child(2) >.btn{
     font-size:18px;
     text-align: center;
     margin-top:10%;
     width: 90px;
     height: 40px;
+}
+
+.btn{
     background-color:lightblue;
 }
+
+/*button{*/
+/*    background-color:lightblue;*/
+/*}*/
 
 /*Layout caption and amount of likes*/
 .flex-container2{
