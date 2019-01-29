@@ -1,6 +1,8 @@
 .fileUpload {
     overflow: hidden;
 }
+
+/*shows the preview of the foto*/
 .thumbnail, img-preview
 {
     width:265px;
@@ -13,6 +15,7 @@
     height:265px;
 }
 
+/*the button where the user kan input picture*/
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -38,7 +41,7 @@
     justify-content:center;
 }
 
-
+/*layout for where user writes the caption*/
 .captions
 {
     height:100px;
@@ -46,6 +49,7 @@
     resize:top;
 }
 
+/*make sure the picture overlays the preview button*/
 .overlay {
   position: absolute;
   top: 0;
@@ -62,6 +66,7 @@
   padding: 10px;
 }
 
+/*layout of the text*/
 .text {
   color: black;
   font-size: 22px;
@@ -78,4 +83,11 @@
 .container-overlay:hover .overlay
 {
     opacity: 0.85;
+}
+
+/*design of the submit button*/
+.btn-primary {
+    color: #fff;
+    background-color: #bdd484;
+    border-color: #bdd484;
 }
