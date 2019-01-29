@@ -442,17 +442,19 @@ def h_profielsearch(zoekopdracht):
     # get all the profiles that match the search-term with their screenname out of the table
     names = db.execute("SELECT * FROM profiel WHERE UPPER(name)= :name", name=zoekopdracht.upper())
 
-    #for every profile put the required info into a dictionary
+    # for every profile put the required info into a dictionary
     for name in names:
-        profiel = {"account":idnaam(name['userid']), "user_id":name['userid'], "profielnaam": name['name'], "profielfoto":name['profielfoto']}
+        profiel = {"account": idnaam(name['userid']), "user_id": name['userid'],
+                   "profielnaam": name['name'], "profielfoto": name['profielfoto']}
         profiel_search.append(profiel)
 
     # get all the profiles that match the search-term with their screenname out of the table
     usernames = db.execute("SELECT * FROM accounts WHERE UPPER(username)= :name", name=zoekopdracht.upper())
 
-    #for every profile put the required info into a dictionary
+    # for every profile put the required info into a dictionary
     for username in usernames:
-        profiel = {"account":username["username"], "user_id":username['userid'], "profielnaam": pfname(username['userid'])[1], "profielfoto":pfname(username['userid'])[0]}
+        profiel = {"account": username["username"], "user_id": username['userid'],
+                   "profielnaam": pfname(username['userid'])[1], "profielfoto": pfname(username['userid'])[0]}
         profiel_search.append(profiel)
 
     return profiel_search
@@ -468,7 +470,7 @@ def h_fotosearch(zoekopdracht):
     fotos = db.execute("SELECT * FROM pictures WHERE UPPER(titel)= :ti", ti=zoekopdracht.upper())
     # for all pictures get the necessary information
     for foto in fotos:
-        profiel = {"foto_id":foto['fotoid'], "path":foto['path'], "likes":foto["totaallikes"], "titel":foto["titel"]}
+        profiel = {"foto_id": foto['fotoid'], "path": foto['path'], "likes": foto["totaallikes"], "titel": foto["titel"]}
         foto_search.append(profiel)
 
     return foto_search

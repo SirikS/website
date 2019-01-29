@@ -385,7 +385,7 @@ def upload():
 
             # if the file is not an image file, return an apology
             if helpers.is_it_image(file) == False:
-                return helpers.errormessage('Please submit an image file', "upload.html","picture")
+                return helpers.errormessage('Please submit an image file', "upload.html", "picture")
 
             # the picture that is uploaded is saved in the folder foto_upload
             foto_upload = os.getcwd() + "/static/foto_upload"
