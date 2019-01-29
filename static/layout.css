@@ -1,5 +1,10 @@
 /* The side navigation menu for every view bigger than mobile view*/
 @media screen and (min-width: 768px) {
+
+  body {
+  padding-top: 60px;
+  }
+
   .sidenav-mobile {
     display: none;
   }
@@ -41,6 +46,15 @@
 
 /* The side navigation menu for mobile view*/
 @media screen and (max-width: 767px) {
+
+    body {
+  padding-top: 0px;
+  }
+
+  .fixed-top {
+    position: relative;
+  }
+
   /* Hide menu for bigger views */
   .topnav > div > button {
     display: none;
@@ -77,9 +91,9 @@
     border-right: none;
   }
 
-    .topnav > div > div{
-      height: 45px;
-      margin-top: 10px;
+  .topnav > div > div{
+    height: 45px;
+    margin-top: 10px;
   }
 
   .search-bar {
@@ -116,10 +130,6 @@
   .topnav a {
     display: none;
   }
-}
-
-body{
-  padding-top:60px;
 }
 
  /*Style page content - use this if you want to push the page content to the right when you open the side navigation*/
