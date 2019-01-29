@@ -23,12 +23,12 @@ body{
 
 .container
 {
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 .container-fluid
 {
-    margin: 30px;
+    margin: 10px;
     padding: 20px;
     background-color: #eff1f4;
     width: 300px;
@@ -53,7 +53,7 @@ body{
 }
 
 .bs-example{
-    margin-top:40px;
+    margin-top:20px;
 	width: 580px;
     Height: 580px;
 }

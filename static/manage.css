@@ -8,6 +8,8 @@
 {
     margin-top:80px;
 }
+
+/*layout of button*/
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -24,6 +26,7 @@
     display: block;
 }
 
+/*show picture above upload*/
 .overlay {
   position: absolute;
   top: 0;
@@ -40,6 +43,7 @@
   padding: 10px;
 }
 
+/*layout of text*/
 .text {
   color: black;
   font-size: 22px;
