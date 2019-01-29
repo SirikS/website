@@ -185,7 +185,9 @@ def manage():
             return redirect(url_for("profile"))
         return helpers.errormessage("Must fill in a name", "manage.html")
 
-    return render_template("manage.html")
+    name, bio = helpers.namebio()
+    print(bio)
+    return render_template("manage.html", name=name, bio=bio)
 
 
 @app.route("/register", methods=["GET", "POST"])
