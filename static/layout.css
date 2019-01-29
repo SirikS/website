@@ -139,13 +139,17 @@ li{
   {
       font-family: Lucida Handwriting;
       text-align: center;
-      text-decoration:bold;
+      text-decoration: bold;
       color:white;
       font-size: 38px;
       margin-top:20px;
       margin-left:10px;
   }
 
+  .instapet-titel:hover {
+    text-decoration: none;
+    color:white;
+  }
 
   .topnav {
     display:flex;
