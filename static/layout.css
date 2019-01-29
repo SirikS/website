@@ -1,10 +1,5 @@
 /* The side navigation menu for every view bigger than mobile view*/
 @media screen and (min-width: 768px) {
-
-  body {
-  padding-top: 60px;
-  }
-
   .sidenav-mobile {
     display: none;
   }
@@ -46,15 +41,6 @@
 
 /* The side navigation menu for mobile view*/
 @media screen and (max-width: 767px) {
-  /*Removes top padding that moves down content from top nav in desktop view*/
-    body {
-  padding-top: 0px;
-  }
-  /* Makes the search bar stick to top */
-  .fixed-top {
-    position: relative;
-  }
-
   /* Hide menu for bigger views */
   .topnav > div > button {
     display: none;
@@ -91,9 +77,9 @@
     border-right: none;
   }
 
-  .topnav > div > div{
-    height: 45px;
-    margin-top: 10px;
+    .topnav > div > div{
+      height: 45px;
+      margin-top: 10px;
   }
 
   .search-bar {
@@ -132,11 +118,15 @@
   }
 }
 
+body{
+  padding-top:20px;
+}
+
  /*Style page content - use this if you want to push the page content to the right when you open the side navigation*/
 main {
   transition: margin-left .5s;
   padding: 20px;
-/*  margin-left: 200px;*/
+
 }
 
 li{
