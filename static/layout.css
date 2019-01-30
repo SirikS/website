@@ -217,8 +217,8 @@ li{
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #28a745;
-    border-color:  #28a745;
+    background-color: #bdd484;
+    border-color:  #bdd484;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

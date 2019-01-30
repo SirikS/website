@@ -9,12 +9,6 @@
     height:265px;
 }
 
-#image
-{
-    width:265px;
-    height:265px;
-}
-
 /*the button where the user kan input picture*/
 .btn-file input[type=file] {
     position: absolute;
@@ -88,8 +82,8 @@
 /*design of the submit button*/
 .btn-primary {
     color: #fff;
-    background-color: #bdd484;
-    border-color: #bdd484;
+    background-color: #28a745;
+    border-color: #28a745;
 }
 
 
@@ -101,3 +95,4 @@
     }
 
 }
+#28a745
