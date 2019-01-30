@@ -1,57 +1,59 @@
-.container_left{
-    width:20%;
-    float:center;
-    text-align:left;
+/*Most left colum (left of picture)*/
+.container_left {
+    width: 20%;
+    float: center;
+    text-align: left;
     height: 100px;
     position: absolute;
-    top:0;
-    bottom: 0;
-
-    margin: auto;
-}
-
-.left_flex{
-    display: flex;
-    width:20%;
-    float:right;
-    flex-direction: row;
-    justify-content: center;
-    height:100%;
-}
-
-
-.likebutton{
-    width:95px;
-    height:95px;
-    padding:5px;
-}
-
-
-.container_right{
-    width:20%;
-    float:right;
-    text-align:right;
-    height: 100px;
-    position: absolute;
-    left:10;
-    right:0;
-    top:0;
+    top: 0;
     bottom: 0;
     margin: auto;
 }
 
-.right_flex{
+/*Field for dislike button*/
+.left_flex {
     display: flex;
-    width:20%;
-    float:left;
+    width: 20%;
+    float: right;
     flex-direction: row;
     justify-content: center;
-    height:100%;
+    height: 100%;
 }
 
+/*Style for dislike button*/
+.dislikebutton {
+    width: 95px;
+    height: 95px;
+    padding: 5px;
+}
 
-.dislikebutton{
-    width:95px;
-    height:95px;
-    padding:5px;
+/*Most right colum (right of picture)*/
+.container_right {
+    width: 20%;
+    float: right;
+    text-align: right;
+    height: 100px;
+    position: absolute;
+    left: 10;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+/*Field for like button*/
+.right_flex {
+    display: flex;
+    width: 20%;
+    float: left;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+}
+
+/*Style for like button*/
+.likebutton {
+    width: 95px;
+    height: 95px;
+    padding: 5px;
 }
