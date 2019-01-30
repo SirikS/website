@@ -1,112 +1,107 @@
+/*Style to always show content below top nav*/
 main {
     padding: 30px 0px 0px 0px;
 }
 
-.container{
-    width:100%;
+/*Standard container width*/
+.container {
+    width: 100%;
 }
 
-/*opmaak van het bovenste gedeelde van de pagina*/
+/*Style for top container*/
 .bovenste_flex{
-    display:flex;
+    display: flex;
     flex-direction: row;
-    padding:15px;
+    padding: 15px;
 }
 
-/*Opmaak voor de weergave van de profielfoto*/
+/*Styling for profile picture*/
 .profilepicture{
     margin-left: 2%;
-    margin-top:5%;
-    height:18vw;
-    float:left;
-    width:18vw;
-    border-radius:50%;
+    margin-top: 5%;
+    height: 18vw;
+    float: left;
+    width: 18vw;
+    border-radius: 50%;
     border: 3px solid green;
 }
 
-
-/*opmaak van het vak met daarin de naam en omschrijving*/
-.bovenste_flex >div:nth-child(2){
-    display:flex;
+/*Style for field with name and bio*/
+.bovenste_flex > div:nth-child(2) {
+    display: flex;
     flex-direction: column;
-    margin-left:2vw;
-    padding:1vw;
-    width:63%;
+    margin-left: 2vw;
+    padding: 1vw;
+    width: 63%;
 }
 
-/*opmaak voor het vak met de naam */
-.bovenste_flex >div:nth-child(2) >div:nth-child(1){
-    height:3vw;
-    font-size:2vw;
-    font-weight:bold;
+/*Style for name field*/
+.bovenste_flex > div:nth-child(2) > div:nth-child(1) {
+    height: 3vw;
+    font-size: 2vw;
+    font-weight: bold;
 }
 
-/*opmaak voor het vak met de omschrijving*/
-.bovenste_flex >div:nth-child(2) >div:nth-child(2){
-    height:18vw;
+/*Style for bio field*/
+.bovenste_flex > div:nth-child(2) > div:nth-child(2) {
+    height: 18vw;
     overflow: auto;
-    margin-top:1vw;
+    margin-top: 1vw;
     height: 15vw;
     font-size: 1.3vw;
 }
 
-/*opmaak van het vak met daarin de volgknop en het aantal volgers*/
-.bovenste_flex >div:nth-child(3){
-    display:flex;
+/*Style for field with follow button and follow counter*/
+.bovenste_flex > div:nth-child(3) {
+    display: flex;
     flex-direction: column;
-    width:200px;
+    width: 200px;
 }
 
-/*hier komt het vak met hierin de volg knop*/
-.bovenste_flex >div:nth-child(3) >div:nth-child(1){
+/*Style for field with follow button*/
+.bovenste_flex > div:nth-child(3) > div:nth-child(1) {
     width: 100%;
-    height:5vw;
-    margin-top:1vw;
+    height: 5vw;
+    margin-top: 1vw;
 }
 
-/*de volg knop*/
-.bovenste_flex >div:nth-child(3) >div:nth-child(1) > form > .btn{
+/*The follow button itself*/
+.bovenste_flex > div:nth-child(3) > div:nth-child(1) > form > .btn {
     width: 100%;
-    height:5vw;
-    font-size:2vw;
-    background-color:#bdd484;
+    height: 5vw;
+    font-size: 2vw;
+    background-color: #bdd484;
 }
 
-/*het vak met hoeveel volger*/
-.bovenste_flex >div:nth-child(3) >div:nth-child(2){
+/*The field with the amount of followers*/
+.bovenste_flex > div:nth-child(3) > div:nth-child(2) {
     width: 100%;
-    height:3vw;
-    margin-top:1vw;
+    height: 3vw;
+    margin-top: 1vw;
 }
 
-/*de tekst met hoeveel volgers*/
-.bovenste_flex >div:nth-child(3) >div:nth-child(2) >div{
+/*The text for the amount of followers*/
+.bovenste_flex > div:nth-child(3) > div:nth-child(2) > div {
     position: relative;
     float: left;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-weight:bold;
-    font-size:1.3vw;
+    font-weight: bold;
+    font-size: 1.3vw;
 }
 
-
-/*het vak met alle knoppen in het midden*/
-.middelste_flex{
+/*The field containing the buttons*/
+.middelste_flex {
     border-top: 2px solid lightgreen;
     height: 7vw;
-    display:flex;
+    display: flex;
     flex-direction: row;
-    justify-content:center;
+    justify-content: center;
     align-content: space-between;
 }
 
-/*alle vakken hebben hetzelfde formaat*/
-/*.middelste_flex > div {*/
-/*    border-top: 3px solid lightgreen;*/
-/*}*/
-
-/*alle knoppen hebben dezelfde opmaak*/
+/*All the buttons look the same*/
 .middelste_flex > div > button {
     background-color: white;
     border-right: none;
@@ -123,45 +118,47 @@ main {
     float: left;
 }
 
+/*Remove default outline*/
 .middelste_flex > div > button:focus {
     outline: none;
 }
 
+/*General style button*/
 .middelste_flex > div > button.tablinks {
     border-top: 2px solid lightgreen;
 }
 
+/*Change border when active*/
 .middelste_flex > div > button.tablinks.active {
     border-top: 2px solid green;
 }
 
-
-.onderste_flex{
-    padding:15px;
+/*General style for bottom field*/
+.onderste_flex {
+    padding: 15px;
 }
 
-.onderste_flex > .fotos{
+/*Grid layout for previewing pictures (3 next to eachother)*/
+.onderste_flex > .fotos {
     display: grid;
     grid-template-columns: 31.33% 31.33% 31.33%;
     grid-gap: 3%;
 }
 
-
-
-/*opmaak voor het hokje waar de complete foto, titel, likes in komt*/
-.onderste_flex >.fotos > div{
+/*Style for the container that contains title, picture, likes etc.*/
+.onderste_flex > .fotos > div {
     display: grid;
-    margin-bottom:2%;
+    margin-bottom: 2%;
 }
 
-
-/*opmaak voor de titel*/
-.onderste_flex  >.fotos > div > div:nth-child(1) {
-    background-color:lightgray;
-    height:3vw;
+/*Style for the picture title field*/
+.onderste_flex > .fotos > div > div:nth-child(1) {
+    background-color: lightgray;
+    height: 3vw;
 }
 
-.onderste_flex  >.fotos > div > div:nth-child(1) > div {
+/*Style for the picture title field text*/
+.onderste_flex > .fotos > div > div:nth-child(1) > div {
     font-weight: bold;
     position: relative;
     float: left;
@@ -171,74 +168,70 @@ main {
     text-transform: uppercase;
 }
 
-/*opmaak voor de foto*/
-.mainpicture{
+/*Styling for picture frame*/
+.mainpicture {
     width: 100%;
     height: 17vw;
 }
 
-
-/*opmaak voor het aantal likes*/
-.onderste_flex >.fotos > div > div:nth-child(3){
-    background-color:lightgray;
-    height:2vw;
+/*Styling for the amount of likes field*/
+.onderste_flex > .fotos > div > div:nth-child(3) {
+    background-color: lightgray;
+    height: 2vw;
 }
 
-/*opmaak voor het aantal likes*/
-.onderste_flex  >.fotos > div > div:nth-child(3) >div{
-    font-size:1.5vw;
-    font-weight:bold;
-    float:right;
-    margin-right:0.5vw;
+/*Styling for the amount of likes text*/
+.onderste_flex > .fotos > div > div:nth-child(3) > div {
+    font-size: 1.5vw;
+    font-weight: bold;
+    float: right;
+    margin-right: 0.5vw;
 }
 
-
-
-/* het veld waarin de gebruikers staan*/
-.onderste_flex > .profielen{
+/*The field that shows users*/
+.onderste_flex > .profielen {
     display: grid;
     grid-template-columns: 31.33% 31.33% 31.33%;
     grid-gap: 3%;
 }
 
-
-/* hokje voor één gebruiker*/
-.onderste_flex > .profielen > div{
-    display:flex;
-    flex-direction:row;
-    margin-right:10px;
-    margin-bottom:2%;
+/*Field for one user*/
+.onderste_flex > .profielen > div {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    margin-bottom: 2%;
 }
 
-
- /*foto in een hokje*/
-.onderste_flex > .profielen>div > div:nth-child(1){
-    height:10vw;
-    float:left;
-    width:11vw;
-    border-top-left-radius:50%;
-    border-bottom-left-radius:50%;
-    background-color:lightblue
+/*profile picture styling*/
+.onderste_flex > .profielen > div > div:nth-child(1) {
+    height: 10vw;
+    float: left;
+    width: 11vw;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: lightblue;
 }
 
-.profilepicture2{
-    height:10vw;
-    float:left;
-    width:10vw;
-    border-radius:50%;
+/*Styling for other profile picture (from other users)*/
+.profilepicture2 {
+    height: 10vw;
+    float: left;
+    width: 10vw;
+    border-radius: 50%;
 }
 
-/* hokje van het account*/
-.onderste_flex> .profielen >div > div:nth-child(2){
+/*Field for the account*/
+.onderste_flex > .profielen > div > div:nth-child(2) {
     font-size: 1.5vw;
-    height:10vw;
-    float:left;
-    width:12vw;
-    background-color:lightblue
+    height: 10vw;
+    float: left;
+    width: 12vw;
+    background-color: lightblue;
 }
 
-/*opmaak van de tekst in het hokje*/
-.onderste_flex > .profielen >div > div:nth-child(2) > div{
+/*Field for the account text*/
+.onderste_flex > .profielen > div > div:nth-child(2) > div {
     width: 8vw;
     font-size: 1.5vw;
     position: relative;
@@ -246,51 +239,7 @@ main {
     transform: translateY(-50%);
 }
 
-.onderste_flex > .profielen >div > div:nth-child(2) > div > a{
-    color:black;
-}
-
-/* mobile view styling */
-@media screen and (max-width: 767px) {
-
-    .bovenste_flex >div:nth-child(2) >div:nth-child(1) {
-        font-size: 18px;
-    }
-
-    .bovenste_flex >div:nth-child(2) >div:nth-child(2) {
-        margin-top: 15px;
-        height: 50px;
-        font-size: 10px;
-    }
-
-    .bovenste_flex >div:nth-child(3) {
-        width: 50px;
-    }
-
-    .middelste_flex > div > button {
-        padding: 0px;
-        margin-right: 15px;
-    }
-
-    .middelste_flex > div > button#adoptedbutton {
-        margin-right: 0px;
-    }
-
-    .onderste_flex {
-        padding: 0px;
-        margin-top: 20px;
-    }
-
-    .onderste_flex  >.fotos > div > div:nth-child(1) {
-        display: none;
-    }
-
-    .onderste_flex  >.fotos > div > div:nth-child(3) {
-        display: none;
-    }
-
-    .mainpicture {
-        width: 100%;
-        height: 25vw;
-    }
+/*Styling for links in account field*/
+.onderste_flex > .profielen > div > div:nth-child(2) > div > a {
+    color: black;
 }
