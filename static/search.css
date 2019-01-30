@@ -75,7 +75,7 @@
     width: 9vw;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
-    background-color: lightblue;
+    background-color: #bdd683;
 }
 
 /*Style for found profile pictures*/
@@ -92,7 +92,7 @@
     height: 8vw;
     float: left;
     width: 12vw;
-    background-color: lightblue;
+    background-color: #bdd683;
 }
 
 /*Style for text in profile field*/
