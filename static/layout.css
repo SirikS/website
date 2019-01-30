@@ -214,12 +214,14 @@ li{
     color: #fff;
     background-color: #28a745;
     border-color: #28a745;
+    outline: none;
 }
 
 .btn-st:hover {
     color: #fff;
     background-color: #bdd484;
     border-color:  #bdd484;
+    outline:none;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

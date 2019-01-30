@@ -94,8 +94,9 @@
     height: 40px;
 }
 
-.btn{
-    background-color:lightblue;
+.btn, volgknop{
+    background-color:#bdd484;
+    outline:none;
 }
 
 /*button{*/

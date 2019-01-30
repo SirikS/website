@@ -14,6 +14,7 @@ body {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745;
+    outline:none;
 }
 
 /*The button changes color when hovered over*/
@@ -21,6 +22,7 @@ body {
     color: #fff;
     background-color: #bdd484;
     border-color:  #bdd484;
+    outline:none;
 }
 
 /*The heading for register is larger*/
