@@ -1,3 +1,4 @@
+/*Margin to make sure footer doesnt get in front of form*/
 body {
     margin-bottom: 50px;
 }
@@ -14,7 +15,7 @@ body {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745;
-    outline:none;
+    outline: none;
 }
 
 /*The button changes color when hovered over*/
@@ -22,27 +23,27 @@ body {
     color: #fff;
     background-color: #bdd484;
     border-color:  #bdd484;
-    outline:none;
+    outline: none;
 }
 
 /*The heading for register is larger*/
 .register-heading {
-	 text-decoration: bold;
-	 text-align: center;
-	 font-size: 35px;
+    text-decoration: bold;
+	text-align: center;
+	font-size: 35px;
 }
 
 /*The login heading is larger*/
 .login-heading {
     text-decoration: bold;
-	 text-align: center;
+	text-align: center;
     font-size: 20px;
 }
 
 /*The complete container on the page*/
 .container {
     margin-top: 10px;
-    margin-left:10%;
+    margin-left: 10%;
 }
 
 /*Style for container*/
@@ -51,14 +52,11 @@ body {
     padding: 20px;
     background-color: #eff1f4;
     width: 360px;
-
-
 }
 
 /*Style for all form fields (login, register)*/
 .form-label-group {
     padding: 2%;
-
 }
 
 /*Header for the login*/
@@ -78,7 +76,7 @@ body {
 
 /*Style for the container of the carousel*/
 .bs-example {
-    margin-top:20px;
+    margin-top: 20px;
 	width: 580px;
     Height: 580px;
 }
@@ -88,10 +86,10 @@ body {
     position: fixed;
     overflow: hidden;
     background-color: #bdd683;
-    margin-bottom:0;
+    margin-bottom: 0;
     bottom: 0;
     width: 100%;
-    z-index:2000;
+    z-index: 2000;
 }
 
 /*Style for text in footer*/
