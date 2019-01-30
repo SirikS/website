@@ -89,7 +89,7 @@ def h_upload(path, titel, caption, filename, species=False):
     """
     # save the picture in the database
     opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption, species) VALUES (:id, :pt, :ti, :cp, :sp)",
-                         id=session['user_id'], pt=path, ti=titel, cp=caption, sp= species)
+                         id=session['user_id'], pt=path, ti=titel, cp=caption, sp=species)
     # get the newly made fotoid
     fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :usid AND path = :pt",
                         usid=session['user_id'], pt=path)[0]["fotoid"]
@@ -279,8 +279,8 @@ def login_required(f):
 
 def account_required(f):
     """
-    Decorate routes to require an account.
-    See: http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
+    Makes sure that there is an account
+    Else go to the manage page
     """
     @wraps(f)
     def account(*args, **kwargs):
@@ -291,6 +291,7 @@ def account_required(f):
             return redirect("/manage")
         return f(*args, **kwargs)
     return account
+
 
 def naamid(username):
     """
