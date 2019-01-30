@@ -277,6 +277,21 @@ def login_required(f):
     return decorated_function
 
 
+def account_required(f):
+    """
+    Decorate routes to require an account.
+    See: http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
+    """
+    @wraps(f)
+    def account(*args, **kwargs):
+        try:
+            userid = session.get("user_id")
+            db.execute("SELECT * FROM profiel WHERE userid = :userid", userid=userid)[0]["name"]
+        except:
+            return redirect("/manage")
+        return f(*args, **kwargs)
+    return account
+
 def naamid(username):
     """
     Returns the userid of a username
