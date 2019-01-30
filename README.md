@@ -1,29 +1,32 @@
 # website
 Instapet
-Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigenaren en dierliefhebbers, zodat ze foto’s kunnen delen met gelijkgestelden. Op de deze manier wordt Facebook en Instagram niet overgenomen door dieren. Het idee is er om de like/dislike functie te gebruiken op een Instagram achtige omgeving.
+Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigenaren en dierliefhebbers, zodat ze foto’s kunnen delen met gelijkgestelden. Op deze manier kunnen ze makkelijk in contact komen met andere huisdiereigenaren en foto's bekijken die voor hen relevant zijn. Het idee is er om de like/dislike functie van Tinder te gebruiken op een Instagram achtige omgeving.
 
+Inhoud van de website
 1.  ontvangstpagina voor niet-ingelogde gebruikers (index)
 2.  homepage voor ingelogde gebruikers (home)
-    1. like/dislike
-3.  profielpagina (profile)
+    1. Random foto's 
+    2. Like/dislike systeem
+    3. Geen dubbele foto's 
+3.  timeline (pack)
+    1. foto's van packmembers
+4.  profielpagina (profile)
     1. Eigen foto’s
     2. Gelikete foto’s
-    3. Comment wall
-    4. Volgers etc.
-4.  search
-5.  timeline (pack)
+    3. Volgend (packmembers).
+    4. Gevolgd door (adopted by:)
+5.  search
 6.  persoonlijke instellingen (manage)
 7.  uploadpagina (upload)
 
 Features
 1.	comments
 2.	like/dislike
-3.	delen
-4.	volgen
-5.	foto’s/ gifjes uploaden (met beschrijving)
-6.	inloggen/uitloggen
-7.	account beheer
-8.  
+3.	volgen/ontvolgen
+4.	foto’s/ gifjes uploaden (met beschrijving)
+5.	inloggen/uitloggen
+6.	account beheer
+7.  registreren
 
 MVP
 1.	Inlog/registratie
@@ -36,7 +39,6 @@ MVP
 8.  Accountbeheer
 9.  Volgend pagina
 
-
 Moeilijke delen
 1.	Database
 2.	Zoekfunctie
@@ -45,7 +47,6 @@ Moeilijke delen
 
 Afhankelijkheden
 1. [Giphy API](http://api.giphy.com)
-2. [Foto herkenning API](https://clarifai.com/developer/reference/)
 
 Externe componenten
 1. Bootstrap

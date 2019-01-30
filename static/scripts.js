@@ -1,30 +1,32 @@
 var script = document.createElement('script');
 
+// Import Jquery
 script.src = '//code.jquery.com/jquery-1.11.0.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
 
-// open de navbar automatisch, zorgt dat je niet de eerste keer 2x moet klikken om hem dicht te doen
+// Open the navbar automatically, makes sure you don't have to click twice when it first loads to close it.
 function openpage()
 {
     document.getElementById("mySidenav").style.width = "0";
 }
 
-//  functie op de navbar open en dicht te doen
+// Function to open and close the navbar
 function openNav() {
-    // kijk hoe breed de navbar is
+    // Check how wide the navbar is.
     var e = document.getElementById("mySidenav");
-    // als de navbar 250px is, sluit hem dan
+    // if the navbar is 250px wide, close it
     if (e.style.width == '250px')
     {
         document.getElementById("mySidenav").style.width = "0";
     }
-    // anders, open de navbar
+    // Otherwise, open the navbar
     else
     {
         document.getElementById("mySidenav").style.width = "250px";
     }
 }
 
+// Function to load pictures in tabs on the profile page
 function fotoladen(evt, soortfoto) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -42,6 +44,8 @@ function fotoladen(evt, soortfoto) {
     document.getElementById(soortfoto).style.display = "grid";
     evt.currentTarget.className += " active";
 }
+
+// Function to change the text in the follow button from 'Adopt' to 'Abandon'.
 function volgknop() {
     var x = document.getElementById("knop");
     if (x.innerHTML === "Abandon") {
