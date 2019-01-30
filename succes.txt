@@ -1,7 +1,0 @@
-1. Zorg dat je in de goede directory zit met je terminal (/website)
-2. git add FILENAME
-3. Zorg dat je de meest recente data hebt van de andere files (git pull)
-4. git commit -m "Caption"
-5. git push
-6. Log in
-7. glhf
