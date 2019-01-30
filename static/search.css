@@ -41,14 +41,14 @@
 }
 
 /*Style for word: 'user'*/
-.flex_profielen > div:nth-child(1) {
+.flex_profielen > div {
     margin-left: 5%;
     margin-top: 1%;
     font-size: 150%;
 }
 
 /*The field where the users are shown*/
-.flex_profielen > div:nth-child(2) {
+.flex_profielen > div {
     display: flex;
     margin-left: 5%;
     margin-top: 1%;
@@ -59,7 +59,7 @@
 
 
 /*Field for one user*/
-.flex_profielen > div:nth-child(2) > div {
+.flex_profielen > div > div {
     height: 70%;
     display: flex;
     flex-direction: row;
@@ -69,7 +69,7 @@
 
 
 /*Profile picture style*/
-.flex_profielen > div:nth-child(2) > div > div:nth-child(1) {
+.flex_profielen > div > div > div:nth-child(1) {
     height: 8vw;
     float: left;
     width: 9vw;
@@ -87,7 +87,7 @@
 }
 
 /*Field for profile name*/
-.flex_profielen > div:nth-child(2) > div > div:nth-child(2) {
+.flex_profielen > div  > div > div:nth-child(2) {
     font-size: 1.5vw;
     height: 8vw;
     float: left;
@@ -96,12 +96,17 @@
 }
 
 /*Style for text in profile field*/
-.flex_profielen > div:nth-child(2) > div > div:nth-child(2) > div {
+.flex_profielen > div > div > div:nth-child(2) > div {
     width: 8vw;
     font-size: 1.5vw;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+
+/*Style for text in profile field*/
+.flex_profielen > div > div > div:nth-child(2) > div > a {
+    color: black;
 }
 
 

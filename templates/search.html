@@ -24,9 +24,6 @@
     </div>
 
     <div class="flex_profielen">
-        <div>
-            Users:
-        </div>
         <!-- This is where all the found profiles go -->
         <div>
             {% for profiel in profiel_search %}
@@ -41,7 +38,7 @@
                 <!-- Name of a profile -->
                 <div>
                     <div>
-                        {{ profiel.profielnaam }}
+                        <a href="/profile/{{ profiel.account }}">{{ profiel.profielnaam }}</a>
                     </div>
                 </div>
             </div>
