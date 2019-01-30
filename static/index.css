@@ -24,6 +24,7 @@ body{
 .container
 {
     margin-top: 10px;
+    margin-left:10%;
 }
 
 .container-fluid
@@ -31,7 +32,8 @@ body{
     margin: 10px;
     padding: 20px;
     background-color: #eff1f4;
-    width: 300px;
+    width: 360px;
+
 
 }
 

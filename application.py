@@ -65,7 +65,7 @@ def support():
 @app.route("/profile/", methods=["GET", "POST"])
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @helpers.login_required
-def profile(username=''):
+def profile(username=False):
     """
     Loads the profile of an account
     """
@@ -75,7 +75,7 @@ def profile(username=''):
         return redirect(url_for("profile"))
 
     # if no profile show his/her own
-    if username == '':
+    if not username:
         username = helpers.idnaam(session["user_id"])
         eigenacc = True
 
@@ -185,8 +185,8 @@ def manage():
             return redirect(url_for("profile"))
         return helpers.errormessage("Must fill in a name", "manage.html")
 
+    # load the old name and bio
     name, bio = helpers.namebio()
-    print(bio)
     return render_template("manage.html", name=name, bio=bio)
 
 
@@ -256,6 +256,8 @@ def home(fotoid=False):
         fotoid = helpers.random_fotoid()
     if not fotoid:
         return helpers.apology("geen foto's meer")
+    if not helpers.geldig(fotoid):
+        return redirect(url_for("home"))
 
     # get all the data of a photo
     data = helpers.get_foto(fotoid)
@@ -284,6 +286,8 @@ def pack(fotoid=False):
         fotoid = helpers.volger_fotoid()
     if not fotoid:
         return helpers.apology("geen foto's meer")
+    if not helpers.geldig(fotoid):
+        return redirect(url_for("pack"))
 
     # get all data of a photo
     data = helpers.get_foto(fotoid)
@@ -314,7 +318,7 @@ def like(fotoid, direct='home'):
     # insert the like
     userid = session["user_id"]
     if not helpers.h_like(fotoid, userid, '1'):
-        return helpers.apology("You have liked/disliked this already")
+        return helpers.apology("You can't like this photo (anymore)")
     return redirect(url_for(direct))
 
 
@@ -334,7 +338,7 @@ def dislike(fotoid, direct='home'):
     # insert the dislike
     userid = session["user_id"]
     if not helpers.h_like(fotoid, userid, '0'):
-        return helpers.apology("You have liked/disliked this already")
+        return helpers.apology("You can't like this photo (anymore)")
     return redirect(url_for(direct))
 
 
@@ -346,7 +350,7 @@ def comment(fotoid, direct='home'):
     Registers the comment in the database
     Redirects to the correct page
     """
-    # als het geen geldig fotoid is, dan apology
+    # if not valid fotoid, apologize
     if not helpers.geldig(fotoid):
         return helpers.apology("Fill in a valid photo-id")
 
@@ -370,6 +374,7 @@ def upload():
         # get the user's input
         title = request.form.get("titel")
         caption = request.form.get("caption")
+        species = request.form.get("species")
 
         # ensure every thing is alright
         if not title:
@@ -399,7 +404,7 @@ def upload():
             filename = request.files['uploadfile'].filename
 
             # upload into the database and redirect if all is good
-            fotoid = helpers.h_upload(path, title, caption, filename)
+            fotoid = helpers.h_upload(path, title, caption, filename, species)
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
@@ -413,7 +418,7 @@ def upload():
                 return helpers.errormessage("You must upload a file or seach a gif!", "upload.html", 'picture')
 
             # insert into database
-            fotoid = helpers.h_gifje(path, title, caption)
+            fotoid = helpers.h_gifje(path, title, caption, species)
 
             # if all is good, redirect
             if fotoid:
@@ -439,14 +444,24 @@ def photo(fotoid=False):
     # get all data
     data = helpers.get_foto(fotoid)
 
-    # Set up all data for template
+    # Set data for template
     username, fotoid, foto, caption, titel, date, likes, userid = helpers.foto_data(data)
+
+    eigenacc = False
+    # try to look if it is his/her own photo, try statement used for not logged in users
+    try:
+        if session["user_id"] == userid:
+            eigenacc = True
+    except:
+        pass
+
+    # get all other data
     profielfoto, naam = helpers.pfname(userid)
     comments = helpers.get_comments(fotoid)
     aantalcomments = helpers.lengte_comments(comments)
     welvolg = helpers.volgcheck(username)
 
-    return render_template("photo.html", userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
+    return render_template("photo.html", eigenacc=eigenacc, userid=userid, welvolg=welvolg, aantalcomments=aantalcomments, fotoid=fotoid, foto=foto, caption=caption, titel=titel, date=date, likes=likes, profielfoto=profielfoto, naam=naam, comments=comments, accountnaam=username)
 
 
 @app.route("/logout", methods=["GET", "POST"])
@@ -455,7 +470,6 @@ def logout():
     """
     Clears the session
     """
-
     # clears session and goes back to index page
     session.clear()
     return redirect(url_for("index"))
@@ -469,7 +483,7 @@ def follow(userid):
     """
     # insert the follow/unfollow if it is not yourself
     if not helpers.h_follow(userid):
-        return helpers.apology("You can not follow yourself")
+        return helpers.apology("You can not follow this account")
     return "nothing"
 
 
@@ -490,6 +504,8 @@ def search():
 
     # remove duplicates (if any) from searchresults for username and profilename
     profiel_search = [dict(t) for t in {tuple(d.items()) for d in profiel_search}]
+        # remove duplicates (if any) from searchresults for username and profilename
+    foto_search = [dict(t) for t in {tuple(d.items()) for d in foto_search}]
 
     # count the results
     aantalres = len(profiel_search) + len(foto_search)

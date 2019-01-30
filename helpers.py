@@ -82,14 +82,14 @@ def h_register(username, password, email):
     return True
 
 
-def h_upload(path, titel, caption, filename):
+def h_upload(path, titel, caption, filename, species=False):
     """
     Saves picture, renames it and adjusts the database
     Returns the fotoid
     """
     # save the picture in the database
-    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:id, :pt, :ti, :cp)",
-                         id=session['user_id'], pt=path, ti=titel, cp=caption)
+    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption, species) VALUES (:id, :pt, :ti, :cp, :sp)",
+                         id=session['user_id'], pt=path, ti=titel, cp=caption, sp= species)
     # get the newly made fotoid
     fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :usid AND path = :pt",
                         usid=session['user_id'], pt=path)[0]["fotoid"]
@@ -145,6 +145,8 @@ def h_like(fotoid, userid, value):
     Inserts the like into the database
     value = 1 stands for a like and value = 0 stands for a dislike
     """
+    if userid == db.execute("SELECT userid FROM pictures WHERE fotoid= :fotoid", fotoid=fotoid)[0]["userid"]:
+        return False
     # checks if the like doesnt already exist
     if len(db.execute("SELECT * FROM beoordeeld WHERE userid = :userid AND fotoid = :fotoid",
                       fotoid=fotoid, userid=userid)) != 0:
@@ -211,7 +213,7 @@ def get_profiel(account):
 
 def pfname(userid):
     """
-    Returns the pf and name of an userid
+    Returns the pf and name of a userid
     """
     profielfoto = db.execute("SELECT profielfoto FROM profiel WHERE userid = :userid", userid=userid)[0]["profielfoto"]
     name = db.execute("SELECT name FROM profiel WHERE userid = :userid", userid=userid)[0]["name"]
@@ -227,7 +229,8 @@ def h_follow(userid):
     # you can not follow yourself
     if userid == volgerid:
         return False
-
+    if not exist(userid):
+        return False
     # Looks how many rows there are in the database
     rows = db.execute("SELECT * FROM volgers WHERE userid= :userid AND volgerid= :volgerid", userid=userid, volgerid=volgerid)
 
@@ -389,7 +392,7 @@ def get_gevolgd(userid):
 
 def get_persoonfotos(userid):
     """
-    Gets all paths of an users photos
+    Gets all paths of a users photos
     """
     paths = db.execute("SELECT path FROM pictures WHERE userid = :userid", userid=userid)
     if not paths:
@@ -473,17 +476,24 @@ def h_fotosearch(zoekopdracht):
         profiel = {"foto_id": foto['fotoid'], "path": foto['path'], "likes": foto["totaallikes"], "titel": foto["titel"]}
         foto_search.append(profiel)
 
+    # get all the pictures that match the species with the searchterm
+    fotos = db.execute("SELECT * FROM pictures WHERE UPPER(species)= :sp", sp=zoekopdracht.upper())
+    # for all pictures get the necessary information
+    for foto in fotos:
+        profiel = {"foto_id": foto['fotoid'], "path": foto['path'], "likes": foto["totaallikes"], "titel": foto["titel"]}
+        foto_search.append(profiel)
+
     return foto_search
 
 
-def h_gifje(path, title, caption):
+def h_gifje(path, title, caption, species=False):
     """
     Uploads a gif from the giphy API into the database
     """
     # uploads a path to the .gif file in the database and returns the fotoid
     userid = session["user_id"]
-    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:userid, :path, :titel, :caption)",
-                         userid=userid, path=path, titel=title, caption=caption)
+    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption, species) VALUES (:userid, :path, :titel, :caption, :sp)",
+                         userid=userid, path=path, titel=title, caption=caption, sp=species)
     fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :userid AND path = :path",
                         userid=userid, path=path)[0]["fotoid"]
     return fotoid
@@ -506,7 +516,7 @@ def info_door_path(path):
 
 def prof_info_door_id(userid):
     """
-    Gets all data of a profile using an userid
+    Gets all data of a profile using a userid
     """
     info = {}
     names = db.execute("SELECT * FROM profiel WHERE userid= :id", id=userid)
@@ -601,3 +611,14 @@ def namebio():
     userid = session["user_id"]
     lijst = db.execute("SELECT * FROM profiel WHERE userid = :userid", userid=userid)[0]
     return lijst["name"], lijst["beschrijving"]
+
+
+def exist(userid):
+    """
+    Checks if a userid exists
+    """
+    try:
+        idnaam(userid)
+        return True
+    except:
+        return False
