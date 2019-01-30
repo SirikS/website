@@ -13,7 +13,7 @@
 
 <div class="container">
     <br>
-    <!--hier wordt aangegeven waarop is gezocht-->
+    <!-- This is where the search query is shown -->
     <div class="flex_zoek">
         <div class = "zoekterm">
             Search term: {{ zoekopdracht }}
@@ -27,18 +27,18 @@
         <div>
             Users:
         </div>
-        <!--vak waarin alle hokjes met profielen komen-->
+        <!-- This is where all the found profiles go -->
         <div>
             {% for profiel in profiel_search %}
-            <!--hokje voor een profiel-->
+            <!-- Space for profile -->
             <div>
-                <!--foto van een profiel-->
+                <!-- Picture of a profile -->
                 <div>
                     <a href="/profile/{{ profiel.account }}">
                         <img src="{{ profiel.profielfoto }}"alt="profilepicture" style="object-fit:cover;" class="profilepicture">
                     </a>
                 </div>
-                <!--naam van een profiel-->
+                <!-- Name of a profile -->
                 <div>
                     <div>
                         {{ profiel.profielnaam }}
@@ -54,21 +54,21 @@
     <div class="flex_fotos">
         <div>
             {% for foto in foto_search %}
-            <!--hokje voor een foto met titel, etc-->
+            <!-- Div for a picture with title, etc. -->
             <div>
-                <!--bovenkant hokje met titel-->
+                <!-- Top of preview with title -->
                 <div>
                     <div>
                     {{ foto.titel }}
                     </div>
                 </div>
-                <!--middenstuk hokje met plaatje-->
+                <!-- Middle of preview with picture -->
                 <div>
                     <a href="/photo/{{ foto.foto_id }}">
                         <img src="{{ foto.path }}" alt="picture" style="object-fit:cover;" class="mainpicture">
                     </a>
                 </div>
-                <!--onderkant hokje met likes-->
+                <!--Bottom of preview with likes-->
                 <div>
                     <div>
                     {{ foto.likes}} 💚

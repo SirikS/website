@@ -1,8 +1,9 @@
+/* Standard width for page */
 .container{
     width:100%;
 }
 
-/*opmaak voor de container met wat er is gezocht*/
+/*Style for query container*/
 .flex_zoek{
     display:flex;
     background-color:lightgray;
@@ -11,13 +12,13 @@
     padding:15px;
 }
 
-/*opmaak voor wat er is gezocht*/
+/* Style for inside query container */
 .flex_zoek > .zoekterm{
     font-size: 150%;
     margin-left:5%;
 }
 
-/*opmaak voor het aantal resultaten*/
+/* Style for amount of search results*/
 .flex_zoek > .aantal_resultaten{
     font-size: 110%;
     margin-left:5%;
@@ -25,7 +26,7 @@
 }
 
 
-/*opmaak voor de profielen*/
+/* Style for profiles */
 .flex_profielen{
     padding:15px;
     display:flex;
@@ -39,14 +40,14 @@
 
 }
 
-/*hier staat het woord: users*/
+/* Style for word: 'user' */
 .flex_profielen > div:nth-child(1){
     margin-left:5%;
     margin-top:1%;
     font-size: 150%;
 }
 
-/* het veld waarin de gebruikers staan*/
+/* The field where the users are shown */
 .flex_profielen > div:nth-child(2){
     display:flex;
     margin-left:5%;
@@ -59,7 +60,7 @@
 }
 
 
-/* hokje voor één gebruiker*/
+/* field for one user */
 .flex_profielen > div:nth-child(2) >div{
     height:70%;
     display:flex;
@@ -69,7 +70,7 @@
 }
 
 
- /*foto in een hokje*/
+/* Profile picture style */
 .flex_profielen > div:nth-child(2) >div > div:nth-child(1){
     height:8vw;
     float:left;
@@ -79,6 +80,7 @@
     background-color:lightblue
 }
 
+/* Style for found profile pictures */
 .profilepicture{
     height:8vw;
     float:left;
@@ -86,7 +88,7 @@
     border-radius:50%;
 }
 
-/* hokje van het account*/
+/* field for profile name */
 .flex_profielen > div:nth-child(2) >div > div:nth-child(2){
     font-size: 1.5vw;
     height:8vw;
@@ -95,7 +97,7 @@
     background-color:lightblue
 }
 
-/*opmaak van de tekst in het hokje*/
+/*Style for text in profile field */
 .flex_profielen > div:nth-child(2) >div > div:nth-child(2) > div{
     width: 8vw;
     font-size: 1.5vw;
@@ -105,35 +107,37 @@
 }
 
 
-/*vak waar alle fotos in komen*/
+/* Field for all found pictures */
 .flex_fotos{
     padding:15px;
 }
 
+/* Inner field for all found pictures */
 .flex_fotos >div{
-    justify-content: center;
-    display:flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 31.33% 31.33% 31.33%;
+    grid-gap: 3%;
     margin-top:1%;
 
 }
 
-/*opmaak voor het hokje waar de complete foto, titel, likes in komt*/
+/* Style for the entire picture frame */
 .flex_fotos >div > div{
     display:flex;
     flex-direction:column;
-    width:27vw;
+    width: 100%;
     margin-right:2%;
     margin-bottom:2%;
 }
 
 
-/*opmaak voor de titel*/
+/* Style for picture title field */
 .flex_fotos >div > div > div:nth-child(1){
     background-color:lightgray;
     height:3vw;
 }
 
+/* Style for picture title text */
 .flex_fotos >div > div > div:nth-child(1) >div{
     font-size: 2vw;
     font-weight: bold;
@@ -145,20 +149,20 @@
     text-transform: uppercase;
 }
 
-/*opmaak voor de foto*/
+/* Style for picture */
 .mainpicture{
-    width:27vw;
+    width:100%;
     height:17vw;
 }
 
 
-/*opmaak voor het aantal likes*/
+/* Style for amount of likes field */
 .flex_fotos >div > div > div:nth-child(3){
     background-color:lightgray;
     height:2vw;
 }
 
-/*opmaak voor het aantal likes*/
+/* Style for amount of likes text */
 .flex_fotos >div > div > div:nth-child(3) >div{
     font-size:1.5vw;
     font-weight:bold;
