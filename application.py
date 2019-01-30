@@ -261,7 +261,7 @@ def home(fotoid=False):
     if not fotoid:
         fotoid = helpers.random_fotoid()
     if not fotoid:
-        return helpers.apology("geen foto's meer")
+        return helpers.apology("No more pictures")
     if not helpers.geldig(fotoid):
         return redirect(url_for("home"))
 
@@ -292,7 +292,7 @@ def pack(fotoid=False):
     if not fotoid:
         fotoid = helpers.volger_fotoid()
     if not fotoid:
-        return helpers.apology("geen foto's meer")
+        return helpers.apology("No more pictures")
     if not helpers.geldig(fotoid):
         return redirect(url_for("pack"))
 
