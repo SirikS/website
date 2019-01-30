@@ -82,14 +82,14 @@ def h_register(username, password, email):
     return True
 
 
-def h_upload(path, titel, caption, filename):
+def h_upload(path, titel, caption, filename, species=False):
     """
     Saves picture, renames it and adjusts the database
     Returns the fotoid
     """
     # save the picture in the database
-    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:id, :pt, :ti, :cp)",
-                         id=session['user_id'], pt=path, ti=titel, cp=caption)
+    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption, species) VALUES (:id, :pt, :ti, :cp, :sp)",
+                         id=session['user_id'], pt=path, ti=titel, cp=caption, sp= species)
     # get the newly made fotoid
     fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :usid AND path = :pt",
                         usid=session['user_id'], pt=path)[0]["fotoid"]
@@ -479,14 +479,14 @@ def h_fotosearch(zoekopdracht):
     return foto_search
 
 
-def h_gifje(path, title, caption):
+def h_gifje(path, title, caption, species=False):
     """
     Uploads a gif from the giphy API into the database
     """
     # uploads a path to the .gif file in the database and returns the fotoid
     userid = session["user_id"]
-    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption) VALUES (:userid, :path, :titel, :caption)",
-                         userid=userid, path=path, titel=title, caption=caption)
+    opslaan = db.execute("INSERT INTO pictures (userid, path, titel, caption, species) VALUES (:userid, :path, :titel, :caption, :sp)",
+                         userid=userid, path=path, titel=title, caption=caption, sp=species)
     fotoid = db.execute("SELECT fotoid FROM pictures WHERE userid = :userid AND path = :path",
                         userid=userid, path=path)[0]["fotoid"]
     return fotoid

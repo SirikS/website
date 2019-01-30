@@ -374,6 +374,7 @@ def upload():
         # get the user's input
         title = request.form.get("titel")
         caption = request.form.get("caption")
+        species = request.form.get("species")
 
         # ensure every thing is alright
         if not title:
@@ -403,7 +404,7 @@ def upload():
             filename = request.files['uploadfile'].filename
 
             # upload into the database and redirect if all is good
-            fotoid = helpers.h_upload(path, title, caption, filename)
+            fotoid = helpers.h_upload(path, title, caption, filename, species)
             if fotoid:
                 return redirect(url_for("photo", fotoid=fotoid))
             else:
@@ -417,7 +418,7 @@ def upload():
                 return helpers.errormessage("You must upload a file or seach a gif!", "upload.html", 'picture')
 
             # insert into database
-            fotoid = helpers.h_gifje(path, title, caption)
+            fotoid = helpers.h_gifje(path, title, caption, species)
 
             # if all is good, redirect
             if fotoid:
