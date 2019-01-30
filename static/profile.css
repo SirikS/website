@@ -210,7 +210,7 @@ main {
     width: 11vw;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
-    background-color: lightblue;
+    background-color: #bdd683;
 }
 
 /*Styling for other profile picture (from other users)*/
@@ -227,7 +227,7 @@ main {
     height: 10vw;
     float: left;
     width: 12vw;
-    background-color: lightblue;
+    background-color: #bdd683;
 }
 
 /*Field for the account text*/
