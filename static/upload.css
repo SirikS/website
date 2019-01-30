@@ -79,14 +79,6 @@
     opacity: 0.85;
 }
 
-/*design of the submit button*/
-.btn-primary {
-    color: #fff;
-    background-color: #28a745;
-    border-color: #28a745;
-}
-
-
 /* mobile view styling */
 @media screen and (max-width: 767px) {
     main{
@@ -95,4 +87,4 @@
     }
 
 }
-#28a745
+yy#28a745
