@@ -493,7 +493,7 @@ def follow(userid):
     """
     Registers a follow/unfollow
     """
-    # insert the follow/unfollow if it is not yourself
+    # insert the follow/unfollow into the database
     if not helpers.h_follow(userid):
         return helpers.apology("You can not follow this account")
     return "nothing"
@@ -517,7 +517,7 @@ def search():
 
     # remove duplicates (if any) from searchresults for username and profilename
     profiel_search = [dict(t) for t in {tuple(d.items()) for d in profiel_search}]
-        # remove duplicates (if any) from searchresults for username and profilename
+    # remove duplicates (if any) from searchresults for photo's
     foto_search = [dict(t) for t in {tuple(d.items()) for d in foto_search}]
 
     # count the results
