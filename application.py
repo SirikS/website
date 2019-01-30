@@ -367,8 +367,10 @@ def comment(fotoid, direct='home'):
     # get the comment
     comment = request.form.get("uploadcomment")
 
-    # instert into database
-    helpers.post_comment(fotoid, comment)
+    # only insert comment if the comment is not empty
+    if len(comment) != 0:
+        # instert into database
+        helpers.post_comment(fotoid, comment)
     return redirect(url_for(direct, fotoid=fotoid))
 
 
