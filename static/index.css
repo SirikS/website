@@ -9,6 +9,17 @@ body{
     font-size: 50px;
 }
 
+/*design of the submit button*/
+.btn-st {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-st:hover {
+    color: #fff;
+    background-color: #bdd484;
+    border-color:  #bdd484;
+}
 .register-heading{
 	 text-decoration: bold;
 	 text-align: center;
