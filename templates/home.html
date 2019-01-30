@@ -1,7 +1,5 @@
 {% extends "layout.html" %}
 
-
-
 {% block title %}
     Home
 {% endblock %}
@@ -12,11 +10,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='foto.css') }}" type="text/css" media="screen"/>
 
 <div class="container_right">
-
-
-<!--the container on the right for the like button-->
+<!--The container on the right for the like button-->
   <div class="right_flex">
-    <!--the box that the like button is in-->
+    <!--The box that the like button is in-->
     <div class="like-veld">
         <a href="/like/{{ fotoid }}/home">
           <img src="../static/like_knop.png" alt="like button" style="object-fit:cover" class="likebutton">
@@ -25,9 +21,9 @@
   </div>
 </div>
 
-<!--the container on the left contains the dislike button-->
+<!--The container on the left contains the dislike button-->
 <div class="container_left">
-  <!--the box that the dislike button is in-->
+  <!--The box that the dislike button is in-->
   <div class="left_flex">
     <div class="dislike-veld">
         <a href="/dislike/{{ fotoid }}/home">
@@ -39,11 +35,11 @@
 </div>
 
 
-<!--the middel container contains the picture-->
+<!--The middle container contains the picture-->
 <div class="container">
-<!--the upper container has the profilepicture, title and the name-->
+<!--The upper container has the profilepicture, title and the name-->
   <div class="flex-container" >
-    <!--the profilepicture and the name are next to eachother-->
+    <!--The profilepicture and the name are next to eachother-->
     <div class="location_pf">
       <a href="/profile/{{ accountnaam }}">
         <img src="{{ profielfoto }}" alt="profilepicture" style="object-fit:cover;" class="profilepicture">
@@ -52,7 +48,7 @@
         <div>{{ naam }}</div>
       </a>
     </div>
-    <!--the title -->
+    <!--The title -->
     <div>
       <p>{{ titel }}</p>
     </div>
@@ -60,7 +56,7 @@
     <div>
       <div style="align-self: center">{{ date }}</div>
       <div style="align-self: center">
-        <!--change button according to follow or not-->
+        <!--Change button according to follow or not-->
         {% if welvolg %}
           <form>
             <button onclick="volgknop();" id="knop" class="volgknop btn">Abandon</button>
@@ -74,7 +70,7 @@
     </div>
   </div>
 
-<!--container for the main image-->
+<!--Container for the main image-->
   <div class="main-image">
     <img src="{{ foto }}" alt="Photo" style="object-fit:contain;">
   </div>
@@ -96,7 +92,7 @@
     </div>
   </div>
 
-  <!--the height of the commentbox depends on the amount of comments-->
+  <!--The height of the commentbox depends on the amount of comments-->
   {% if aantalcomments == 'False' %}
   <div class="comments" style="height: 0px">
   {% elif aantalcomments == 'True' %}
@@ -107,21 +103,21 @@
   <div class="comments" style="height: 250px">
   {% endif %}
 
-  <!--load all the comments on this picture-->
+  <!--Load all the comments on this picture-->
     {% for comment in comments %}
     <div class="flex-comment">
       <div>
-        <!--show the profile picture of commenter-->
+        <!--Show the profile picture of commenter-->
         <a href="/profile/{{ comment.commentaccount }}">
           <img src="{{ comment.profielfotocomment }}" alt="profilepicture" style="object-fit:cover;" class="comment_pf">
         </a>
       </div>
       <div>
-        <!--show the name of commenter-->
+        <!--Show the name of commenter-->
         <div>
             {{ comment.profielnaamcomment }}
         </div>
-        <!--show the comment-->
+        <!--Show the comment-->
         <div>
            {{ comment.berichtcomment }}
         </div>
@@ -131,7 +127,7 @@
     </div>
 
 
- <!--the field where a user can enter a comment-->
+<!--The field where a user can enter a comment-->
   <div class="flex-commentfield">
     <div class="commentfield">
       <form action="/comment/{{fotoid}}/home" method="post">
@@ -141,5 +137,4 @@
       </form>
     </div>
   </div>
-
 {% endblock %}
