@@ -477,7 +477,6 @@ def photo(fotoid=False):
 
 @app.route("/logout", methods=["GET", "POST"])
 @helpers.login_required
-@helpers.account_required
 def logout():
     """
     Clears the session
