@@ -1,15 +1,15 @@
-.thumbnail, img-preview
-{
-    width:265px;
-    height:265px;
+/*Style for picture preview*/
+.thumbnail, img-preview {
+    width: 265px;
+    height: 265px;
 }
 
-.container
-{
-    margin-top:80px;
+/*General container to prefent overlap with top nav*/
+.container {
+    margin-top: 80px;
 }
 
-/*layout of button*/
+/*Layout of buttons*/
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -26,48 +26,39 @@
     display: block;
 }
 
-/*show picture above upload*/
+/*Show picture above upload*/
 .overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 296px;
-  width: 296px;
-  opacity: 0.38;
-  transition: .5s ease;
-  background-color: #e6e9ef;
-  border-radius: 25px;
-  border: 2px;
-  padding: 10px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 296px;
+    width: 296px;
+    opacity: 0.38;
+    transition: .5s ease;
+    background-color: #e6e9ef;
+    border-radius: 25px;
+    border: 2px;
+    padding: 10px;
 }
 
-/*layout of text*/
+/*Layout of text*/
 .text {
-  color: black;
-  font-size: 22px;
-  text-decoration:bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
-  opacity:3;
+    color: black;
+    font-size: 22px;
+    text-decoration: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 3;
 }
-.container-overlay:hover .overlay
-{
+
+/*Overlay for picture upload field*/
+.container-overlay:hover .overlay {
     opacity: 0.85;
-}
-
-/* mobile view styling */
-@media screen and (max-width: 767px) {
-        .container
-    {
-        margin-top:40px;
-        margin-bottom:50px;
-    }
-
 }
