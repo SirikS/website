@@ -1,4 +1,4 @@
-/* Standard width for page */
+/*Standard width for page*/
 .container {
     width: 100%;
 }
@@ -12,13 +12,13 @@
     padding: 15px;
 }
 
-/* Style for inside query container */
+/*Style for inside query container*/
 .flex_zoek > .zoekterm {
     font-size: 150%;
     margin-left: 5%;
 }
 
-/* Style for amount of search results*/
+/*Style for amount of search results*/
 .flex_zoek > .aantal_resultaten {
     font-size: 110%;
     margin-left: 5%;
@@ -26,7 +26,7 @@
 }
 
 
-/* Style for profiles */
+/*Style for profiles*/
 .flex_profielen {
     padding: 15px;
     display: flex;
@@ -40,14 +40,14 @@
 
 }
 
-/* Style for word: 'user' */
+/*Style for word: 'user'*/
 .flex_profielen > div:nth-child(1) {
     margin-left: 5%;
     margin-top: 1%;
     font-size: 150%;
 }
 
-/* The field where the users are shown */
+/*The field where the users are shown*/
 .flex_profielen > div:nth-child(2) {
     display: flex;
     margin-left: 5%;
@@ -58,7 +58,7 @@
 }
 
 
-/* field for one user */
+/*Field for one user*/
 .flex_profielen > div:nth-child(2) > div {
     height: 70%;
     display: flex;
@@ -68,7 +68,7 @@
 }
 
 
-/* Profile picture style */
+/*Profile picture style*/
 .flex_profielen > div:nth-child(2) > div > div:nth-child(1) {
     height: 8vw;
     float: left;
@@ -78,7 +78,7 @@
     background-color: lightblue;
 }
 
-/* Style for found profile pictures */
+/*Style for found profile pictures*/
 .profilepicture{
     height: 8vw;
     float: left;
@@ -86,7 +86,7 @@
     border-radius: 50%;
 }
 
-/* field for profile name */
+/*Field for profile name*/
 .flex_profielen > div:nth-child(2) > div > div:nth-child(2) {
     font-size: 1.5vw;
     height: 8vw;
@@ -95,7 +95,7 @@
     background-color: lightblue;
 }
 
-/*Style for text in profile field */
+/*Style for text in profile field*/
 .flex_profielen > div:nth-child(2) > div > div:nth-child(2) > div {
     width: 8vw;
     font-size: 1.5vw;
@@ -105,12 +105,12 @@
 }
 
 
-/* Field for all found pictures */
+/*Field for all found pictures*/
 .flex_fotos {
-    padding:15px;
+    padding: 15px;
 }
 
-/* Inner field for all found pictures */
+/*Inner field for all found pictures*/
 .flex_fotos > div {
     display: grid;
     grid-template-columns: 31.33% 31.33% 31.33%;
@@ -119,7 +119,7 @@
 
 }
 
-/* Style for the entire picture frame */
+/*Style for the entire picture frame*/
 .flex_fotos > div > div {
     display: flex;
     flex-direction: column;
@@ -128,8 +128,7 @@
     margin-bottom: 2%;
 }
 
-
-/* Style for picture title field */
+/*Style for picture title field*/
 .flex_fotos > div > div > div:nth-child(1) {
     background-color: lightgray;
     height: 3vw;
@@ -147,20 +146,20 @@
     text-transform: uppercase;
 }
 
-/* Style for picture */
+/*Style for picture*/
 .mainpicture {
     width: 100%;
     height: 17vw;
 }
 
 
-/* Style for amount of likes field */
+/*Style for amount of likes field*/
 .flex_fotos > div > div > div:nth-child(3) {
     background-color: lightgray;
     height: 2vw;
 }
 
-/* Style for amount of likes text */
+/*Style for amount of likes text*/
 .flex_fotos > div > div > div:nth-child(3) > div {
     font-size: 1.5vw;
     font-weight: bold;
