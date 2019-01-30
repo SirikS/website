@@ -68,4 +68,4 @@ Er is veel samengewerkt tussen de teamleden, waardoor één functie binnen de we
 2. [Tinder](http://www.tinder.com): Like/dislike swipte functie waardoor je maar één foto tegelijk ziet.
 3. [Youtube](http://www.youtube.com): Menu structuur (aan linkerkant) en algemene opbouw van structuur
 
-![image of design](screenshot.png)
+![image of design](voorstel/screenshot.png)
