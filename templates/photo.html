@@ -32,7 +32,10 @@
       <div style="align-self: center">{{ date }}</div>
       <div style="align-self: center">
         <!--The follow button changes-->
-        {% if welvolg %}
+        {% if eigenacc%}
+          <form>
+          </form>
+        {% elif welvolg %}
           <form>
             <button onclick="volgknop();" id="knop" class="volgknop btn">Abandon</button>
           </form>

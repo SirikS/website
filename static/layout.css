@@ -11,28 +11,25 @@
     top: 0;
     margin-top: 56px; /* Stay at the top */
     margin-left: 0;
-    background-color: #2a2b2d; /*gray*/
+    background-color: #f1f1f1; /*light-gray*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-  }
+
+    background: linear-gradient(to right,  #f1f1f1 0%,#f1f1f1 80%,#bdd683 80%,#bdd683 97%, #8aad39 100% );
+    }
+
+
   /* The navigation menu links */
   .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #bdbfc1; /*tekskleur is standaard donkergrijs*/
+    color: #828282; /*darker-gray*/
     display: block;
     transition: 0.3s;
   }
-  /* Position and style the close button (top right corner) */
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
+
   .sidenav .logoutknop{
     font-size: 20px;
     color:white;
@@ -153,7 +150,8 @@ li{
 
   .topnav {
     display:flex;
-    background-color:#404144;
+    background-size:cover;
+    background-image:url("navbar.jpg");
     overflow: hidden;
     width:100%;
     z-index:100;
@@ -170,7 +168,8 @@ li{
       margin-bottom:10px;
       font-size: 20px;
       color: white;
-      background-color: #b1b8bf;
+      background-color: #28a745;
+      border-color:#28a745;
       float:left;
   }
 
@@ -208,7 +207,18 @@ li{
 
   .topnav .search-container button:hover {
     background: #ccc;
-  }
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: darkgreen;
+    border-color: darkgreen;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color:  #28a745;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -221,4 +231,6 @@ li{
 /*        border-color: #2e6da4;*/
 
 /*kleur navbar: background-color: #b1b8bf*/
-/*        border-color: #2e6da4;*/
+/*        border-color: #2e6da4;}*/
+
+}
