@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}" type="text/css" media="screen"/>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
+
 <script>
     $(document).ready(function() {
     function readURL(input) {
@@ -73,7 +74,7 @@ $(document).ready(function() {
     params = encodeQueryData(params);
     httpGetAsync('https://api.giphy.com/v1/gifs/search?' + params, function(data) {
       var gifs = JSON.parse(data);
-      console.log(gifs.data[0].images.original_width.url);
+      console.log(gifs.data[0].images.original.url);
       document.getElementById('gif').setAttribute('value', gifs.data[0].images.original.url);
     });
   }
