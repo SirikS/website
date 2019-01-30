@@ -1,15 +1,15 @@
+/*File upload field*/
 .fileUpload {
     overflow: hidden;
 }
 
-/*shows the preview of the foto*/
-.thumbnail, img-preview
-{
-    width:265px;
-    height:265px;
+/*Shows the preview of the foto*/
+.thumbnail, img-preview {
+    width: 265px;
+    height: 265px;
 }
 
-/*the button where the user kan input picture*/
+/*The button where the user can input picture*/
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -26,24 +26,22 @@
     display: block;
 }
 
-
-.upload-form
-{
-    margin-top:100px;
-    margin-left:10%;
-    margin-right:10%;
-    justify-content:center;
+/*General layout for upload form, centered*/
+.upload-form {
+    margin-top: 100px;
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: center;
 }
 
-/*layout for where user writes the caption*/
-.captions
-{
-    height:100px;
+/*Layout for where user writes the caption*/
+.captions {
+    height: 100px;
     text-align: justify;
-    resize:top;
+    resize: top;
 }
 
-/*make sure the picture overlays the preview button*/
+/*Make sure the picture overlays the preview button*/
 .overlay {
   position: absolute;
   top: 0;
@@ -60,11 +58,11 @@
   padding: 10px;
 }
 
-/*layout of the text*/
+/*Layout of the text*/
 .text {
   color: black;
   font-size: 22px;
-  text-decoration:bold;
+  text-decoration: bold;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -72,19 +70,10 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
-  opacity:3;
+  opacity: 3;
 }
-.container-overlay:hover .overlay
-{
+
+/*Style for hover over picture preview*/
+.container-overlay:hover .overlay {
     opacity: 0.85;
 }
-
-/* mobile view styling */
-@media screen and (max-width: 767px) {
-    main{
-        margin-bottom:50px;
-        padding:0;
-    }
-
-}
-yy#28a745
