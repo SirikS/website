@@ -1,3 +1,7 @@
+main {
+    padding: 30px 0px 0px 0px;
+}
+
 .container{
     width:100%;
 }
@@ -12,7 +16,7 @@
 /*Opmaak voor de weergave van de profielfoto*/
 .profilepicture{
     margin-left: 2%;
-    margin-top:2%;
+    margin-top:5%;
     height:18vw;
     float:left;
     width:18vw;
