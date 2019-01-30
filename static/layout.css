@@ -211,8 +211,8 @@ li{
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: darkgreen;
-    border-color: darkgreen;
+    background-color: #28a745;
+    border-color: #28a745;
 }
 
 .btn-primary:hover {
