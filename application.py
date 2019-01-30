@@ -28,12 +28,12 @@ Session(app)
 
 
 @app.route("/")
-@app.route("/<foutje>")
-def index(foutje=False):
+@app.route("/<misspell>")
+def index(misspell=False):
     """
     Renders the login/register screen
     """
-    if foutje:
+    if misspell:
         return helpers.apology('This page does not exist!')
     return render_template("index.html")
 
@@ -71,17 +71,18 @@ def profile(username=False):
     Loads the profile of an account
     """
     eigenacc = False
-    # check if it is its own profile
+    # check if it is its own profile which is always just /profile
     if username == helpers.idnaam(session["user_id"]):
         return redirect(url_for("profile"))
 
-    # if no profile show his/her own
+    # if just /profile show own account
     if not username:
         username = helpers.idnaam(session["user_id"])
         eigenacc = True
 
     # get all profile attributes
     lijst = helpers.get_profiel(username)
+
     # if account is unvalid, go to their own page
     if not lijst:
         return redirect(url_for("profile"))
@@ -154,7 +155,7 @@ def manage():
         name = request.form.get("profielnaam")
         beschrijving = request.form.get("profielbio")
 
-        # ensure it is allowed
+        # ensure they are allowed
         if len(name) > 63:
             return helpers.errormessage("The name you've chosen is too long", "manage.html", "bio")
         if len(beschrijving) > 255:
@@ -315,7 +316,7 @@ def like(fotoid, direct='home'):
     """
     Check if like doesnt already exist
     Registers the like in the database
-    redirects to the coorect page
+    Redirects to the coorect page
     """
 
     # check the fotoid
@@ -443,7 +444,7 @@ def upload():
 @app.route("/photo/<fotoid>", methods=["GET", "POST"])
 def photo(fotoid=False):
     """
-    loads a photo with all data
+    Loads a photo with all data
     """
     # if unvalid fotoid apologize
     if not fotoid:

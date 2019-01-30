@@ -331,7 +331,7 @@ def random_fotoid():
 
 def get_beoordeeld(userid):
     """
-    returns all fotoid's of pictures that have been "beoordeed" yet
+    Returns all fotoid's of pictures that have been "beoordeed" yet
     """
     lijst = db.execute("SELECT fotoid FROM beoordeeld WHERE userid = :userid", userid=userid)
     return into_list(lijst)
@@ -339,7 +339,7 @@ def get_beoordeeld(userid):
 
 def volger_fotoid():
     """
-    same as random_fotoid but gets only pictures from followed accounts
+    Same as random_fotoid but gets only pictures from followed accounts
     """
     # gets a list of
     userid = session["user_id"]
