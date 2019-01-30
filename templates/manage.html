@@ -66,7 +66,11 @@
                 <div class="col-lg-5">
                     <div class="form-group">
                         <!-- Change or enter the profilename -->
+                        {% if name %}
                         <input class="form-control" name="profielnaam" placeholder="Name example" value="{{name}}" autocomplete=off type="text"/>
+                        {% else %}
+                        <input class="form-control" name="profielnaam" placeholder="Name example" autocomplete=off type="text"/>
+                        {% endif %}
                     </div>
 
                     <!--Place for the apology about the profilename or bio-->
@@ -84,7 +88,11 @@
 
                     <div class="form-group">
                         <!-- Change description -->
-                        <textarea rows="6" autocomplete=off class="form-control" name="profielbio" placeholder="Bio example" type="text"/>{{ bio }}</textarea>
+                        {% if bio %}
+                        <textarea rows="6" autocomplete=off class="form-control" name="profielbio" placeholder="Bio example" type="text">{{ bio }}</textarea>
+                        {% else %}
+                        <textarea rows="6" autocomplete=off class="form-control" name="profielbio" placeholder="Bio example" type="text"></textarea>
+                        {% endif %}
                     </div>
                     <div class="form-group">
                         <!-- Submit button -->

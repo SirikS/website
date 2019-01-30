@@ -65,6 +65,7 @@ def support():
 @app.route("/profile/", methods=["GET", "POST"])
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @helpers.login_required
+@helpers.account_required
 def profile(username=False):
     """
     Loads the profile of an account
@@ -186,7 +187,10 @@ def manage():
         return helpers.errormessage("Must fill in a name", "manage.html")
 
     # load the old name and bio
-    name, bio = helpers.namebio()
+    try:
+        name, bio = helpers.namebio()
+    except:
+        name, bio = False, False
     return render_template("manage.html", name=name, bio=bio)
 
 
@@ -246,6 +250,7 @@ def register():
 @app.route("/home/", methods=["GET", "POST"])
 @app.route("/home/<fotoid>", methods=["GET", "POST"])
 @helpers.login_required
+@helpers.account_required
 def home(fotoid=False):
     """
     Gets a random fotoid
@@ -275,6 +280,7 @@ def home(fotoid=False):
 @app.route("/pack", methods=["GET", "POST"])
 @app.route("/pack/<fotoid>", methods=["GET", "POST"])
 @helpers.login_required
+@helpers.account_required
 def pack(fotoid=False):
     """
     Gets a fotoid from the pack
@@ -304,6 +310,7 @@ def pack(fotoid=False):
 
 @app.route("/like/<fotoid>/<direct>")
 @helpers.login_required
+@helpers.account_required
 def like(fotoid, direct='home'):
     """
     Check if like doesnt already exist
@@ -324,6 +331,7 @@ def like(fotoid, direct='home'):
 
 @app.route("/dislike/<fotoid>/<direct>")
 @helpers.login_required
+@helpers.account_required
 def dislike(fotoid, direct='home'):
     """
     Check if dislike doesnt already exist
@@ -344,6 +352,7 @@ def dislike(fotoid, direct='home'):
 
 @app.route("/comment/<fotoid>/<direct>", methods=["GET", "POST"])
 @helpers.login_required
+@helpers.account_required
 def comment(fotoid, direct='home'):
     """
     Validates the photoid
@@ -364,6 +373,7 @@ def comment(fotoid, direct='home'):
 
 @app.route("/upload", methods=["GET", "POST"])
 @helpers.login_required
+@helpers.account_required
 def upload():
     """
     Renders the upload page
@@ -381,7 +391,7 @@ def upload():
             return helpers.errormessage("Please enter a title", "upload.html", "title")
         elif not caption:
             return helpers.errormessage("Please enter a caption", "upload.html", "title")
-        if len(title) > 255:
+        if len(title) > 39:
             return helpers.errormessage("Your title is too long!", "upload.html", "title")
         if len(caption) > 255:
             return helpers.errormessage("Your caption is too long!", "upload.html", "title")
@@ -466,6 +476,7 @@ def photo(fotoid=False):
 
 @app.route("/logout", methods=["GET", "POST"])
 @helpers.login_required
+@helpers.account_required
 def logout():
     """
     Clears the session
@@ -477,6 +488,7 @@ def logout():
 
 @app.route('/follow/<userid>')
 @helpers.login_required
+@helpers.account_required
 def follow(userid):
     """
     Registers a follow/unfollow
@@ -489,6 +501,7 @@ def follow(userid):
 
 @app.route("/search", methods=["GET", "POST"])
 @helpers.login_required
+@helpers.account_required
 def search():
     """
     Gets the search
