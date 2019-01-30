@@ -16,6 +16,7 @@
             var reader = new FileReader();
             reader.onload = function(e) {
                 $('.img-preview').attr('src', e.target.result);
+                $('.overlay').hide();
             };
             reader.readAsDataURL(input.files[0]);
         }
@@ -31,7 +32,7 @@ var apikey = 'CKjyWZfmOSGZIuHTwxgR5YB91CBmT7pj';
 $(document).ready(function() {
   /*
   * The following two functions are used for making the API call using
-  * pure Javascript. I wouldn't worry about the details
+  * pure Javascript.
   */
   function encodeQueryData(data)
   {
@@ -64,6 +65,7 @@ $(document).ready(function() {
       var gifs = JSON.parse(data);
       var firstgif = gifs.data[0].images.fixed_width.url;
       $("#image").html("<img src='" + firstgif + "'>");
+      $('.overlay').hide();
       console.log(gifs.data);
     });
   }
@@ -84,6 +86,8 @@ $(document).ready(function() {
     uploadGif(query);
   });
 })
+
+
 </script>
 <form class="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
     <!-- fieldset is a class that does the layout of the entire field-->
@@ -152,18 +156,9 @@ $(document).ready(function() {
             <!-- Add a caption -->
             <textarea rows="4" class="form-control caption" autocomplete=off name="caption" placeholder="Caption" type="text"/></textarea>
         </div>
-
-
-
-        <div class="form-group">
-            <!-- Titel kunnen toevoegen -->
-            <input class="form-control" autocomplete=off name="species" placeholder="What kind of animal is this?" type="text"/>
-        </div>
-
         <div class="form-group">
             <!-- Submit button -->
             <button class="btn-primary btn-lg btn-block login-button" type="submit">Post</button>
-        </div>
         </div>
     </div>
     </div>
