@@ -1,5 +1,6 @@
-.apology{
+/*General style for apology field*/
+.apology {
     position: relative;
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 }
