@@ -11,9 +11,12 @@
       <title>Instapet</title>
   </head>
   <body>
+    <!--Title 'Instapet' is also the link to index-->
     <div class="instapet-titel">
       <p><a href="{{ url_for('index') }}">Instapet</a></p>
     </div>
+
+    <!--Terms of service text-->
     <div>
       <h2> Terms of Service</h2>
         Please read these terms of service ("terms", "terms of service") carefully before using Instapet website (the "service") operated by UvA students ("us", 'we", "our").
@@ -47,6 +50,8 @@
         If you are an owner of an account on this website, you are solely responsible for maintaining the confidentiality of your private user details (username and password). You are responsible for all activities that occur under your account or password.
         We reserve all rights to terminate accounts, edit or remove content and cancel orders in their sole discretion.
     </div>
+
+  <!--Footer navbar-->
   <nav class="navbar navbar-default navbar-fixed-bottom justify-content-center">
       <ul class="nav navbar-nav justify-content-center">
         <li><a href="{{ url_for('privacy') }}">Privacy policy</a></li>

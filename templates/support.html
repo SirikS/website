@@ -10,15 +10,19 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <title>Instapet</title>
   </head>
+
+  <!--Title 'Instapet' is also a link to index-->
   <body class="text_tos">
     <div class="instapet-titel">
       <p><a href="{{ url_for('index') }}">Instapet</a></p>
     </div>
+    <!--Text for how to get contact-->
     <div>
       Oi mate, if ya want sum contact with us you have to visit Science Park at 10 o'clock and pray to find us.<br>
       Or you can send an email to no-email@dontdothis.com
     </div>
 
+  <!--Footer navbar-->
   <nav class="navbar navbar-default navbar-fixed-bottom justify-content-center">
       <ul class="nav navbar-nav justify-content-center">
         <li><a href="{{ url_for('privacy') }}">Privacy policy</a></li>

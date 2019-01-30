@@ -11,10 +11,14 @@
       <title>Instapet</title>
   </head>
   <body class="text_tos">
+    <!--the title of the page is also a link to index-->
     <div class="instapet-titel">
       <p><a href="{{ url_for('index') }}">Instapet</a></p>
     </div>
+    <!--Titel of privacy policy-->
       <h2>Privacy policy</h2>
+
+      <!--The entire text of the privacy policy-->
       <p>
       This privacy notice discloses the privacy practices for (website address). This privacy notice applies solely to information collected by this website. It will notify you of the following:
       </p>
@@ -60,6 +64,7 @@
       </p>
     </div>
 
+  <!--The footer navbar-->
   <nav class="navbar navbar-default navbar-fixed-bottom justify-content-center">
       <ul class="nav navbar-nav justify-content-center">
         <li><a href="{{ url_for('privacy') }}">Privacy policy</a></li>

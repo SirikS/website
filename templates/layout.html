@@ -19,7 +19,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
         $(function() {
-        // button staat hier voor de button tag en het #knop staat voor het id van de button -->
+        // Button stands for the button tag and #knop for the id of the button -->
             $('button#knop').bind('click', function() {
             $.getJSON('/follow/{{ userid }}',
             function(data) {
@@ -34,14 +34,15 @@
     </head>
 
 <body onload="openpage()">
-<!-- Use any element to open the sidenav -->
-<!--<button onclick="openNav()" class="openbtn btn" >open</button>-->
-
+<!--Layout of the top navbar-->
 <div class="topnav fixed-top">
     <div>
+        <!--Button to open the sidenav-->
         <button class="btn btn-st fa fa-align-justify" onclick="openNav()"></button>
+        <!--Website name and home button-->
         <a class="instapet-titel" href="{{ url_for('home') }}">Instapet</a>
 
+        <!--Search container and submit button-->
         <div class="search-container">
             <form class="search-bar" action="/search" method="post" autocomplete=off>
                  <input type="text" id="search-veld" placeholder="Search.." name="search">
@@ -51,17 +52,20 @@
     </div>
 </div>
 
+<!--Side navigation bar-->
 <div id="mySidenav" class="sidenav">
+    <!--Different links to pages in the form of a list-->
     <li><a class="fas fa-home" href="{{ url_for('home') }}">&nbsp;Home</a></li>
     <li><a class="fas fa-dragon" href="{{ url_for('pack') }}">&nbsp;Pack</a></li>
     <li><a class="fas fa-cloud-upload-alt" href="{{ url_for('upload') }}">&nbsp;Upload</a></li>
     <li><a class="fas fa-wrench" href="{{ url_for('manage') }}">&nbsp;Manage</a></li>
     <li><a class="fas fa-user" href="{{ url_for('profile') }}">&nbsp;Profile</a></li>
+    <!--Logout button more towards the bottom-->
     <br>
     <li><a class="fa fa-sign-out-alt" href="{{ url_for('logout') }}" class="logoutknop">&nbsp;Log&nbsp;out</a></li>
 </div>
 
-<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<!--All other pages will have their content inside this main-->
 <main id="main">
     {% block main %}{% endblock %}
 </main>
