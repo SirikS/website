@@ -95,8 +95,9 @@
 }
 
 .btn, volgknop{
-    background-color:#bdd484;
+    background-color:#28a745;
     outline:none;
+    color:white;
 }
 
 /*button{*/
@@ -138,7 +139,7 @@
     width:140px;
     flex-direction: column;
     font-size: 12px;
-    background-color: #28a745;
+    background-color: #bdd484;
     border-radius: 10px
 
 }
@@ -256,4 +257,5 @@
 /*layout submit button*/
 .flex-commentfield >div >form >button{
     background-color:#28a745;
+    color:white;
 }
