@@ -1,215 +1,132 @@
-/* The side navigation menu for every view bigger than mobile view*/
-@media screen and (min-width: 768px) {
-  .sidenav-mobile {
-    display: none;
-  }
-  .sidenav {
-    height: 100%; /* 100% Full-height */
-    position: fixed; /* Stay in place */
-    width:0px;
-    z-index: 1; /* Stay on top */
-    top: 0;
-    margin-top: 56px; /* Stay at the top */
-    margin-left: 0;
-    background-color: #f1f1f1; /*light-gray*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-
-    background: linear-gradient(to right,  #f1f1f1 0%,#f1f1f1 80%,#bdd683 80%,#bdd683 97%, #8aad39 100% );
-    }
-
-
-  /* The navigation menu links */
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #828282; /*darker-gray*/
-    display: block;
-    transition: 0.3s;
-  }
-
-  .sidenav .logoutknop{
-    font-size: 20px;
-    color:white;
-  }
+/*Style for side navigation*/
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  position: fixed; /* Stay in place */
+  width: 0px;
+  z-index: 1; /* Stay on top */
+  top: 0;
+  margin-top: 56px; /* Stay at the top */
+  margin-left: 0;
+  background-color: #f1f1f1; /*light-gray*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  background: linear-gradient(to right,  #f1f1f1 0%,#f1f1f1 80%,#bdd683 80%,#bdd683 97%, #8aad39 100% );
 }
 
-/* The side navigation menu for mobile view*/
-@media screen and (max-width: 767px) {
-  /* Hide menu for bigger views */
-  .topnav > div > button {
-    display: none;
-  }
-  /* Hide menu for bigger views (Makes it close faster, still needs to be fixed properly!) */
-  .sidenav-mobile .closebtn {
-    display: none;
-  }
-  #mySidenav {
-    display: none;
-  }
-  .sidenav-mobile {
-    position: fixed;
-    bottom: 0;
-    background-color: #2a2b2d;
-    overflow: hidden;
-    display: table;
-    width: 100%;
-    z-index: 10;
-  }
-  /* More room for menu buttons */
-  .sidenav-mobile a {
-    color: #bdbfc1;
-  }
-  /* Every item has a border on the right */
-  .sidenav-mobile li {
-    padding: 15px;
-    display: table-cell;
-    border-right: 2px solid #000000;
-    text-align: center;
-  }
-  /* No border on last menu item */
-  .sidenav-mobile li:last-child {
-    border-right: none;
-  }
-
-    .topnav > div > div{
-      height: 45px;
-      margin-top: 10px;
-  }
-
-  .search-bar {
-    margin-left: 3%;
-    margin-right: 3%;
-  }
-
-  input#search-veld {
-    display: block;
-    height: 45px;
-    width: 100%;
-    padding-left: 10px;
-    font-size: 1rem;
-    border: 1px solid #D0CFCE;
-    outline: none;
-    }
-
-  .topnav .search-container button {
-    float: right;
-    padding: 0px;
-    background: none;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    top: -43px;
-  }
-
-  img.search-icon {
-    width: 41px;
-    height: 41px;
-  }
-
-  .topnav a {
-    display: none;
-  }
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #828282; /*darker-gray*/
+  display: block;
+  transition: 0.3s;
 }
 
-body{
-  padding-top:20px;
+/*Style for logout button in the side navigation*/
+.sidenav .logoutknop {
+  font-size: 20px;
+  color: white;
 }
 
- /*Style page content - use this if you want to push the page content to the right when you open the side navigation*/
+/*Prefent overlap with topnav*/
+body {
+  padding-top: 20px;
+}
+
+/*Style page content - use this if you want to push the page content to the right when you open the side navigation*/
 main {
   transition: margin-left .5s;
   padding: 20px;
-
 }
 
-li{
+/*Remove standard bootstrap value*/
+li {
     list-style-type: none;
 }
 
-
-@media screen and (min-width: 768px) {
-  .instapet-titel
-  {
-      font-family: Lucida Handwriting;
-      text-align: center;
-      text-decoration: bold;
-      color:white;
-      font-size: 38px;
-      margin-top:20px;
-      margin-left:10px;
-  }
-
-  .instapet-titel:hover {
-    text-decoration: none;
-    color:white;
-  }
-
-  .topnav {
-    display:flex;
-    background-size:cover;
-    background-image:url("navbar.jpg");
-    overflow: hidden;
-    width:100%;
-    z-index:100;
-  }
-
-
-  .topnav > div{
-      width:100%;
-  }
-
-  .topnav > div > button{
-      margin-left:12px;
-      margin-top:10px;
-      margin-bottom:10px;
-      font-size: 20px;
-      color: white;
-      background-color: #28a745;
-      border-color:#28a745;
-      float:left;
-  }
-
-  .topnav > div > div{
-      float: right;
-      height: 45px;
-      margin-right: 20px;
-      margin-top: 6px;
-  }
-
-  input#search-veld {
-    display: block;
-    height: 45px;
-    padding: 0px 50px 0px 10px;
-    font-size: 1rem;
-    border: 1px solid #D0CFCE;
-    outline: none;
-    }
-
-  .topnav .search-container button {
-    float: right;
-    padding: 0px;
-    background: none;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    top: -43px;
-  }
-
-  img.search-icon {
-    width: 41px;
-    height: 41px;
-  }
-
-  .topnav .search-container button:hover {
-    background: #ccc;
+/*Title in topnav*/
+.instapet-titel {
+  font-family: Lucida Handwriting;
+  text-align: center;
+  text-decoration: bold;
+  color: white;
+  font-size: 38px;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
-/*design of the submit button*/
+/*Style for hover over title in topnav*/
+.instapet-titel:hover {
+  text-decoration: none;
+  color: white;
+}
+
+/*Styling for top nav bar*/
+.topnav {
+  display: flex;
+  background-size: cover;
+  background-image: url("navbar.jpg");
+  overflow: hidden;
+  width: 100%;
+  z-index: 100;
+}
+
+/*General styling for divs in top navigation*/
+.topnav > div {
+  width: 100%;
+}
+
+/*Style for open menu button*/
+.topnav > div > button {
+  margin-left: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: white;
+  background-color: #28a745;
+  border-color: #28a745;
+  float: left;
+}
+
+/*Styling for search field*/
+.topnav > div > div {
+  float: right;
+  height: 45px;
+  margin-right: 20px;
+  margin-top: 6px;
+}
+
+/*Styling for input of the search bar*/
+input#search-veld {
+  display: block;
+  height: 45px;
+  padding: 0px 50px 0px 10px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  outline: none;
+}
+
+/*Styling for search icon field*/
+.topnav .search-container button {
+  float: right;
+  padding: 0px;
+  background: none;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  top: -43px;
+}
+
+/*Styling for search icon image*/
+img.search-icon {
+  width: 41px;
+  height: 41px;
+}
+
+/*Design of the submit button*/
 .btn-st {
     color: #fff;
     background-color: #28a745;
@@ -217,23 +134,10 @@ li{
     outline: none;
 }
 
+/*Design for hover over submit button*/
 .btn-st:hover {
     color: #fff;
     background-color: #bdd484;
-    border-color:  #bdd484;
-    outline:none;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-/*@media screen and (max-height: 450px) {*/
-/*  .sidenav {padding-top: 15px;}*/
-/*  .sidenav a {font-size: 18px;}*/
-/*}*/
-
-/*kleur knop index: background-color: #337ab7;*/
-/*        border-color: #2e6da4;*/
-
-/*kleur navbar: background-color: #b1b8bf*/
-/*        border-color: #2e6da4;}*/
-
+    border-color: #bdd484;
+    outline: none;
 }
