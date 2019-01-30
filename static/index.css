@@ -2,6 +2,7 @@ body{
     margin-bottom: 50px;
 }
 
+/*Design of the titel in the navbar*/
 .instapet-titel
 {
     font-family: Lucida Handwriting;
@@ -9,35 +10,42 @@ body{
     font-size: 50px;
 }
 
-/*design of the submit button*/
+/*Design of the submit button*/
 .btn-st {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745;
 }
+
+/*The button changes color when hovered over*/
 .btn-st:hover {
     color: #fff;
     background-color: #bdd484;
     border-color:  #bdd484;
 }
+
+/*The heading for register is larger*/
 .register-heading{
 	 text-decoration: bold;
 	 text-align: center;
 	 font-size: 35px;
 }
 
+/*The login heading is larger*/
 .login-heading{
     text-decoration: bold;
 	 text-align: center;
     font-size: 20px;
 }
 
+/*The complete container on the page*/
 .container
 {
     margin-top: 10px;
     margin-left:10%;
 }
 
+/*Style for container*/
 .container-fluid
 {
     margin: 10px;
@@ -48,29 +56,35 @@ body{
 
 }
 
+/*Style for all form fields (login, register)*/
 .form-label-group{
     padding: 2%;
 
 }
 
+/*Header for the login*/
 .login-header{
     height: 1%;
 }
 
-
+/*Style for carousel*/
 .carousel{
     background: #c4cad3;
 }
+
+/*Style for items in carousel*/
 .carousel .item{
     min-height: 280px;
 }
 
+/*Style for the container of the carousel*/
 .bs-example{
     margin-top:20px;
 	width: 580px;
     Height: 580px;
 }
 
+/*Style for footer*/
 .navbar {
     position: fixed;
     overflow: hidden;
@@ -81,6 +95,7 @@ body{
     z-index:2000;
 }
 
+/*Style for text in footer*/
 .navbar a {
   float: left;
   display: block;
@@ -89,13 +104,4 @@ body{
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-}
-
-@media screen and (max-width: 760px)
-{
-    .bs-example
-    {
-        display:none;
-
-    }
 }
