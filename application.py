@@ -504,6 +504,8 @@ def search():
 
     # remove duplicates (if any) from searchresults for username and profilename
     profiel_search = [dict(t) for t in {tuple(d.items()) for d in profiel_search}]
+        # remove duplicates (if any) from searchresults for username and profilename
+    foto_search = [dict(t) for t in {tuple(d.items()) for d in foto_search}]
 
     # count the results
     aantalres = len(profiel_search) + len(foto_search)

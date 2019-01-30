@@ -476,6 +476,13 @@ def h_fotosearch(zoekopdracht):
         profiel = {"foto_id": foto['fotoid'], "path": foto['path'], "likes": foto["totaallikes"], "titel": foto["titel"]}
         foto_search.append(profiel)
 
+    # get all the pictures that match the species with the searchterm
+    fotos = db.execute("SELECT * FROM pictures WHERE UPPER(species)= :sp", sp=zoekopdracht.upper())
+    # for all pictures get the necessary information
+    for foto in fotos:
+        profiel = {"foto_id": foto['fotoid'], "path": foto['path'], "likes": foto["totaallikes"], "titel": foto["titel"]}
+        foto_search.append(profiel)
+
     return foto_search
 
 
