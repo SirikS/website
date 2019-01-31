@@ -6,6 +6,9 @@ Sirik Scherer, Joey Krop, Emma Tas en Max Nieboer
 
 Het doel van onze webapplicatie is om een platform te maken voor (huis)diereigenaren en dierliefhebbers, zodat ze foto’s kunnen delen met gelijkgestelden. Op deze manier kunnen ze makkelijk in contact komen met andere huisdiereigenaren en foto's bekijken die voor hen relevant zijn. Het idee is er om de like/dislike functie van Tinder te gebruiken op een Instagram achtige omgeving.
 
+<b>productvideo:</b>
+[productvideo](https://youtu.be/uZFoKJNt1P4)
+
 <b>Inhoud van de website</b>
 1.  ontvangstpagina voor niet-ingelogde gebruikers (index)
 2.  homepage voor ingelogde gebruikers (home)
